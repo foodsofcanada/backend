@@ -13,11 +13,12 @@ import java.util.List;
  */
 public class Product {
 
-    private long id;
+
+    private long prod_id;
     private String name;
     private String description;
     private String imgPath;
-    private int shelfLife;
+    private String shelfLife;
     private List<Product> pairingTip;
     private String danger;
     private List<Region> growthRegions;
@@ -29,8 +30,8 @@ public class Product {
     private String funFact;
     private String countryOfOrigin;
 
-    public Product(long id, String name, String description, int shelfLife, String danger, String growthPhases, String scientificName, String history, String cookingUse, String preservation, String funFact, String countryOfOrigin) {
-        this.id = id;
+    public Product(long id, String name, String description, String shelfLife, String danger, String growthPhases, String scientificName, String history, String cookingUse, String preservation, String funFact, String countryOfOrigin) {
+        this.prod_id = id;
         this.name = name;
         this.description = description;
         this.shelfLife = shelfLife;
@@ -44,12 +45,12 @@ public class Product {
         this.countryOfOrigin = countryOfOrigin;
     }
 
-    public long getId() {
-        return id;
+    public long getProd_id() {
+        return prod_id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setProd_id(long prod_id) {
+        this.prod_id = prod_id;
     }
 
     public String getName() {
@@ -76,11 +77,11 @@ public class Product {
         this.imgPath = imgPath;
     }
 
-    public int getShelfLife() {
+    public String getShelfLife() {
         return shelfLife;
     }
 
-    public void setShelfLife(int shelfLife) {
+    public void setShelfLife(String shelfLife) {
         this.shelfLife = shelfLife;
     }
 

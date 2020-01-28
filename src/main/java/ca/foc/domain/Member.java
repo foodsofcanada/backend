@@ -15,16 +15,18 @@ public class Member {
 
     private String email;
     private String hashedPw;
-    private String fName;
-    private String lName;
+    private String firstName;
+    private String lastName;
+    private String imgPath;
     private List<Product> favourites;
     private int role;
 
-    public Member(String email, String hashedPw, String fName, String lName, List<Product> favourites, int role) {
+    public Member(String email, String hashedPw, String firstName, String lastName, String imgPath, List<Product> favourites, int role) {
         this.email = email;
         this.hashedPw = hashedPw;
-        this.fName = fName;
-        this.lName = lName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.imgPath = imgPath;
         this.favourites = favourites;
         this.role = role;
     }
@@ -45,20 +47,28 @@ public class Member {
         this.hashedPw = hashedPw;
     }
 
-    public String getfName() {
-        return fName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setfName(String fName) {
-        this.fName = fName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getlName() {
-        return lName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setlName(String lName) {
-        this.lName = lName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 
     public List<Product> getFavourites() {
