@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class Product {
 
+
     private long prod_id;
     private String name;
     private String description;

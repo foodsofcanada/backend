@@ -1,7 +1,6 @@
 package ca.foc.domain;
 
 import java.util.List;
-
 /**
  * ******************************************** **
  * Region - ca.foc.domain.Region
