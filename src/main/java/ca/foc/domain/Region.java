@@ -1,58 +1,48 @@
 package ca.foc.domain;
 
 import java.util.List;
-/**
- * ******************************************** **
- * Region - ca.foc.domain.Region
- *
- * @author Christian Garrovillo
- * Information and Communications Technologies
- * Software Development
- * * ********************************************* **
- */
+
+import javax.persistence.*;
+
+
+import ca.foc.domain.ProductRegion;
+import org.springframework.data.geo.Polygon;
+
+@Entity
+@Table(name="foc_region")
 public class Region {
-
-    private long reg_id;
-    private String type;
-    private List<PolygonPoint> points;
-    private List<Product> productsInRegion;
-
-    public Region(long reg_id, String type, List<PolygonPoint> points, List<Product> productsInRegion) {
-        this.reg_id = reg_id;
-        this.type = type;
-        this.points = points;
-        this.productsInRegion = productsInRegion;
-    }
-
-    public long getReg_id() {
-        return reg_id;
-    }
-
-    public void setReg_id(long reg_id) {
-        this.reg_id = reg_id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public List<PolygonPoint> getPoints() {
-        return points;
-    }
-
-    public void setPoints(List<PolygonPoint> points) {
-        this.points = points;
-    }
-
-    public List<Product> getProductsInRegion() {
-        return productsInRegion;
-    }
-
-    public void setProductsInRegion(List<Product> productsInRegion) {
-        this.productsInRegion = productsInRegion;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long reg_id;
+	
+	@OneToMany(mappedBy="region", cascade = CascadeType.ALL)
+	private List<ProductRegion>productRegions;
+	
+	private String name;
+	
+	private  Polygon polygon;
+	
+	//getters and setters
+	
+	public long getReg_id() {
+		return reg_id;
+	}
+	public void setReg_id(long reg_id) {
+		this.reg_id = reg_id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Polygon getPolygon() {
+		return polygon;
+	}
+	public void setPolygon(Polygon polygon) {
+		this.polygon = polygon;
+	}
+	
+	
+	
 }
