@@ -20,56 +20,6 @@ import java.util.Map;
 @RequestMapping("/products")
 public class ProductController {
 
-//    public Product addNewProduct(@RequestBody Map<String, String> body) {
-//        long prod_id = Long.parseLong(body.get("prod_id"));
-//        String name = body.get("name");
-//        String description = body.get("description");
-//        String imgPath = body.get("imgPath");
-//        String shelfLife = body.get("shelfLife");
-//        // Pairing tips - Probably a JSON Array ?
-//        String danger = body.get("danger");
-//        // growthRegions
-//        String growthPhases = body.get("growthPhases");
-//        String scientificName = body.get("scientificName");
-//        String history = body.get("history");
-//        String cookingUse = body.get("cookingUse");
-//        String preservation = body.get("preservation");
-//        String funFact = body.get("funFact");
-//        String countryOfOrigin = body.get("countryOfOrigin");
-//        Product newProduct = new Product(prod_id,name,description,shelfLife,danger,growthPhases,scientificName,history,cookingUse,preservation,funFact,countryOfOrigin);
-//
-//        // DAO PERSIST New product
-//        return null;
-//    }
-//    public Product addNewProduct(@RequestBody Product newProd) {
-//        return newProd;
-//    }
-
-//    public Product uploadNewProduct(@RequestBody Map<String, String> body) {
-//        //figure out how to parse file and convert to JSON
-//        return null;
-//    }
-
-//    public Product editProduct(@RequestBody(required = false) Map<String, String> body, @PathVariable String prod_id) {
-//        // Product old = dao.getProductFromDatabase
-//        String name = body.get("name");
-//        String description = body.get("description");
-//        String imgPath = body.get("imgPath");
-//        String shelfLife = body.get("shelfLife");
-//        // Pairing tips - Probably a JSON Array ?
-//        String danger = body.get("danger");
-//        // growthRegions
-//        String growthPhases = body.get("growthPhases");
-//        String scientificName = body.get("scientificName");
-//        String history = body.get("history");
-//        String cookingUse = body.get("cookingUse");
-//        String preservation = body.get("preservation");
-//        String funFact = body.get("funFact");
-//        String countryOfOrigin = body.get("countryOfOrigin");
-//        //old.setters
-//        return null;
-//    }
-
     @PostMapping
     public Product addNewProduct(@RequestBody Product newProd) {
         //dao.persist newProd
