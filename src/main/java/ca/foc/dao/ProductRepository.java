@@ -1,4 +1,4 @@
-package com.capstoneproject.FoodOfCanada.dao;
+package ca.foc.dao;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import ca.foc.domain.*;
 
-import com.capstoneproject.FoodOfCanada.model.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {

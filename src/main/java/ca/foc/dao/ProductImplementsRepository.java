@@ -1,4 +1,4 @@
-package com.capstoneproject.FoodOfCanada.dao;
+package ca.foc.dao;
 
 import java.util.List;
 
@@ -6,7 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 
-import com.capstoneproject.FoodOfCanada.model.Product;
+import ca.foc.domain.*;
+
 
 public class ProductImplementsRepository implements ProductRepositoryInterface {
 	@PersistenceContext
