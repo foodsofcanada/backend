@@ -10,13 +10,13 @@ import javax.persistence.*;
     @NamedStoredProcedureQuery(name = "getAllProductsInRegion",
             procedureName = "getAllProductsInRegion",
             resultClasses = Product.class,
-            parameters = @StoredProcedureParameter(name = "reg_id",type=Long.class,
+            parameters = @StoredProcedureParameter(name = "p_reg_id",type=Long.class,
             mode = ParameterMode.IN)),
 
     @NamedStoredProcedureQuery(name = "getProductInfo",
             procedureName = "getProductInfo",
             resultClasses = Product.class,
-            parameters = @StoredProcedureParameter(name = "prod_id",type = Long.class,
+            parameters = @StoredProcedureParameter(name = "p_prod_id",type = Long.class,
             mode = ParameterMode.IN))
 })
 public class Product {
