@@ -1,10 +1,10 @@
-package com.capstoneproject.FoodOfCanada.controller;
+package ca.foc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.capstoneproject.FoodOfCanada.dao.ProductRepository;
-import com.capstoneproject.FoodOfCanada.model.Product;
+import ca.foc.domain.*;
+import ca.foc.dao.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ProductController {
 
 	 @Autowired
-	    com.capstoneproject.FoodOfCanada.dao.ProductRepository productRepository;
+	    ProductRepository productRepository;
 	 
 	   // @CrossOrigin(origins = "http://localhost:3000")
 	    

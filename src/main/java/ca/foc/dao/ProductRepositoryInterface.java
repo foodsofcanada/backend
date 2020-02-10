@@ -1,8 +1,8 @@
-package com.capstoneproject.FoodOfCanada.dao;
+package ca.foc.dao;
 
 import java.util.List;
 
-import com.capstoneproject.FoodOfCanada.model.Product;
+import ca.foc.domain.Product;
 
 
 /*interface to call procedures*/
