@@ -1,9 +1,9 @@
-package ca.foc.dao;
+package com.capstoneproject.FoodOfCanada.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import ca.foc.domain.Product;
+import com.capstoneproject.FoodOfCanada.model.Product;
 
 
 	@Repository

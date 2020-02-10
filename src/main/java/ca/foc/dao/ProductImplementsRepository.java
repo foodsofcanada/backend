@@ -1,4 +1,4 @@
-package ca.foc.dao;
+package com.capstoneproject.FoodOfCanada.dao;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 
-import ca.foc.domain.Product;
+import com.capstoneproject.FoodOfCanada.model.Product;
 
 public class ProductImplementsRepository implements ProductRepositoryInterface {
 	@PersistenceContext
@@ -18,9 +18,9 @@ public class ProductImplementsRepository implements ProductRepositoryInterface {
         return productInfo.getResultList();
     }
 
-	public List<Product> getAllProductsInRegion(int id) {
-        StoredProcedureQuery productsInRegion =
-                em.createNamedStoredProcedureQuery("getProductInfo");
-        return productsInRegion.getResultList();
-    }
+//	public List<Product> getAllProductsInRegion(int id) {
+//        StoredProcedureQuery productsInRegion =
+//                em.createNamedStoredProcedureQuery("getAllProductsInRegion");
+//        return productsInRegion.getResultList();
+//    }
 }

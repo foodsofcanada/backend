@@ -1,15 +1,15 @@
-package ca.foc.dao;
+package com.capstoneproject.FoodOfCanada.dao;
 
 import java.util.List;
 
-import ca.foc.domain.Product;
+import com.capstoneproject.FoodOfCanada.model.Product;
 
 
 /*interface to call procedures*/
 public interface ProductRepositoryInterface {
 	
 	public List<Product> getProductInfo(int id);
-	public List<Product> getAllProductsInRegion(int id);
+//	public List<Product> getAllProductsInRegion(int id);
 	
 	
 }
