@@ -9,7 +9,7 @@ import javax.persistence.StoredProcedureQuery;
 import ca.foc.domain.*;
 
 
-public class ProductImplementsRepository implements ProductRepositoryInterface {
+public class ProductImplementsRepository implements com.capstoneproject.FoodOfCanada.dao.ProductRepositoryInterface {
 	@PersistenceContext
 	private EntityManager em;
 
