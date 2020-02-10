@@ -1,4 +1,4 @@
-package com.capstoneproject.FoodOfCanada;
+package ca.foc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class FoodOfCanadaApplication {
+public class FoodOfCanada {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FoodOfCanadaApplication.class, args);
+		SpringApplication.run(FoodOfCanada.class, args);
 	}
 
 }

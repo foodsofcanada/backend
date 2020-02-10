@@ -1,4 +1,4 @@
-package com.capstoneproject.FoodOfCanada.model;
+package ca.foc.domain;
 
 import java.io.Serializable;
 

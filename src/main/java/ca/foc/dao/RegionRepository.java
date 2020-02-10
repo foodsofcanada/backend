@@ -1,8 +1,8 @@
-package com.capstoneproject.FoodOfCanada.dao;
+package ca.foc.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.capstoneproject.FoodOfCanada.model.Region;
+import ca.foc.domain.Region;
 
 public interface RegionRepository extends JpaRepository<Region,Integer>
 {
