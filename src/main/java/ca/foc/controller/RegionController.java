@@ -1,4 +1,4 @@
-package com.capstoneproject.FoodOfCanada.controller;
+package ca.foc.controller;
 
 public class RegionController {
 
