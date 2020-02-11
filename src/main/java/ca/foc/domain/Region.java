@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.*;
 
 
-import ca.foc.domain.ProductRegion;
 import org.springframework.data.geo.Polygon;
 
 @Entity
@@ -13,14 +12,21 @@ import org.springframework.data.geo.Polygon;
 public class Region {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+<<<<<<< Updated upstream
 	private long reg_id;
 	
 	@OneToMany(mappedBy="region", cascade = CascadeType.ALL)
 	private List<ProductRegion>productRegions;
 	
+=======
+	@Column(name = "reg_id")
+	private int reg_id;
+>>>>>>> Stashed changes
 	private String name;
-	
 	private  Polygon polygon;
+
+	@ManyToMany(mappedBy = "regions")
+	private List<Product> products;
 	
 	//getters and setters
 	

@@ -6,12 +6,16 @@ import org.springframework.web.bind.annotation.*;
 
 import ca.foc.domain.Product;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ProductController {
 
+<<<<<<< Updated upstream
 	 @Autowired
 	 ProductRepository productRepository;
 
@@ -50,4 +54,32 @@ public class ProductController {
 	    public void deleteProduct(@PathVariable int id){
 	    	productRepository.deleteById((long) id);
 	    }
+=======
+	@Autowired
+	ProductRepository productRepository;
+	@Autowired
+	RegionRepository regionRepository;
+
+	@GetMapping
+	public List<Product> getAllProducts() {
+		return productRepository.findAll();
+	}
+
+	@GetMapping(path = "/{id}")
+	public Optional<Product> getProductInfo(@PathVariable int id) {
+		return productRepository.findById(id);
+
+	}
+
+	@PostMapping
+	public Product addProduct(@RequestBody Product product) {
+		productRepository.save(product);
+		return product;
+	}
+
+	@DeleteMapping(path = "/{id}")
+	public void deleteProduct(@PathVariable int id) {
+		productRepository.deleteById(id);
+	}
+>>>>>>> Stashed changes
 }

@@ -2,10 +2,12 @@ package ca.foc.domain;
 
 
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
 @Table(name="foc_products")
+<<<<<<< Updated upstream
 @NamedStoredProcedureQueries({
     @NamedStoredProcedureQuery(name = "getAllProductsInRegion",
             procedureName = "getAllProductsInRegion",
@@ -19,6 +21,8 @@ import javax.persistence.*;
             parameters = @StoredProcedureParameter(name = "prod_id",type = Long.class,
             mode = ParameterMode.IN))
 })
+=======
+>>>>>>> Stashed changes
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,6 +32,7 @@ public class Product {
 	private String description;
 	private String imgPath;
 	private String shelfLife;
+<<<<<<< Updated upstream
 	
 	// One to may relationship with table pairing tips
 	@OneToMany(mappedBy="product",cascade = CascadeType.ALL)
@@ -39,13 +44,26 @@ public class Product {
 	@OneToMany( mappedBy="product", cascade = CascadeType.ALL)
 	private List<ProductRegion> growthRegions;
 	
+=======
+	private String danger;
+>>>>>>> Stashed changes
 	private String growthPhases;
 	private String scientificName;
 	private String history;
 	private String cookingUse;
 	private String preservation;
 	private String funFact;
+<<<<<<< Updated upstream
 	private String countryOfOrigin;
+=======
+	private String originCountry;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "foc_product_region",
+			joinColumns = @JoinColumn(name = "prod_id", referencedColumnName = "prod_id"),
+			inverseJoinColumns = @JoinColumn(name = "reg_id", referencedColumnName = "reg_id"))
+	private List<Region> regions;
+>>>>>>> Stashed changes
 	
 	
 	//Getters and setters
@@ -79,12 +97,21 @@ public class Product {
 	public void setShelfLife(String shelfLife) {
 		this.shelfLife = shelfLife;
 	}
+<<<<<<< Updated upstream
 	public List<PairingTip> getPairingTip() {
 		return pairingTip;
 	}
 	public void setPairingTip(List<PairingTip> pairingTip) {
 		this.pairingTip = pairingTip;
 	}
+=======
+//	public List<PairingTip> getPairingTip() {
+//		return pairingTip;
+//	}
+//	public void setPairingTip(List<PairingTip> pairingTip) {
+//		this.pairingTip = pairingTip;
+//	}
+>>>>>>> Stashed changes
 	public String getDanger() {
 		return danger;
 	}
@@ -134,10 +161,10 @@ public class Product {
 		this.funFact = funFact;
 	}
 	public String getCountryOfOrigin() {
-		return countryOfOrigin;
+		return originCountry;
 	}
-	public void setCountryOfOrigin(String countryOfOrigin) {
-		this.countryOfOrigin = countryOfOrigin;
+	public void setCountryOfOrigin(String originCountry) {
+		this.originCountry = originCountry;
 	}
 	
 	
