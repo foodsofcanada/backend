@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping(path = "/products")
 public class ProductController {
 
 	 @Autowired
@@ -19,19 +19,21 @@ public class ProductController {
 	   // @CrossOrigin(origins = "http://localhost:3000")
 	    
 //	    productRepository.getProductInfo();
-//	    @GetMapping(path = "/products/{id}")
-//	    public List<Product> getAllProducts(@PathVariable long id){
+//	    @GetMapping
+//	    public List<Product> getAllProducts(){
 //	        List<Product> products = new ArrayList<>();
 //	        productRepository.getProductInfo(id).forEach(products :: add);
 //	        return products;
 //	    }
-	    
+//
 //	    @GetMapping(path = "/products/{id}")
 //	    public List<Product> getProductsInRegion(@PathVariable int id){
 //	        List<Product> products = new ArrayList<>();
 //	        productRepository.getAllProductsInRegion(id).forEach(products :: add);
 //	        return products;
 //	    }
+
+		
 	    
 	    @GetMapping(path = "/{id}")
 	    public List<Product> getProductInfo(@PathVariable int id){
