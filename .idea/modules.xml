@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/foc-backend.iml" filepath="$PROJECT_DIR$/.idea/foc-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FoodsOfCanada.iml" filepath="$PROJECT_DIR$/FoodsOfCanada.iml" />
     </modules>
   </component>
 </project>

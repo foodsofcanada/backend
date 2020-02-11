@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-
+@RequestMapping("/products")
 public class ProductController {
 
 	 @Autowired
@@ -33,23 +33,20 @@ public class ProductController {
 //	        return products;
 //	    }
 	    
-	    @GetMapping(path = "/products/{id}")
+	    @GetMapping(path = "/{id}")
 	    public List<Product> getProductInfo(@PathVariable int id){
 	        List<Product> products = new ArrayList<>();
 	        productRepository.getProductInfo(id).forEach(products :: add);
 	        return products;
 	    }
-	    
 
-	    @CrossOrigin(origins = "http://localhost:3000")
-	    @PostMapping(path = "/products")
+	    @PostMapping
 	    public Product addProduct(@RequestBody Product product){
 	    	productRepository.save(product);
 	        return product;
 	    }
 
-	    @CrossOrigin(origins = "http://localhost:3000")
-	    @DeleteMapping(path = "/products/{id}")
+	    @DeleteMapping(path = "/{id}")
 	    public void deleteProduct(@PathVariable int id){
 	    	productRepository.deleteById((long) id);
 	    }

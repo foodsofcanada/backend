@@ -1,6 +1,5 @@
 package ca.foc.domain;
 
-
 import java.util.List;
 import javax.persistence.*;
 
@@ -139,7 +138,5 @@ public class Product {
 	public void setCountryOfOrigin(String countryOfOrigin) {
 		this.countryOfOrigin = countryOfOrigin;
 	}
-	
-	
 
 }
