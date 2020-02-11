@@ -1,14 +1,5 @@
 package ca.foc.domain;
 
-/**
- * ******************************************** **
- * PolygonPoint - ca.foc.domain.PolygonPoint
- *
- * @author Christian Garrovillo
- * Information and Communications Technologies
- * Software Development
- * * ********************************************* **
- */
 public class PolygonPoint {
 
     private double latitude;

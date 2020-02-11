@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-
+@RequestMapping("/products")
 public class ProductController {
 
 	 @Autowired
@@ -30,13 +30,13 @@ public class ProductController {
 	        regionRepository.findAll().forEach(regions :: add);
 	        return regions;
 	    }
-	    @CrossOrigin(origins = "http://localhost:3000")
-	    @GetMapping(path = "/products")
-	    public List<Product> getAllProducts(){
-	        List<Product> products = new ArrayList<>();
-	        productRepository.findAll().forEach(products :: add);
-	        return products;
-	    }
+//	    @CrossOrigin(origins = "http://localhost:3000")
+//	    @GetMapping(path = "/products")
+//	    public List<Product> getAllProducts(){
+//	        List<Product> products = new ArrayList<>();
+//	        productRepository.findAll().forEach(products :: add);
+//	        return products;
+//	    }
 	   
 //	    @CrossOrigin(origins = "http://localhost:3000")
 //	    @GetMapping(path = "/productRegion")
@@ -46,12 +46,12 @@ public class ProductController {
 //	        return productRegion;
 //	    }
 	    
-	    @GetMapping(path = "/productsinreg/{id}")
-	    public List<String> getProductsInRegion(@PathVariable int id){
-	        List<String> products = new ArrayList<>();
-	        productRepository.getAllProductsInRegion(id).forEach(products :: add);
-	        return products;
-	    }
+//	    @GetMapping(path = "/productsinreg/{id}")
+//	    public List<String> getProductsInRegion(@PathVariable int id){
+//	        List<String> products = new ArrayList<>();
+//	        productRepository.getAllProductsInRegion(id).forEach(products :: add);
+//	        return products;
+//	    }
 	    
 	    @GetMapping(path = "/products/{id}")
 	    public  Optional<Product> getProductInfo(@PathVariable int id){
@@ -59,15 +59,13 @@ public class ProductController {
 	     
 	    }
 
-	    @CrossOrigin(origins = "http://localhost:3000")
-	    @PostMapping(path = "/products")
+	    @PostMapping
 	    public Product addProduct(@RequestBody Product product){
 	    	productRepository.save(product);
 	        return product;
 	    }
 
-	    @CrossOrigin(origins = "http://localhost:3000")
-	    @DeleteMapping(path = "/products/{id}")
+	    @DeleteMapping(path = "/{id}")
 	    public void deleteProduct(@PathVariable int id){
 	    	productRepository.deleteById(id);
 	    }
