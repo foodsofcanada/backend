@@ -2,15 +2,6 @@ package ca.foc.domain;
 
 import java.util.List;
 
-/**
- * ******************************************** **
- * Pantry - ca.foc.domain.Pantry
- *
- * @author Christian Garrovillo
- * Information and Communications Technologies
- * Software Development
- * * ********************************************* **
- */
 public class Pantry {
 
     private long pantry_id;

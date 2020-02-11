@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class FoodOfCanada {
+public class FoodsOfCanada {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FoodOfCanada.class, args);
+		SpringApplication.run(FoodsOfCanada.class, args);
 	}
 
 }
