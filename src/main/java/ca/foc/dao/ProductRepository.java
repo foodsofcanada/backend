@@ -15,8 +15,7 @@ import ca.foc.domain.*;
 
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
-	@Procedure(name = "getProductInfo")
-	List<Product> getProductInfo(@Param("id") long inParam1);
+public interface ProductRepository extends JpaRepository<Product, Integer>, ProductRepositoryCustom {
+
 	
 }
