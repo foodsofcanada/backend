@@ -7,22 +7,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="foc_products")
-<<<<<<< Updated upstream
-@NamedStoredProcedureQueries({
-    @NamedStoredProcedureQuery(name = "getAllProductsInRegion",
-            procedureName = "getAllProductsInRegion",
-            resultClasses = Product.class,
-            parameters = @StoredProcedureParameter(name = "reg_id",type=Long.class,
-            mode = ParameterMode.IN)),
-
-    @NamedStoredProcedureQuery(name = "getProductInfo",
-            procedureName = "getProductInfo",
-            resultClasses = Product.class,
-            parameters = @StoredProcedureParameter(name = "prod_id",type = Long.class,
-            mode = ParameterMode.IN))
-})
-=======
->>>>>>> Stashed changes
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,30 +16,13 @@ public class Product {
 	private String description;
 	private String imgPath;
 	private String shelfLife;
-<<<<<<< Updated upstream
-	
-	// One to may relationship with table pairing tips
-	@OneToMany(mappedBy="product",cascade = CascadeType.ALL)
-	private List<PairingTip>pairingTip;
-
 	private String danger;
-	
-	//One to many relationship with bridge table Product_Region
-	@OneToMany( mappedBy="product", cascade = CascadeType.ALL)
-	private List<ProductRegion> growthRegions;
-	
-=======
-	private String danger;
->>>>>>> Stashed changes
 	private String growthPhases;
 	private String scientificName;
 	private String history;
 	private String cookingUse;
 	private String preservation;
 	private String funFact;
-<<<<<<< Updated upstream
-	private String countryOfOrigin;
-=======
 	private String originCountry;
 
 	@ManyToMany(cascade = CascadeType.ALL)
@@ -63,8 +30,6 @@ public class Product {
 			joinColumns = @JoinColumn(name = "prod_id", referencedColumnName = "prod_id"),
 			inverseJoinColumns = @JoinColumn(name = "reg_id", referencedColumnName = "reg_id"))
 	private List<Region> regions;
->>>>>>> Stashed changes
-	
 	
 	//Getters and setters
 	public long getProd_id() {
@@ -97,33 +62,24 @@ public class Product {
 	public void setShelfLife(String shelfLife) {
 		this.shelfLife = shelfLife;
 	}
-<<<<<<< Updated upstream
-	public List<PairingTip> getPairingTip() {
-		return pairingTip;
-	}
-	public void setPairingTip(List<PairingTip> pairingTip) {
-		this.pairingTip = pairingTip;
-	}
-=======
 //	public List<PairingTip> getPairingTip() {
 //		return pairingTip;
 //	}
 //	public void setPairingTip(List<PairingTip> pairingTip) {
 //		this.pairingTip = pairingTip;
 //	}
->>>>>>> Stashed changes
 	public String getDanger() {
 		return danger;
 	}
 	public void setDanger(String danger) {
 		this.danger = danger;
 	}
-	public List<ProductRegion> getGrowthRegions() {
-		return growthRegions;
-	}
-	public void setGrowthRegions(List<ProductRegion> growthRegions) {
-		this.growthRegions = growthRegions;
-	}
+//	public List<ProductRegion> getGrowthRegions() {
+//		return growthRegions;
+//	}
+//	public void setGrowthRegions(List<ProductRegion> growthRegions) {
+//		this.growthRegions = growthRegions;
+//	}
 	public String getGrowthPhases() {
 		return growthPhases;
 	}
