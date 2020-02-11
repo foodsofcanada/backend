@@ -19,9 +19,7 @@ public class ProductController {
 	ProductRepository productRepository;
 	@GetMapping(path = "/products")
 	public List<Product> getAllProducts() {
-		List<Product> products = new ArrayList<>();
-		productRepository.findAll().forEach(products::add);
-		return products;
+		return productRepository.findAll();
 	}
 
 	@GetMapping(path = "/products/{id}")
