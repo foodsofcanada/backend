@@ -1,89 +1,93 @@
 package ca.foc.domain;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.Date;
 
-/**
- * ******************************************** **
- * Member - ca.foc.domain.Member
- *
- * @author Christian Garrovillo
- * Information and Communications Technologies
- * Software Development
- * * ********************************************* **
- */
-public class Member {
+import javax.persistence.*;
+import javax.persistence.Table;
 
-    private String email;
-    private String hashedPw;
-    private String firstName;
-    private String lastName;
-    private String imgPath;
-    private List<Product> favourites;
-    private int role;
+import org.springframework.data.annotation.CreatedDate;
 
-    public Member(String email, String hashedPw, String firstName, String lastName, String imgPath, List<Product> favourites, int role) {
-        this.email = email;
-        this.hashedPw = hashedPw;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.imgPath = imgPath;
-        this.favourites = favourites;
-        this.role = role;
-    }
+@Entity
+@Table(name="foc_members")
+public class Member implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	@Id	
+	@Column(unique = true) 
+	private String email;
+	@Column(name="hashepw")
+	private String password;
+	private String firstname;
+	private String lastname;
+	
+	//@CreatedDate
+	@Temporal(TemporalType.DATE)
+	@Column(name="date_joined")
+	private Date dateJoined;
+	private int role;
+	
+	@Transient 
+	private String confirmPassword;
+	
+	public Member() {}
+	
+	public Member(String email, String password, String firstname, String lastname, int role) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.role = role;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	
+	/*Getters and setters*/
+	public String getEmail() {
+		return email;
+	}
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getFirstname() {
+		return firstname;
+	}
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+	public String getLastname() {
+		return lastname;
+	}
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+	public Date getDateJoined() {
+		return dateJoined;
+	}
+	public void setDateJoined(Date dateJoined) {
+		this.dateJoined = dateJoined;
+	}
+	public int getRole() {
+		return role;
+	}
+	public void setRole(int role) {
+		this.role = role;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
-    public String getHashedPw() {
-        return hashedPw;
-    }
+	
+	
 
-    public void setHashedPw(String hashedPw) {
-        this.hashedPw = hashedPw;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getImgPath() {
-        return imgPath;
-    }
-
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
-    }
-
-    public List<Product> getFavourites() {
-        return favourites;
-    }
-
-    public void setFavourites(List<Product> favourites) {
-        this.favourites = favourites;
-    }
-
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
-    }
 }

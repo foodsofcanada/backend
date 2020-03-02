@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="foc_products")
-@NamedStoredProcedureQueries({
+//@NamedStoredProcedureQueries({
 //    @NamedStoredProcedureQuery(name = "getAllProductsInRegion",
 //            procedureName = "getAllProductsInRegion",
 //            resultClasses = {Product.class},
@@ -20,11 +20,10 @@ import javax.persistence.*;
 //            resultClasses = Product.class,
 //            parameters = @StoredProcedureParameter(name = "p_prod_id",type = Integer.class,
 //            mode = ParameterMode.IN))
-})
-@NamedQuery (name="findByRegId", query = "SELECT name FROM foc_products NATURAL JOIN foc_product_region  WHERE reg_id = ?1")
+//})
+//@NamedQuery (name="findByRegId", query = "SELECT p FROM foc_products p INNER JOIN foc_product_region WHERE reg_id = ?1")
 public class Product {
 	@Id
-	@Column(name="prod_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int prod_id;
 	
