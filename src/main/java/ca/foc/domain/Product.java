@@ -1,59 +1,59 @@
 package ca.foc.domain;
 
-import java.util.List;
 import javax.persistence.*;
 
 @Entity
 @Table(name="foc_products")
-//@NamedStoredProcedureQueries({
-//    @NamedStoredProcedureQuery(name = "getAllProductsInRegion",
-//            procedureName = "getAllProductsInRegion",
-//            resultClasses = {Product.class},
-//            parameters = {
-//            		@StoredProcedureParameter(
-//            				name = "p_reg_id",
-//            				type=Integer.class,
-//            				mode = ParameterMode.IN)})
-
-//    @NamedStoredProcedureQuery(name = "getProductInfo",
-//            procedureName = "getProductInfo",
-//            resultClasses = Product.class,
-//            parameters = @StoredProcedureParameter(name = "p_prod_id",type = Integer.class,
-//            mode = ParameterMode.IN))
-//})
-//@NamedQuery (name="findByRegId", query = "SELECT p FROM foc_products p INNER JOIN foc_product_region WHERE reg_id = ?1")
 public class Product {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int prod_id;
-	
 	private String name;
 	private String description;
-	private String imgPath;
-	private String shelfLife;
+	private String season;
 	
-	// One to may relationship with table pairing tips
-//	@OneToMany(mappedBy="product",cascade = CascadeType.ALL)
-//	private List<PairingTip>pairingTip;
-
+	private Integer age;
+	private String img_path;
+	private String shelf_life;
 	private String danger;
-	
-	//One to many relationship with bridge table Product_Region
-	@OneToMany( mappedBy="product", cascade = CascadeType.ALL)
-	private List<ProductRegion> productRegion;
-	
-	private String growthPhases;
-	private String scientificName;
+	private String growth_phases;
+	private String scientific_name;
 	private String history;
-	private String cookingUse;
+	private String cooking_use;
 	private String preservation;
-	private String funFact;
-	@Column(name="origin_country")
-	private String countryOfOrigin;
+	private String fun_fact;
+	private String origin_country;
+	private Integer search_counter;
 	
 	
+	public Product() {}
+	public Product(String name, String description, String season, Integer age, String img_path, String shelf_life,
+			String danger, String growth_phases, String scientific_name, String history, String cooking_use,
+			String preservation, String fun_fact, String origin_country) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.season = season;
+		this.age = age;
+		this.img_path = img_path;
+		this.shelf_life = shelf_life;
+		this.danger = danger;
+		this.growth_phases = growth_phases;
+		this.scientific_name = scientific_name;
+		this.history = history;
+		this.cooking_use = cooking_use;
+		this.preservation = preservation;
+		this.fun_fact = fun_fact;
+		this.origin_country = origin_country;
+	}
 	//Getters and setters
-	public long getProd_id() {
+	public Integer getSearch_counter() {
+		return search_counter;
+	}
+	
+	public void setSearch_counter(Integer search_counter) {
+		this.search_counter = search_counter;
+	}
+	public int getProd_id() {
 		return prod_id;
 	}
 	public void setProd_id(int prod_id) {
@@ -71,47 +71,47 @@ public class Product {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getImgPath() {
-		return imgPath;
+	public String getSeason() {
+		return season;
 	}
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
+	public void setSeason(String season) {
+		this.season = season;
 	}
-	public String getShelfLife() {
-		return shelfLife;
+	public Integer getAge() {
+		return age;
 	}
-	public void setShelfLife(String shelfLife) {
-		this.shelfLife = shelfLife;
+	public void setAge(Integer age) {
+		this.age = age;
 	}
-	//public List<PairingTip> getPairingTip() {
-	//	return pairingTip;
-	//}
-	//public void setPairingTip(List<PairingTip> pairingTip) {
-	//	this.pairingTip = pairingTip;
-	//}
+	public String getImg_path() {
+		return img_path;
+	}
+	public void setImg_path(String img_path) {
+		this.img_path = img_path;
+	}
+	public String getShelf_life() {
+		return shelf_life;
+	}
+	public void setShelf_life(String shelf_life) {
+		this.shelf_life = shelf_life;
+	}
 	public String getDanger() {
 		return danger;
 	}
 	public void setDanger(String danger) {
 		this.danger = danger;
 	}
-//	public List<ProductRegion> getGrowthRegions() {
-//		return growthRegions;
-//	}
-//	//public void setGrowthRegions(List<ProductRegion> growthRegions) {
-//		this.growthRegions = growthRegions;
-//	}
-//	public String getGrowthPhases() {
-//		return growthPhases;
-//	}
-	public void setGrowthPhases(String growthPhases) {
-		this.growthPhases = growthPhases;
+	public String getGrowth_phases() {
+		return growth_phases;
 	}
-	public String getScientificName() {
-		return scientificName;
+	public void setGrowth_phases(String growth_phases) {
+		this.growth_phases = growth_phases;
 	}
-	public void setScientificName(String scientificName) {
-		this.scientificName = scientificName;
+	public String getScientific_name() {
+		return scientific_name;
+	}
+	public void setScientific_name(String scientific_name) {
+		this.scientific_name = scientific_name;
 	}
 	public String getHistory() {
 		return history;
@@ -119,11 +119,11 @@ public class Product {
 	public void setHistory(String history) {
 		this.history = history;
 	}
-	public String getCookingUse() {
-		return cookingUse;
+	public String getCooking_use() {
+		return cooking_use;
 	}
-	public void setCookingUse(String cookingUse) {
-		this.cookingUse = cookingUse;
+	public void setCooking_use(String cooking_use) {
+		this.cooking_use = cooking_use;
 	}
 	public String getPreservation() {
 		return preservation;
@@ -131,17 +131,21 @@ public class Product {
 	public void setPreservation(String preservation) {
 		this.preservation = preservation;
 	}
-	public String getFunFact() {
-		return funFact;
+	public String getFun_fact() {
+		return fun_fact;
 	}
-	public void setFunFact(String funFact) {
-		this.funFact = funFact;
+	public void setFun_fact(String fun_fact) {
+		this.fun_fact = fun_fact;
 	}
-	public String getCountryOfOrigin() {
-		return countryOfOrigin;
+	public String getOrigin_country() {
+		return origin_country;
 	}
-	public void setCountryOfOrigin(String countryOfOrigin) {
-		this.countryOfOrigin = countryOfOrigin;
+	public void setOrigin_country(String origin_country) {
+		this.origin_country = origin_country;
 	}
+	
+	
+	
+	
 
 }
