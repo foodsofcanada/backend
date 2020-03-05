@@ -7,7 +7,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.foc.domain.Member;
 import ca.foc.services.MemberService;
@@ -18,7 +20,7 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
-	
+
 	@Autowired
 	private MemberValidator memberValidator;
 
@@ -26,8 +28,6 @@ public class MemberController {
 	public String getMemberForm(Model model) {
 		return "This is Home page";
 	}
-
-	
 
 	@GetMapping("/registration")
 	public String registration(Model model) {
@@ -50,26 +50,27 @@ public class MemberController {
 
 		return "redirect:/welcome";
 	}
+
 	@GetMapping("/login")
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+	public String login(Model model, String error, String logout) {
+		if (error != null)
+			model.addAttribute("error", "Your username and password is invalid.");
 
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+		if (logout != null)
+			model.addAttribute("message", "You have been logged out successfully.");
 
-        return "login";
-    }
-	
-	
-	@GetMapping("/save-member")
-//	@PostMapping({"/save-member"})
-//	public Member addMember(@RequestBody Member member) {
+		return "login";
+	}
+
+	@PostMapping({ "/save-member" })
+	@ResponseBody
+	public String addMember(@RequestBody Member member) {
+
 //	memberService.saveMember(member);
-	public String saveMember(@RequestParam String email, @RequestParam String password, @RequestParam String firstname, @RequestParam String lastname, @RequestParam int role) {
-		Member member = new Member(email, password, firstname, lastname, role);
-		memberService.saveMember(member);
-		return "Member saved";
+//	public String saveMember(@RequestParam String email, @RequestParam String password, @RequestParam String firstname, @RequestParam String lastname, @RequestParam int role) {
+		// Member member = new Member(email, password, firstname, lastname, role);
+		// memberService.saveMember(member);
+		return "Hello "+member.getEmail() ;
 		// return member;
 	}
 
