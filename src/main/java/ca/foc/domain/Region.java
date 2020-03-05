@@ -16,8 +16,8 @@ public class Region {
 	@Column(name = "reg_id")
 	private int reg_id;
 	
-	@OneToMany(mappedBy="region", cascade = CascadeType.ALL)
-	private List<ProductRegion> productRegion;
+//	@OneToMany(mappedBy="region", cascade = CascadeType.ALL)
+//	private List<ProductRegion> productRegion;
 	
 	private String name;
 	

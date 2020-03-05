@@ -27,6 +27,6 @@ public class MemberDetailsServiceImpl implements UserDetailsService {
         if (member == null) {
             throw new UsernameNotFoundException(email);
         }
-        return new User(member.getEmail(), member.getPassw(), Collections.emptyList());
+        return new User(member.getEmail(), member.getPassword(), Collections.emptyList());
     }
 }
