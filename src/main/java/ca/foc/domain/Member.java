@@ -14,16 +14,16 @@ import java.util.List;
 public class Member {
 
     private String email;
-    private String hashedPw;
+    private String passw;
     private String firstName;
     private String lastName;
     private String imgPath;
     private List<Product> favourites;
     private int role;
 
-    public Member(String email, String hashedPw, String firstName, String lastName, String imgPath, List<Product> favourites, int role) {
+    public Member(String email, String passw, String firstName, String lastName, String imgPath, List<Product> favourites, int role) {
         this.email = email;
-        this.hashedPw = hashedPw;
+        this.passw = passw;
         this.firstName = firstName;
         this.lastName = lastName;
         this.imgPath = imgPath;
@@ -39,12 +39,12 @@ public class Member {
         this.email = email;
     }
 
-    public String getHashedPw() {
-        return hashedPw;
+    public String getPassw() {
+        return passw;
     }
 
-    public void setHashedPw(String hashedPw) {
-        this.hashedPw = hashedPw;
+    public void setPassw(String passw) {
+        this.passw = passw;
     }
 
     public String getFirstName() {

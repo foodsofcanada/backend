@@ -1,55 +1,39 @@
 package ca.foc.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import ca.foc.services.ProductServices;
 import org.springframework.web.bind.annotation.*;
-
-import ca.foc.domain.*;
-import ca.foc.dao.*;
-
-import java.util.ArrayList;
+import ca.foc.domain.Product;
 import java.util.List;
+import java.util.Optional;
+
+/**
+ * ProductController - ca.foc.controller.ProductController Description:
+ * Responsible for connecting frontend to the backend
+ */
 
 @RestController
 @RequestMapping(path = "/products")
 public class ProductController {
 
-	 @Autowired
-	    ProductRepository productRepository;
-	 
-	   // @CrossOrigin(origins = "http://localhost:3000")
-	    
-//	    productRepository.getProductInfo();
-//	    @GetMapping
-//	    public List<Product> getAllProducts(){
-//	        List<Product> products = new ArrayList<>();
-//	        productRepository.getProductInfo(id).forEach(products :: add);
-//	        return products;
-//	    }
-//
-//	    @GetMapping(path = "/products/{id}")
-//	    public List<Product> getProductsInRegion(@PathVariable int id){
-//	        List<Product> products = new ArrayList<>();
-//	        productRepository.getAllProductsInRegion(id).forEach(products :: add);
-//	        return products;
-//	    }
+	static ProductServices productServices;
 
-		
-	    
-	    @GetMapping(path = "/{id}")
-	    public List<Product> getProductInfo(@PathVariable int id){
-	        List<Product> products = new ArrayList<>();
-	        productRepository.getProductInfo(id).forEach(products :: add);
-	        return products;
-	    }
+	@GetMapping(path = "/products")
+	public List<Product> getAllProducts() {
+		return productServices.getAllProducts();
+	}
 
-	    @PostMapping
-	    public Product addProduct(@RequestBody Product product){
-	    	productRepository.save(product);
-	        return product;
-	    }
+	@GetMapping(path = "/products/{id}")
+	public Optional<Product> getProductInfo(@PathVariable int id) {
+		return productServices.getProductInfo(id);
+	}
 
-	    @DeleteMapping(path = "/{id}")
-	    public void deleteProduct(@PathVariable int id){
-	    	productRepository.deleteById((long) id);
-	    }
+	@PostMapping(path = "/products")
+	public Product addProduct(@RequestBody Product product) {
+		return productServices.addProduct(product);
+	}
+
+	@DeleteMapping(path = "/products/{id}")
+	public void deleteProduct(@PathVariable int id) {
+		productServices.deleteProduct(id);
+	}
 }
