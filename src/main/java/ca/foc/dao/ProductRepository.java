@@ -13,9 +13,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ca.foc.domain.*;
 
+import java.util.List;
+import ca.foc.domain.*;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Integer>, ProductRepositoryCustom {
+public interface ProductRepository extends CrudRepository<Product, Integer> {
+	@Override
+	public List<Product> findAll();
 
-	
 }

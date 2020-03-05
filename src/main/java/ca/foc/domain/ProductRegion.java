@@ -6,18 +6,31 @@ import javax.persistence.*;
 
 @Entity
 @IdClass(ProductRegion.class)
-@Table(name="foc_product_region")
-public class ProductRegion implements Serializable{
+@Table(name = "foc_product_region")
+public class ProductRegion implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	@Id
-//	private int prod_id;
-	@ManyToOne
-	@JoinColumn(name="prod_id")
-	private Product product;
+	private long prod_id;
 	@Id
-//	private int reg_id;
-	@ManyToOne
-	@JoinColumn (name="reg_id")
-	private Region region;
-	
+	private int reg_id;
+
+	// getters and setters
+
+	public long getProd_id() {
+		return prod_id;
+	}
+
+	public void setProd_id(long prod_id) {
+		this.prod_id = prod_id;
+	}
+
+	public int getReg_id() {
+		return reg_id;
+	}
+
+	public void setReg_id(int reg_id) {
+		this.reg_id = reg_id;
+	}
 
 }
