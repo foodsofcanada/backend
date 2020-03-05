@@ -64,13 +64,13 @@ public class MemberController {
 
 	@PostMapping({ "/save-member" })
 	@ResponseBody
-	public String addMember(@RequestBody Member member) {
+	public boolean addMember(@RequestBody Member member) {
 
 //	memberService.saveMember(member);
 //	public String saveMember(@RequestParam String email, @RequestParam String password, @RequestParam String firstname, @RequestParam String lastname, @RequestParam int role) {
 		// Member member = new Member(email, password, firstname, lastname, role);
 		// memberService.saveMember(member);
-		return "Hello "+member.getEmail() ;
+		return false ;
 		// return member;
 	}
 
