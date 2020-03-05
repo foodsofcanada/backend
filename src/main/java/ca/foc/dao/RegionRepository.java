@@ -1,10 +1,9 @@
 package ca.foc.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import ca.foc.domain.Region;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface RegionRepository extends JpaRepository<Region,Integer>
-{
-
+@Repository
+public interface RegionRepository extends JpaRepository<Region, Integer> {
 }

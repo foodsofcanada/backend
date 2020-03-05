@@ -1,53 +1,61 @@
 package ca.foc.controller;
 
-import ca.foc.dao.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import ca.foc.domain.Product;
+import ca.foc.domain.*;
+import ca.foc.dao.ProductRepository;
+import ca.foc.dom.ProductDetail;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+// @RequestMapping("/api")
 public class ProductController {
 
-	 @Autowired
-	 ProductRepository productRepository;
+	@Autowired
+	ca.foc.services.QueryService queryservice;
+	@Autowired
+	ProductRepository productRepository;
 
-	    @CrossOrigin(origins = "http://localhost:3000")
-	    @GetMapping(path = "/products")
-	    public List<Product> getAllProducts(){
-	        List<Product> products = new ArrayList<>();
-	        productRepository.findAll().forEach(products :: add);
-	        return products;
-	    }
-	    
-//	    @GetMapping(path = "/products/{id}")
-//	    public List<Product> getProductsInRegion(@PathVariable int id){
-//	        List<Product> products = new ArrayList<>();
-//	        productRepository.getAllProductsInRegion(id).forEach(products :: add);
-//	        return products;
-//	    }
-	    
-	    @GetMapping(path = "/products/{id}")
-	    public List<Product> getProductInfo(@PathVariable int id){
-	        List<Product> products = new ArrayList<>();
-	        productRepository.getProductInfo(id).forEach(products :: add);
-	        return products;
-	    }
-	    
+	// @GetMapping("/productRegion/{id}")
+	// public List<ProductDetail> getQuery(@PathVariable int id)
+	// {
+	// return queryservice.JPQLQuery(id);
+	// }
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/productRegion/{id}")
+	public List<ProductDetail> getAllProductsInRegion(@PathVariable int id) {
+		return queryservice.getAllProductsInRegion(id);
+	}
 
-	    @CrossOrigin(origins = "http://localhost:3000")
-	    @PostMapping(path = "/products")
-	    public Product addProduct(@RequestBody Product product){
-	    	productRepository.save(product);
-	        return product;
-	    }
+	/* Returns all products in the database */
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/products")
+	// public List<Product> getproductData()
+	public List<Product> getAllProducts() {
+		List<Product> products = new ArrayList<>();
+		productRepository.findAll().forEach(products::add);
+		return products;
 
-	    @CrossOrigin(origins = "http://localhost:3000")
-	    @DeleteMapping(path = "/products/{id}")
-	    public void deleteProduct(@PathVariable int id){
-	    	productRepository.deleteById((long) id);
-	    }
+	}
+
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping(path = "/products/{id}")
+	public Optional<Product> getProductInfo(@PathVariable int id) {
+
+		return productRepository.findById(id);
+
+	}
+
+	/*
+	 * @PostMapping public Product addProduct(@RequestBody Product product) {
+	 * productRepository.save(product); return product; }
+	 * 
+	 * @DeleteMapping(path = "/{id}") public void deleteProduct(@PathVariable int
+	 * id) { productRepository.deleteById(id); }
+	 */
+
 }

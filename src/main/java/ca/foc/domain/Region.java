@@ -9,14 +9,15 @@ import ca.foc.domain.ProductRegion;
 import org.springframework.data.geo.Polygon;
 
 @Entity
-@Table(name="foc_region")
+@Table(name="FOC_REGION")
 public class Region {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long reg_id;
+	@Column(name = "reg_id")
+	private int reg_id;
 	
-	@OneToMany(mappedBy="region", cascade = CascadeType.ALL)
-	private List<ProductRegion>productRegions;
+//	@OneToMany(mappedBy="region", cascade = CascadeType.ALL)
+//	private List<ProductRegion> productRegion;
 	
 	private String name;
 	
@@ -27,7 +28,7 @@ public class Region {
 	public long getReg_id() {
 		return reg_id;
 	}
-	public void setReg_id(long reg_id) {
+	public void setReg_id(int reg_id) {
 		this.reg_id = reg_id;
 	}
 	public String getName() {
