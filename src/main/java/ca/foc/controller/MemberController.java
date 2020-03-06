@@ -34,23 +34,24 @@ public class MemberController {
 ////		return "Member saved";
 	
 	}
-	
+	/*Find a member by email*/
 	@GetMapping("/members/{email}")
 	@ResponseBody
 	public Optional<Member> findMember(@PathVariable String email) {
         
 	 return memberService.findByEmail(email);
 	}
-			
+	
+	/*Verify if a member exists in the database. Return true if exists, false other wise*/
 	@PostMapping ("/test")
 	@ResponseBody
 	 public boolean  checkMember(@RequestBody Member member) {
 	    boolean check = memberService.CheckMember(member.getEmail(),member.getPassword());
 		
 	    if (!check )
-	    System.out.println(" member count: 0 " );
+	    System.out.println(" False " );
 	    else
-		System.out.println(" member count: 1 " );
+		System.out.println(" True" );
 	    
 		return  check;
 	}
