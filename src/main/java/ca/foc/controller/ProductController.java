@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-//@RequestMapping("/api")
+// @RequestMapping("/api")
 public class ProductController {
 
 	@Autowired
@@ -20,11 +20,11 @@ public class ProductController {
 	@Autowired
 	ProductRepository productRepository;
 
-//	    @GetMapping("/productRegion/{id}")
-//	    public List<ProductDetail> getQuery(@PathVariable int id)
-//	    {
-//	        return queryservice.JPQLQuery(id);
-//	    }
+	// @GetMapping("/productRegion/{id}")
+	// public List<ProductDetail> getQuery(@PathVariable int id)
+	// {
+	// return queryservice.JPQLQuery(id);
+	// }
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/productRegion/{id}")
 	public List<ProductDetail> getAllProductsInRegion(@PathVariable int id) {
