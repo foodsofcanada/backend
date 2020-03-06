@@ -16,6 +16,7 @@ public class ProductRegion implements Serializable{
 	@Id
 	private int reg_id;
 	
+	//private point coordinate ;
 	
 	//getters and setters
 	
