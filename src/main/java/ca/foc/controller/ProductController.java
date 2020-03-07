@@ -12,23 +12,16 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-// @RequestMapping("/api")
+
 public class ProductController {
 
 	@Autowired
-	ca.foc.services.QueryService queryservice;
-	@Autowired
-	ProductRepository productRepository;
+	ca.foc.services.ProductService productService;
 
-	// @GetMapping("/productRegion/{id}")
-	// public List<ProductDetail> getQuery(@PathVariable int id)
-	// {
-	// return queryservice.JPQLQuery(id);
-	// }
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/productRegion/{id}")
 	public List<ProductDetail> getAllProductsInRegion(@PathVariable int id) {
-		return queryservice.getAllProductsInRegion(id);
+		return productService.getAllProductsInRegion(id);
 	}
 
 	/* Returns all products in the database */
@@ -37,25 +30,29 @@ public class ProductController {
 	// public List<Product> getproductData()
 	public List<Product> getAllProducts() {
 		List<Product> products = new ArrayList<>();
-		productRepository.findAll().forEach(products::add);
+		productService.getAllProducts().forEach(products::add);
 		return products;
 
 	}
 
 	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping(path = "/products/{id}")
+	@GetMapping("/products/{id}")
 	public Optional<Product> getProductInfo(@PathVariable int id) {
 
-		return productRepository.findById(id);
+		return productService.getProductInfo(id);
 
 	}
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PostMapping("/products/")
+	public Product addProduct(@RequestBody Product product) {
+		productService.addProduct(product);
+		return product;
+	}
 
-	/*
-	 * @PostMapping public Product addProduct(@RequestBody Product product) {
-	 * productRepository.save(product); return product; }
-	 * 
-	 * @DeleteMapping(path = "/{id}") public void deleteProduct(@PathVariable int
-	 * id) { productRepository.deleteById(id); }
-	 */
+	@CrossOrigin(origins = "http://localhost:3000")
+	@DeleteMapping("/products/{id}")
+	public void deleteProduct(@PathVariable int id) {
+		productService.deleteProduct(id);
+	}
 
 }

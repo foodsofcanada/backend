@@ -12,6 +12,12 @@ import org.springframework.stereotype.Service;
 import ca.foc.dao.MemberRepository;
 import ca.foc.domain.Member;
 
+/**
+ * Service class for Member: 
+ * @author 787428
+ *
+ */
+
 @Service
 public class MemberService {
 
@@ -34,12 +40,13 @@ public class MemberService {
 		return memberRepository.findByEmail(email);
 	}
 	
-	public boolean CheckMember(String email, String password) {
+	/*Validate email and password*/
+	public Member CheckMember(String email, String password) {
 		boolean result = false; 
-
+		Member memberDb = null;
 		Optional<Member> member= memberRepository.findByEmail(email);  // find a member within the database by the email. Email is unique 
 		if (member.isPresent()) {
-			Member memberDb= member.get();		
+			memberDb= member.get();		
 			if (memberDb.getEmail().equals(email)||memberDb.getPassword().equals(password)) {
 				result = true;  //
 			}
@@ -51,7 +58,7 @@ public class MemberService {
 		}
 		
 			
-		return result;
+		return memberDb;
 	}
 
 

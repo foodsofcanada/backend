@@ -8,10 +8,9 @@ import ca.foc.domain.Product;
 
 
 
-public interface IQueryService {
+public interface IProductService {
 	//List<ProductDetail> JPQLQuery(int reg);
-	
+	//List<Product>  getProductInfo(int id);
 	List<ProductDetail>  getAllProductsInRegion(int id);
-	List<Product>  getProductInfo(int id);
 
 }

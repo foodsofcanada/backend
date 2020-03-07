@@ -1,9 +1,20 @@
 package ca.foc.domain;
 
 import java.util.List;
+/*
+ * Entity Class Pantry 
+ */
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="Pantries")
 public class Pantry {
-
+	@GeneratedValue(strategy = GenerationType.AUTO)
     private long pantry_id;
     private String imgPath;
     private List<Product> products;

@@ -5,7 +5,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "foc_products")
 public class Product {
-	@Id
+	@Id 
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int prod_id;
 	private String name;
 	private String description;
