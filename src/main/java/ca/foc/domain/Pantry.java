@@ -8,23 +8,27 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
+import ca.foc.domain.Product;
 
 @Entity
-@Table(name="Pantries")
+@Table(name="foc_pantries")
 public class Pantry {
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private long pantry_id;
-    private String imgPath;
-    private List<Product> products;
+  //  private String imgPath;
+    
+    //private List<Product> products;
     private String description;
     private String name;
 
     public Pantry(long pantry_id, String imgPath, List<Product> products, String description, String name) {
         this.pantry_id = pantry_id;
-        this.imgPath = imgPath;
-        this.products = products;
+        //this.imgPath = imgPath;
+        //this.products = products;
         this.description = description;
         this.name = name;
     }
@@ -37,21 +41,21 @@ public class Pantry {
         this.pantry_id = pantry_id;
     }
 
-    public String getImgPath() {
-        return imgPath;
-    }
+ //  public String getImgPath() {
+//        return imgPath;
+ //   }
 
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
+//    public void setImgPath(String imgPath) {
+//        this.imgPath = imgPath;
+//    }
+//
+//    public List<Product> getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(List<Product> products) {
+//        this.products = products;
+//    }
 
     public String getDescription() {
         return description;

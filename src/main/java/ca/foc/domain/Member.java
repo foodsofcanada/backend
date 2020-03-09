@@ -22,8 +22,10 @@ public class Member implements Serializable {
 	private String lastname;
 
 	// @CreatedDate
-	@Temporal(TemporalType.DATE)
+	
 	@Column(name = "date_joined")
+	//@Temporal(TemporalType.DATE)
+	@CreatedDate
 	private Date dateJoined;
 	private int role;
 

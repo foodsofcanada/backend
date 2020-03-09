@@ -42,24 +42,44 @@ public class MemberService {
 	
 	/*Validate email and password*/
 	public Member CheckMember(String email, String password) {
-		boolean result = false; 
+		
 		Member memberDb = null;
 		Optional<Member> member= memberRepository.findByEmail(email);  // find a member within the database by the email. Email is unique 
 		if (member.isPresent()) {
 			memberDb= member.get();		
 			if (memberDb.getEmail().equals(email)||memberDb.getPassword().equals(password)) {
-				result = true;  //
+				
 			}
 		}
 		else
 		{
 			System.out.println("member doesnt exist");
-			result = false; //that member doesn't exist in the database
 		}
 		
 			
 		return memberDb;
 	}
+	
+	/*Register a new member
+	 * Return true if member was added
+	 * */
+	
+	public boolean NewMember(Member member) {
+		boolean result= false;
+		
+		Optional<Member> m = memberRepository.findByEmail(member.getEmail());
+		
+		if (!m.isPresent()) {
+			result=true;  
+			memberRepository.save(member);
+		}
+		else
+			result=false;
+		
+		return result;
+		
+	}
+	
 
 
 
