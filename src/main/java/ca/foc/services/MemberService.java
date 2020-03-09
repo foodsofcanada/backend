@@ -46,6 +46,7 @@ public class MemberService {
 		Member memberDb = null;
 		Optional<Member> member= memberRepository.findByEmail(email);  // find a member within the database by the email. Email is unique 
 		if (member.isPresent()) {
+			
 			memberDb= member.get();		
 			if (memberDb.getEmail().equals(email)||memberDb.getPassword().equals(password)) {
 				
@@ -71,7 +72,15 @@ public class MemberService {
 		
 		if (!m.isPresent()) {
 			result=true;  
-			memberRepository.save(member);
+			Member nMember= new Member();  // new member
+			nMember.setFirstname(member.getFirstname());
+			nMember.setLastname(member.getLastname());
+			//here encode password and store in database
+			//  
+			nMember.setPassword(member.getPassword());
+			nMember.setRole(1); // set role to 1 by default
+			
+			memberRepository.save(nMember);
 		}
 		else
 			result=false;

@@ -44,6 +44,7 @@ public class MemberController {
 	@PostMapping("/save-member")
 	@ResponseBody
 	public boolean  addMember(@RequestBody Member member) {
+		
 		return memberService.NewMember(member);
 	}
 	

@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
@@ -24,8 +25,7 @@ public class Member implements Serializable {
 	// @CreatedDate
 	
 	@Column(name = "date_joined")
-	//@Temporal(TemporalType.DATE)
-	@CreatedDate
+	@CreationTimestamp
 	private Date dateJoined;
 	private int role;
 
