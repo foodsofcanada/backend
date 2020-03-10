@@ -18,6 +18,11 @@ public class ProductDetail {
 	private String origin_country;
 	private int search_counter;
 	private int reg_id;
+	private String coordinates;
+	
+	
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -114,6 +119,13 @@ public class ProductDetail {
 	public void setReg_id(int reg_id) {
 		this.reg_id = reg_id;
 	}
+	public String getCoordinates() {
+		return coordinates;
+	}
+	public void setCoordinates(String coordinates) {
+		this.coordinates = coordinates;
+	}
+	
 	
 	
 }

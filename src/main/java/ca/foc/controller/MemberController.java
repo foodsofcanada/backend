@@ -15,7 +15,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import ca.foc.dao.MemberRepository;
 import ca.foc.domain.Member;
 import ca.foc.services.MemberService;
-
+/**
+ * Member Controller
+ * 
+ * @author
+ *
+ *Missing: 
+ * ---Edit profile 
+ * ---Delete profile
+ * ---Hash password
+ * Claudia. March/09/2020
+ * 
+ */
 @Controller
 public class MemberController {
 
@@ -41,7 +52,7 @@ public class MemberController {
 	
 	/*Register a new member. Returns true if the member was added. false other wise*/
 	@CrossOrigin(origins = "http://localhost:3000")
-	@PostMapping("/save-member")
+	@PostMapping("/registration")
 	@ResponseBody
 	public boolean  addMember(@RequestBody Member member) {
 		

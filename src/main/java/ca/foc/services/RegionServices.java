@@ -14,7 +14,7 @@ import java.util.List;
 public class RegionServices {
 
     @Autowired
-    static RegionRepository regionRepository;
+    RegionRepository regionRepository;
 
     public List<Region> getAllRegions() {
         return regionRepository.findAll();
