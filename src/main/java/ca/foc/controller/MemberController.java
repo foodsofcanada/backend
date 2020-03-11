@@ -43,6 +43,7 @@ public class MemberController {
 	}
 	
 	/*Verify if a member exists in the database. Return the member founded, null otherwise*/
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping ("/login")
 	@ResponseBody
 	 public Member  checkMember(@RequestBody Member member) {

@@ -47,9 +47,9 @@ public class MemberService {
 		Optional<Member> member= memberRepository.findByEmail(email);  // find a member within the database by the email. Email is unique 
 		if (member.isPresent()) {
 			
-			memberDb= member.get();		
-			if (memberDb.getEmail().equals(email)||memberDb.getPassword().equals(password)) {
-				
+			memberDb= member.get();	
+			if (!memberDb.getEmail().equals(email)||!memberDb.getPassword().equals(password)) {
+				memberDb=null;	
 			}
 		}
 		else
