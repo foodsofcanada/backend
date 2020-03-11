@@ -27,32 +27,31 @@ public class MemberService {
 	//@Override
 	public void saveMember(Member member) {
 		memberRepository.save(member);
-		
 	}
 	
 	public Optional<Member> findByEmail(String email){
 		return memberRepository.findByEmail(email);
 	}
 	
-	public boolean CheckMember(String email, String password) {
-		boolean result = false; 
-
-		Optional<Member> member= memberRepository.findByEmail(email);  // find a member within the database by the email. Email is unique 
-		if (member.isPresent()) {
-			Member memberDb= member.get();		
-			if (memberDb.getEmail().equals(email)||memberDb.getPassword().equals(password)) {
-				result = true;  //
-			}
-		}
-		else
-		{
-			System.out.println("member doesnt exist");
-			result = false; //that member doesn't exist in the database
-		}
-		
-			
-		return result;
-	}
+//	public boolean CheckMember(String email, String password) {
+//		boolean result = false;
+//
+//		Optional<Member> member= memberRepository.findByEmail(email);  // find a member within the database by the email. Email is unique
+//		if (member.isPresent()) {
+//			Member memberDb= member.get();
+//			if (memberDb.getEmail().equals(email)||memberDb.getPassword().equals(password)) {
+//				result = true;  //
+//			}
+//		}
+//		else
+//		{
+//			System.out.println("member doesnt exist");
+//			result = false; //that member doesn't exist in the database
+//		}
+//
+//
+//		return result;
+//	}
 
 
 

@@ -30,3 +30,9 @@ build/
 ### VS Code ###
 .vscode/
 /.metadata/
+
+
+### Security ###
+Constants.java
+ca.foc.secure.Constants.*
+src/main/java/ca/foc/secure/Constants.java

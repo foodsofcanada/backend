@@ -9,14 +9,10 @@ import ca.foc.domain.Member;
 @Repository
 public interface MemberRepository extends CrudRepository<Member, String> {
 
-  
-
 		public  Optional<Member> findByEmail(String email);
 //		
 //		public Optional<Member> findByEmailAndHashedpw(String email, String hashedpw);
 //        
 //		public void saveMember(Member member);
 
-	
-	
 }
