@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ca.foc.domain.*;
 import ca.foc.dao.ProductRepository;
 import ca.foc.dom.ProductDetail;
+import ca.foc.dom.SearchObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 /**
  * Product Controller
+ * 
  * @author
  * 
  * 
@@ -24,6 +26,9 @@ public class ProductController {
 
 	@Autowired
 	ca.foc.services.ProductService productService;
+
+	@Autowired
+	ca.foc.services.SearchingService searchingService;
 
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/productRegion/{id}")
@@ -49,6 +54,7 @@ public class ProductController {
 		return productService.getProductInfo(id);
 
 	}
+
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/products/")
 	public Product addProduct(@RequestBody Product product) {
@@ -60,6 +66,14 @@ public class ProductController {
 	@DeleteMapping("/products/{id}")
 	public void deleteProduct(@PathVariable int id) {
 		productService.deleteProduct(id);
+	}
+
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PostMapping("/search")
+	public List<ProductDetail> search(@RequestBody SearchObject search) {
+
+		return searchingService.SerchingResult(search);
+
 	}
 
 }

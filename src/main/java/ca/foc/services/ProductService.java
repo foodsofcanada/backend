@@ -59,10 +59,11 @@ public class ProductService implements IProductService {
 				+ "inner join ProductRegion pr on p.prod_id=pr.prod_id where pr.reg_id =" + id);
 		@SuppressWarnings("unchecked")
 		List<ProductDetail> list = (List<ProductDetail>) query.getResultList();
-		// System.out.println("Student Name :");
 		em.close();
 
 		return list;
 	}
+	
+	
 
 }

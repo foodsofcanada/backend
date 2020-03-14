@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import ca.foc.dom.ProductDetail;
 import ca.foc.domain.*;
 
 import java.util.List;
