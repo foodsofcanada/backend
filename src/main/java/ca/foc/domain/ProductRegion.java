@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+
 @Entity
 @IdClass(ProductRegion.class)
 @Table(name = "foc_product_region")
@@ -15,13 +16,21 @@ public class ProductRegion implements Serializable {
 	@Id
 	private int reg_id;
 	
-	//private point coordinate ;
+	private String coordinate ;
 	
 	//getters and setters
 	
 	
 	public long getProd_id() {
 		return prod_id;
+	}
+
+	public String getCoordinate() {
+		return coordinate;
+	}
+
+	public void setCoordinate(String coordinate) {
+		this.coordinate = coordinate;
 	}
 
 	public void setProd_id(long prod_id) {
@@ -35,5 +44,12 @@ public class ProductRegion implements Serializable {
 	public void setReg_id(int reg_id) {
 		this.reg_id = reg_id;
 	}
+
+	@Override
+	public String toString() {
+		return "ProductRegion [prod_id=" + prod_id + ", reg_id=" + reg_id + ", coordinate]";
+	}
+	
+	
 
 }

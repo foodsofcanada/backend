@@ -43,6 +43,10 @@ public class Region {
 	public void setPolygon(Polygon polygon) {
 		this.polygon = polygon;
 	}
+	@Override
+	public String toString() {
+		return "Region [reg_id=" + reg_id + ", name=" + name + ", polygon=" + polygon + "]";
+	}
 	
 	
 	
