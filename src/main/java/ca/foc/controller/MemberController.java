@@ -20,11 +20,24 @@ import ca.foc.services.MemberService;
  * 
  * @author
  *
+ *Implemented:
+ *           Register(Create an account)
+ *           Login
+ *           Find members by Id (not in controller class)
+ *           Claudia. March/09/2020
+ *
  *Missing: 
  * ---Edit profile 
  * ---Delete profile
  * ---Hash password
- * Claudia. March/09/2020
+ * ---add products To Favorites
+ * ---delete from favourites
+ * ---getProducts in Favourites
+ * ---Suggest a product
+ * ---Change member role
+ * ---View suggestions
+ * 
+ * Claudia: March/15/2020
  * 
  */
 @Controller
@@ -62,19 +75,6 @@ public class MemberController {
 	
 	
 
-//	@PostMapping("/registration")
-//	public String registration(@ModelAttribute("memberForm") Member memberForm, BindingResult bindingResult) {
-//		memberValidator.validate(memberForm, bindingResult);
-//
-//		if (bindingResult.hasErrors()) {
-//			return "registration";
-//		}
-//		memberService.saveMember(memberForm);
-//
-//		// securityService.autoLogin(userForm.getUsername(),
-//		// userForm.getPasswordConfirm());
-//
-//		return "redirect:/welcome";
-//	}
+
 
 }

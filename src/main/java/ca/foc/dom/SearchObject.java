@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /*
  * Class to help with search functionality
+ * 
  */
 
 public class SearchObject {

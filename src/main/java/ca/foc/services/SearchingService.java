@@ -23,8 +23,16 @@ import ca.foc.dom.SearchObject;
  * @author
  * 
  *         Claudia R. Receive a SearchObject object with 3 arrayList one for each filter.
- *         Then filters are passed to a String and inserted in each query. Returns the result set
- *         Date:March-03-2020
+ *         Then filters are passed to a String and inserted in each query. 
+ *         Returns a list with ProductDetail objects that fit the search
+ *         The data returned is 
+ *         Coordinates
+ *         reg_id
+ *         regionName
+ *         prod_id
+ *         name
+ *         
+ *         Date:March-15-2020
  * 
  * 
  *

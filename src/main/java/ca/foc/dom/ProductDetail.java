@@ -1,11 +1,19 @@
 package ca.foc.dom;
 
+/*
+ *
+ */
+
+
 public class ProductDetail {
 
 	private int prod_id;
 	private String name;
-	// private String description;
 	private String season;
+	private int reg_id;
+	private String regionName;
+	private String coordinates;
+	// private String description;
 	// private int age;
 	// private String img_path;
 	// private String shelf_life;
@@ -18,9 +26,7 @@ public class ProductDetail {
 	// private String fun_fact;
 	// private String origin_country;
 	// private int search_counter;
-	private int reg_id;
-	private String regionName;
-	private String coordinates;
+	
 
 	public ProductDetail() {
 
@@ -73,6 +79,12 @@ public class ProductDetail {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductDetail [prod_id=" + prod_id + ", name=" + name + ", season=" + season + ", reg_id=" + reg_id
+				+ ", regionName=" + regionName + ", coordinates=" + coordinates + "]";
 	}
 
 //	public int getAge() {
@@ -148,10 +160,7 @@ public class ProductDetail {
 //		this.search_counter = search_counter;
 //	}
 
-	@Override
-	public String toString() {
-		return "ProductDetail [name=" + name + ", season=" + season + ", reg_id=" + reg_id + ", coordinates="
-				+ coordinates + "]";
-	}
+	
+	
 
 }

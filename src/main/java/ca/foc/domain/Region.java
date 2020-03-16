@@ -1,11 +1,6 @@
 package ca.foc.domain;
 
-import java.util.List;
-
 import javax.persistence.*;
-
-
-import ca.foc.domain.ProductRegion;
 import org.springframework.data.geo.Polygon;
 
 @Entity
