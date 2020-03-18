@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ca.foc.dao.MemberRepository;
+import ca.foc.dao.ProductSuggestionRepository;
 import ca.foc.domain.Member;
+import ca.foc.domain.ProductSuggestion;
 
 /**
  * Service class for Member: 
@@ -23,6 +25,8 @@ public class MemberService {
 
 	@Autowired
 	MemberRepository memberRepository;
+	@Autowired
+	ProductSuggestionRepository productSuggestionRepository;
 	@Autowired
 	EntityManagerFactory emf;
 	
@@ -89,7 +93,17 @@ public class MemberService {
 		
 	}
 	
-
+	/*Methods realted to ProductSuggestions*/
+	
+	public void saveProductSuggested(String name, String description) {
+		ProductSuggestion ps = new ProductSuggestion(name,description);
+		productSuggestionRepository.save(ps);
+		
+	}
+	
+	public Iterable<ProductSuggestion> getAll(){
+		return productSuggestionRepository.findAll();
+	}
 
 
 	

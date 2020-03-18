@@ -58,6 +58,7 @@ public class ProductController {
 	}
 	
 	// products in region in region  controller
+	
 	/*
 	 * @CrossOrigin(origins = "http://localhost:3000")
 	 * 

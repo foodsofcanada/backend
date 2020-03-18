@@ -7,6 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author 787428
+ *
+ */
+
+
 @Entity
 @Table(name="foc_product_suggestion")
 public class ProductSuggestion {
@@ -17,15 +24,15 @@ public class ProductSuggestion {
 	private int id;
 	private String name;
 	private String description;
-	private String type;
 	
 	
-	public ProductSuggestion(int id, String name, String description, String type) {
+	
+	public ProductSuggestion( String name, String description) {
 		super();
-		this.id = id;
+		
 		this.name = name;
 		this.description = description;
-		this.type = type;
+		
 	}
 
 
@@ -59,19 +66,11 @@ public class ProductSuggestion {
 	}
 
 
-	public String getType() {
-		return type;
-	}
-
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 
 	@Override
 	public String toString() {
-		return "ProductSuggestion [id=" + id + ", name=" + name + ", description=" + description + ", type=" + type
+		return "ProductSuggestion [id=" + id + ", name=" + name + ", description=" + description 
 				+ "]";
 	}
 	

@@ -22,18 +22,14 @@ import ca.foc.dom.SearchObject;
  * 
  * @author
  * 
- *         Claudia R. Receive a SearchObject object with 3 arrayList one for each filter.
- *         Then filters are passed to a String and inserted in each query. 
- *         Returns a list with ProductDetail objects that fit the search
- *         The data returned is 
- *         Coordinates
- *         reg_id
- *         regionName
- *         prod_id
- *         name
- *         
- *         Date:March-15-2020
+ *         Claudia R. Receive a SearchObject object with 3 arrayList one for
+ *         each filter. Then filters are passed to a String and inserted in each
+ *         query. Returns a list with ProductDetail objects that fit the search
+ *         The data returned is Coordinates, reg_id, regionName,prod_id name
  * 
+ *         Date:March-15-2020
+ *         Modified: product list is empty added.
+ *         Date: March 18-2020
  * 
  *
  */
@@ -54,11 +50,12 @@ public class SearchingService {
 		EntityManager em = emf.createEntityManager();
 		List<Object[]> resultSearch1 = null;
 		List<ProductDetail> resultSearch = null;
-		List<ProductDetail> list= new ArrayList<ProductDetail>();
+		List<ProductDetail> list = new ArrayList<ProductDetail>();
 
 		String seasons = "";
 		String regions = "";
 		String products = "";
+
 		// build a string with season filters
 		if (!seasonList.isEmpty()) {
 			for (int i = 0; i < seasonList.size(); i++) {
@@ -86,105 +83,110 @@ public class SearchingService {
 				regions = regions.substring(0, regions.length() - 2);
 		}
 
+		// productList  is not empty
+		if (!productList.isEmpty()) {
+			// check if seasons is not empty
+			if (!seasonList.isEmpty()) {
+				// Check if regions is not empty. Then search by product id, region id and season
+				if (!regionList.isEmpty()) {
+					Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
+									+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prod_id "
+									+ "INNER JOIN Region r ON pr.reg_id = r.reg_id "
+									+ "WHERE pr.prod_id IN(" + products + ") " 
+									+ "AND pr.reg_id IN (" + regions + ") " 
+									+ "AND p.season IN (" + seasons + ")");
 
-		// productList always is not empty
-		// check if seasons is not empty
-		if (!seasonList.isEmpty()) {
-			// Check if regions is not empty. Then search by product id, region id and
-			// season
-			if (!regionList.isEmpty()) {
+					resultSearch = query.getResultList();
 
+				} else 
+				    { // regions is empty only search by product id and season
+					Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
+									+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prod_id "
+									+ "INNER JOIN Region r ON pr.reg_id = r.reg_id "
+									+ "WHERE pr.prod_id IN(" + products + ") " + "AND p.season IN (" + seasons + ")");
+					resultSearch = query.getResultList();
+
+				    }
+				// if seasonList is empty the check if region is not empty
+			} else if (!regionList.isEmpty()) {
+				// then search by product_id and region id
 				Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
 						+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prod_id "
-						+ "INNER JOIN Region r ON pr.reg_id = r.reg_id "
-						+ "WHERE pr.prod_id IN(" + products + ") " 
-						+ "AND pr.reg_id IN (" + regions + ") " 
-						+ "AND p.season IN (" + seasons + ")");
+						+ "INNER JOIN Region r ON pr.reg_id = r.reg_id " 
+						+ "WHERE pr.prod_id IN (" + products + ") "
+						+ "AND pr.reg_id IN (" + regions + ")");
 
 				resultSearch = query.getResultList();
-
-				Iterator it = resultSearch.iterator();
-				while(it.hasNext()) {
-					Object[] line = (Object[]) it.next();
-					ProductDetail pd= new ProductDetail();
-					pd.setCoordinates((String) line[0]);
-					pd.setReg_id((int) line[1]);
-					pd.setRegionName((String) line[2]);
-					pd.setProd_id((int) line[3]);
-					pd.setName((String) line[4]);
-					list.add(pd);
-				}
-							
-				em.close();
-			} else { // regions is empty only search by product id and season
-
-				Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
-						+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prod_id "
-						+ "INNER JOIN Region r ON pr.reg_id = r.reg_id "
-				        + "WHERE pr.prod_id IN(" + products + ") "
-				        + "AND p.season IN (" + seasons + ")");
-				
-//				resultSearch = (List<ProductDetail>) query.getResultList();
-				resultSearch = query.getResultList();
-
-				Iterator it = resultSearch.iterator();
-				while(it.hasNext()) {
-					Object[] line = (Object[]) it.next();
-					ProductDetail pd= new ProductDetail();
-					pd.setCoordinates((String) line[0]);
-					pd.setReg_id((int) line[1]);
-					pd.setRegionName((String) line[2]);
-					pd.setProd_id((int) line[3]);
-					pd.setName((String) line[4]);
-					list.add(pd);
-				}
-				em.close();
-			}
-			// if seasonList is empty the check if region is not empty
-		} else if (!regionList.isEmpty()) {
-			// then search by product_id and region id
-			Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
-					+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prod_id "
-					+ "INNER JOIN Region r ON pr.reg_id = r.reg_id "
-						  + "WHERE pr.prod_id IN (" + products + ") " 
-			              + "AND pr.reg_id IN (" + regions + ")");
-//			resultSearch = (List<ProductDetail>) query.getResultList();
-			resultSearch = query.getResultList();
-			Iterator it = resultSearch.iterator();
-			while(it.hasNext()) {
-				Object[] line = (Object[]) it.next();
-				ProductDetail pd= new ProductDetail();
-				pd.setCoordinates((String) line[0]);
-				pd.setReg_id((int) line[1]);
-				pd.setRegionName((String) line[2]);
-				pd.setProd_id((int) line[3]);
-				pd.setName((String) line[4]);
-				list.add(pd);
-			}
 			
-			em.close();
+			} else if (regionList.isEmpty() && seasonList.isEmpty())
+			// season is empty and region is empty then search by product id
+			{
+				Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
+						+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prod_id "
+						+ "INNER JOIN Region r ON pr.reg_id = r.reg_id " 
+						+ "WHERE pr.prod_id IN(" + products + ") ");
+				resultSearch = query.getResultList();
 
-		} else if (regionList.isEmpty() && seasonList.isEmpty())
-		// season is empty and region is empty then search by product id
-		{
-			Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
-					+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prod_id "
-					+ "INNER JOIN Region r ON pr.reg_id = r.reg_id "
-					+ "WHERE pr.prod_id IN(" + products + ") ");
-			resultSearch = query.getResultList();
-			Iterator it = resultSearch.iterator();
-			while(it.hasNext()) {
-				Object[] line = (Object[]) it.next();
-				ProductDetail pd= new ProductDetail();
-				pd.setCoordinates((String) line[0]);
-				pd.setReg_id((int) line[1]);
-				pd.setRegionName((String) line[2]);
-				pd.setProd_id((int) line[3]);
-				pd.setName((String) line[4]);
-				list.add(pd);
 			}
-			em.close();
+			// product list is empty
+		} else {
+			
+			if (!seasonList.isEmpty()) {
+				// Check if regions is not empty. Then search by region id and  season
+				if (!regionList.isEmpty()) {
+
+					Query query = em .createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
+									+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prod_id "
+									+ "INNER JOIN Region r ON pr.reg_id = r.reg_id "
+									+ "WHERE pr.reg_id IN (" + regions + ") " 
+									+ "AND p.season IN (" + seasons + ")");
+
+					resultSearch = query.getResultList();
+
+				} else { // regions is empty only search by  season
+
+					Query query = em
+							.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
+									+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prod_id "
+									+ "INNER JOIN Region r ON pr.reg_id = r.reg_id " 
+									+ "WHERE p.season IN (" + seasons + ")");
+					resultSearch = query.getResultList();
+
+				}
+				// if seasonList is empty the check if region is not empty
+			} else if (!regionList.isEmpty()) {
+				// then search by  region id
+				Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
+						+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prod_id "
+						+ "INNER JOIN Region r ON pr.reg_id = r.reg_id "
+						+ "WHERE pr.reg_id IN (" + regions + ")");
+
+				resultSearch = query.getResultList();
+
+
+			} else //if (regionList.isEmpty() && seasonList.isEmpty())
+			// season is empty and region is empty then search by product id
+			{
+				Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
+						+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prod_id "
+						+ "INNER JOIN Region r ON pr.reg_id = r.reg_id " );
+				resultSearch = query.getResultList();
+
+			}
+
 		}
+		Iterator it = resultSearch.iterator();
+		while (it.hasNext()) {
+			Object[] line = (Object[]) it.next();
+			ProductDetail pd = new ProductDetail();
+			pd.setCoordinates((String) line[0]);
+			pd.setReg_id((int) line[1]);
+			pd.setRegionName((String) line[2]);
+			pd.setProd_id((int) line[3]);
+			pd.setName((String) line[4]);
+			list.add(pd);
+		}
+		em.close();
 
 		return list;
 	}
