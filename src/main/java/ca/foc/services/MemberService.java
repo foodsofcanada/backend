@@ -82,6 +82,7 @@ public class MemberService {
 			//here encode password and store in database
 			//  
 			nMember.setPassword(member.getPassword());
+			nMember.setEmail(member.getEmail());
 			nMember.setRole(1); // set role to 1 by default
 			
 			memberRepository.save(nMember);
