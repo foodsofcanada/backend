@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface RegionRepository extends CrudRepository<Region, Integer> {
 	@Override
 	public List<Region> findAll();
-	public List<Region> findById(int id);
+	//public List<Region> findByReg_ID(int reg_id);
 	
 }
 

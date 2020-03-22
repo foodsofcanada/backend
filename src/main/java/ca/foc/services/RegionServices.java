@@ -22,7 +22,7 @@ public class RegionServices {
         return regionRepository.findAll();
     }
     
-    public List<Region> getRegionById(int id) {
+    public Optional<Region> getRegionById(int id) {
 		return regionRepository.findById(id);
 	}
 }

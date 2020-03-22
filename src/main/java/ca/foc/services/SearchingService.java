@@ -48,7 +48,6 @@ public class SearchingService {
 		ArrayList<Integer> regionList = so.getRegionSearched();
 
 		EntityManager em = emf.createEntityManager();
-		List<Object[]> resultSearch1 = null;
 		List<ProductDetail> resultSearch = null;
 		List<ProductDetail> list = new ArrayList<ProductDetail>();
 

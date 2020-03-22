@@ -22,15 +22,14 @@ public class Member implements Serializable {
 	private String firstname;
 	private String lastname;
 
-	// @CreatedDate
 	
 	@Column(name = "date_joined")
 	@CreationTimestamp
 	private Date dateJoined;
 	private int role;
 
-	@Transient
-	private String confirmPassword;
+	//@Transient
+	//private String confirmPassword;
 
 	public Member() {
 	}
@@ -49,14 +48,12 @@ public class Member implements Serializable {
 		return email;
 	}
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
-
+	/*
+	 * public String getConfirmPassword() { return confirmPassword; }
+	 * 
+	 * public void setConfirmPassword(String confirmPassword) { this.confirmPassword
+	 * = confirmPassword; }
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -100,5 +97,7 @@ public class Member implements Serializable {
 	public void setRole(int role) {
 		this.role = role;
 	}
+
+	
 
 }

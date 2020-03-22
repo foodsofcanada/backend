@@ -35,9 +35,7 @@ public class MemberValidator implements Validator {
 			if (member.getPassword().length() < 8 || member.getPassword().length() > 32) {
 				errors.rejectValue("password", "Size.memberForm.password");
 			}
-			if (!member.getConfirmPassword().equals(member.getPassword())) {
-				errors.rejectValue("passwordConfirm", "Diff.memberForm.passwordConfirm");
-			}
+			
 		}
 	}
 

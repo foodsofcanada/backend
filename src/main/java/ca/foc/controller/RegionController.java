@@ -1,6 +1,7 @@
 package ca.foc.controller;
 
 import ca.foc.dom.ProductDetail;
+import ca.foc.dom.ProductRegionJoin;
 import ca.foc.domain.Product;
 import ca.foc.domain.Region;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +40,17 @@ public class RegionController {
 		return regionService.getAllRegions();
 	}
 
-	//Get product in region 
+	//Get products in region 
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/productRegion/{id}")
-	public List<ProductDetail> getAllProductsInRegion(@PathVariable int id) {
+	public List<ProductRegionJoin> getAllProductsInRegion(@PathVariable int id) {
 		return productService.getAllProductsInRegion(id);
 	}
 	
+	//Get region 
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/regions/{id}")
-	public List<Region> getProductInfo(@PathVariable int id) {
+	public Optional<Region> getRegion(@PathVariable int id) {
 
 		return regionService.getRegionById(id);
 

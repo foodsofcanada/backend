@@ -15,46 +15,40 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="foc_product_suggestion")
+@Table(name="foc_product_suggestions")
 public class ProductSuggestion {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private String description;
 	
 	
-	
-	public ProductSuggestion( String name, String description) {
-		super();
+	public ProductSuggestion() {
 		
+	}
+	public ProductSuggestion( String name, String description) {
 		this.name = name;
 		this.description = description;
 		
 	}
 
-
 	public int getId() {
 		return id;
 	}
-
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
 	public String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public String getDescription() {
 		return description;
@@ -65,17 +59,6 @@ public class ProductSuggestion {
 		this.description = description;
 	}
 
-
-
-
-	@Override
-	public String toString() {
-		return "ProductSuggestion [id=" + id + ", name=" + name + ", description=" + description 
-				+ "]";
-	}
-	
-	
-	
 	
 
 }

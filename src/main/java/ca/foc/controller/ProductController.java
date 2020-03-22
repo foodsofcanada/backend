@@ -1,6 +1,7 @@
 package ca.foc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import ca.foc.domain.*;
@@ -44,6 +45,7 @@ public class ProductController {
 	//Delete Product. Admin operation
 	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping("/products/{id}")
+	@Transactional
 	public void deleteProduct(@PathVariable int id) {
 		productService.deleteProduct(id);
 	}
@@ -59,13 +61,7 @@ public class ProductController {
 	
 	// products in region in region  controller
 	
-	/*
-	 * @CrossOrigin(origins = "http://localhost:3000")
-	 * 
-	 * @GetMapping("/productRegion/{id}") public List<ProductDetail>
-	 * getAllProductsInRegion(@PathVariable int id) { return
-	 * productService.getAllProductsInRegion(id); }
-	 */
+	
 
 	/* Returns all products in the database */
 	@CrossOrigin(origins = "http://localhost:3000")

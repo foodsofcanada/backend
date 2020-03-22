@@ -83,7 +83,7 @@ public class MemberService {
 			//  
 			nMember.setPassword(member.getPassword());
 			nMember.setEmail(member.getEmail());
-			nMember.setRole(1); // set role to 1 by default
+			nMember.setRole(0); // set role to 0 by default
 			
 			memberRepository.save(nMember);
 		}
@@ -94,10 +94,38 @@ public class MemberService {
 		
 	}
 	
-	/*Methods realted to ProductSuggestions*/
+	/*
+	 * Update member- Edit profile: change first name, last name, password, email.
+	 * Returns the member that was updated*/
+	
+	public Member EditMember(String email, Member newmember) {
+		//newmember is the member from the form
+		//find member by email and update with data from the form
+		Optional<Member> m = memberRepository.findByEmail(email);
+		System.out.println(newmember.toString());
+		Member memberUpdated= m.get();
+		memberUpdated.setEmail(newmember.getEmail());
+		memberUpdated.setFirstname(newmember.getFirstname());
+		memberUpdated.setLastname(newmember.getLastname());
+		memberUpdated.setPassword(newmember.getPassword());
+		
+		return memberRepository.save(memberUpdated);
+	}
+	
+	
+	
+	/* Delete a member in the database*/
+	public void deleteMember(String email) {
+		memberRepository.deleteByEmail(email);
+	}
+	
+	
+	/*Methods related to ProductSuggestions*/
 	
 	public void saveProductSuggested(String name, String description) {
-		ProductSuggestion ps = new ProductSuggestion(name,description);
+		ProductSuggestion ps = new ProductSuggestion();
+		ps.setDescription(description);
+		ps.setName(name);
 		productSuggestionRepository.save(ps);
 		
 	}

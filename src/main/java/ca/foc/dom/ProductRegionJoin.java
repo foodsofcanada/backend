@@ -1,29 +1,19 @@
 package ca.foc.dom;
 
-/*
- *Class to return object response for searching
- */
-
-
-public class ProductDetail {
-
+public class ProductRegionJoin {
+	
+	private String coordinates;
+	private int reg_id;
 	private int prod_id;
 	private String name;
-	private String season;
-	private int reg_id;
-	private String regionName;
-	private String coordinates;
 	
-	
-
-	public ProductDetail() {
+	public ProductRegionJoin() {
 
 	}
 
-	public ProductDetail(String coordinates, int reg_id, String regionName, int prod_id, String name) {
+	public ProductRegionJoin(String coordinates, int reg_id, int prod_id, String name) {
 		this.coordinates = coordinates;
 		this.reg_id = reg_id;
-		this.regionName= regionName;
 		this.prod_id = prod_id;
 		this.name = name;
 
@@ -45,13 +35,6 @@ public class ProductDetail {
 		this.reg_id = reg_id;
 	}
 
-	public String getRegionName() {
-		return regionName;
-	}
-
-	public void setRegionName(String regionName) {
-		this.regionName = regionName;
-	}
 
 	public int getProd_id() {
 		return prod_id;
@@ -71,13 +54,9 @@ public class ProductDetail {
 
 	@Override
 	public String toString() {
-		return "ProductDetail [prod_id=" + prod_id + ", name=" + name + ", season=" + season + ", reg_id=" + reg_id
-				+ ", regionName=" + regionName + ", coordinates=" + coordinates + "]";
+		return "ProductDetail [prod_id=" + prod_id + ", name=" + name + ", reg_id=" + reg_id
+				 + ", coordinates=" + coordinates + "]";
 	}
 
-
-
-	
-	
 
 }
