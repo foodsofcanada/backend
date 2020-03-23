@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import ca.foc.dao.MemberRepository;
@@ -51,8 +52,9 @@ public class MemberService {
 		Optional<Member> member= memberRepository.findByEmail(email);  // find a member within the database by the email. Email is unique 
 		if (member.isPresent()) {
 			
-			memberDb= member.get();	
-			if (!memberDb.getEmail().equals(email)||!memberDb.getPassword().equals(password)) {
+			memberDb= member.get();
+			//Check if the fetched member matches the input username and the hash of the password matches
+			if (!memberDb.getEmail().equals(email)||!BCrypt.checkpw(password, memberDb.getPassword())) {
 				memberDb=null;	
 			}
 		}
@@ -79,9 +81,8 @@ public class MemberService {
 			Member nMember= new Member();  // new member
 			nMember.setFirstname(member.getFirstname());
 			nMember.setLastname(member.getLastname());
-			//here encode password and store in database
-			//  
-			nMember.setPassword(member.getPassword());
+			//Set the member password to a BCrypt hash of the input password with a complexity of 4 iterations
+			nMember.setPassword(BCrypt.hashpw(member.getPassword(), BCrypt.gensalt(4)));
 			nMember.setEmail(member.getEmail());
 			nMember.setRole(0); // set role to 0 by default
 			
