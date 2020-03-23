@@ -1,6 +1,8 @@
 package ca.foc.controller;
 
 import ca.foc.domain.Member;
+import ca.foc.secure.JwtRequest;
+import ca.foc.secure.JwtRequestFilter;
 import ca.foc.secure.JwtResponse;
 import ca.foc.secure.JwtTokenUtil;
 import ca.foc.services.JwtUserDetailsService;
@@ -28,10 +30,11 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
-    @PostMapping( path = "/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody Member member) {
-        authenticate(member.getEmail(),member.getPassword());
-        final UserDetails userDeets = userDetailsService.loadUserByUsername(member.getEmail());
+    @RequestMapping( value = "/authenticate", method = RequestMethod.POST)
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest request) {
+        System.out.println("Request Received");
+        authenticate(request.getUsername(),request.getPassword());
+        final UserDetails userDeets = userDetailsService.loadUserByUsername(request.getUsername());
         final String token = tokenUtil.generateToken(userDeets);
         return ResponseEntity.ok(new JwtResponse(token));
     }

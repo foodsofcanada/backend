@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,9 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private MemberRepository repository;
 
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
+
     /**
     Checks if a given username exists in the database
      */
@@ -34,4 +38,9 @@ public class JwtUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
     }
+
+//    public MemberRepository save(Member member) {
+//        member.setPassword(bcryptEncoder.encode(member.getPassword()));
+//        return repository.save(member);
+//    }
 }

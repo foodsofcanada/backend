@@ -7,14 +7,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
+//import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-import static ca.foc.secure.Constants.SECRET;
+//import static ca.foc.secure.Constants.SECRET;
 import static ca.foc.secure.Constants.EXPIRATION_TIME;
 /**
  * JwtTokenUtil - ca.foc.secure.JwtTokenUtil

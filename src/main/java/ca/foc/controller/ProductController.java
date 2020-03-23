@@ -36,6 +36,7 @@ public class ProductController {
 	@GetMapping("/products")
 	// public List<Product> getproductData()
 	public List<Product> getAllProducts() {
+		System.out.println("Get products received");
 		List<Product> products = new ArrayList<>();
 		productRepository.findAll().forEach(products::add);
 		return products;
