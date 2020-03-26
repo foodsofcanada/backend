@@ -4,7 +4,7 @@ import javax.persistence.*;
 import org.springframework.data.geo.Polygon;
 
 @Entity
-@Table(name="FOC_REGION")
+@Table(name="foc_region")
 public class Region {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

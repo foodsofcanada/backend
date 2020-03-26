@@ -12,7 +12,8 @@ public class ProductRegion implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	private long prod_id;
+	@Column(name= "prod_id")
+	private int prodId;
 	@Id
 	private int reg_id;
 	
@@ -22,7 +23,7 @@ public class ProductRegion implements Serializable {
 	
 	
 	public long getProd_id() {
-		return prod_id;
+		return prodId;
 	}
 
 	public String getCoordinate() {
@@ -33,8 +34,8 @@ public class ProductRegion implements Serializable {
 		this.coordinate = coordinate;
 	}
 
-	public void setProd_id(long prod_id) {
-		this.prod_id = prod_id;
+	public void setProd_id(int prod_id) {
+		this.prodId = prod_id;
 	}
 
 	public int getReg_id() {
@@ -47,7 +48,7 @@ public class ProductRegion implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProductRegion [prod_id=" + prod_id + ", reg_id=" + reg_id + ", coordinate]";
+		return "ProductRegion [prod_id=" + prodId + ", reg_id=" + reg_id + ", coordinate]";
 	}
 	
 	

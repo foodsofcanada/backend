@@ -1,12 +1,6 @@
 package ca.foc.dom;
 
-/*
- *Class to return object response for searching
- */
-
-
-public class ProductDetail {
-
+public class TopTenObject {
 	private int prod_id;
 	private String name;
 	private int reg_id;
@@ -15,11 +9,11 @@ public class ProductDetail {
 	
 	
 
-	public ProductDetail() {
-
+	public TopTenObject() {
+		
 	}
 
-	public ProductDetail(String coordinates, int reg_id, String regionName, int prod_id, String name) {
+	public TopTenObject(String coordinates, int reg_id, String regionName, int prod_id, String name) {
 		this.coordinates = coordinates;
 		this.reg_id = reg_id;
 		this.regionName= regionName;
@@ -70,13 +64,8 @@ public class ProductDetail {
 
 	@Override
 	public String toString() {
-		return "ProductDetail [prod_id=" + prod_id + ", name=" + name + ", reg_id=" + reg_id
+		return "ProductDetail [prod_id=" + prod_id + ", name=" + name +  ", reg_id=" + reg_id
 				+ ", regionName=" + regionName + ", coordinates=" + coordinates + "]";
 	}
-
-
-
-	
-	
 
 }

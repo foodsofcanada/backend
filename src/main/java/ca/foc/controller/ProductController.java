@@ -31,6 +31,8 @@ public class ProductController {
 
 	@Autowired
 	ca.foc.services.SearchingService searchingService;
+	@Autowired
+	ca.foc.services.TopTenSearchedService topTenSearchedService;
 
 	
 	// Add New Product. Admin operation
@@ -80,6 +82,17 @@ public class ProductController {
 	public Optional<Product> getProductInfo(@PathVariable int id) {
 
 		return productService.getProductInfo(id);
+
+	}
+	
+	/* Returns all products in the top ten table */
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/products/top")
+	// public List<Product> getproductData()
+	public List<TopTenSearched> getTopTenSearched() {
+		List<TopTenSearched> products = new ArrayList<>();
+		topTenSearchedService.getTopTenSearched().forEach(products::add);
+		return products;
 
 	}
 

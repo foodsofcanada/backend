@@ -28,8 +28,6 @@ public class Member implements Serializable {
 	private Date dateJoined;
 	private int role;
 
-	//@Transient
-	//private String confirmPassword;
 
 	public Member() {
 	}

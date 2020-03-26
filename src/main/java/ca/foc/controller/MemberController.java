@@ -36,7 +36,7 @@ import ca.foc.services.MemberService;
  *		   Claudia. March/21/2020
  *         Missing:
  *
- *         ---Hash password 
+ *       
  *         ---add products To Favorites
  *         ---delete from favourites 
  *         ---getProducts in Favourites 
