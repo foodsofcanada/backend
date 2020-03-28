@@ -38,9 +38,9 @@ public class TopTenSearchedService implements  ITopTenSearched{
 				                    +" ORDER BY searchCounter DESC ");
 		
 		resultSearch = query.getResultList();
-		TopTenObject topten = new TopTenObject();
 
 		for (int i= 0; i<resultSearch.size(); i++) {
+			TopTenObject topten = new TopTenObject();
 			TopTenSearchedIdentity topId= resultSearch.get(i).getTopTenSearchedIdentity();
 			topten.setName(resultSearch.get(i).getProductName());
 			topten.setRegionName(resultSearch.get(i).getRegionName());
