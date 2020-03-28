@@ -71,8 +71,8 @@ public class ProductService implements IProductService {
 			Object[] line = (Object[]) it.next();
 			ProductRegionJoin prj = new ProductRegionJoin();
 			prj.setCoordinates((String) line[0]);
-			prj.setReg_id((int) line[1]);
-			prj.setProd_id((int) line[2]);
+			prj.setRegionId((int) line[1]);
+			prj.setProductId((int) line[2]);
 			prj.setName((String) line[3]);
 			list.add(prj);
 		}

@@ -3,21 +3,22 @@ package ca.foc.dom;
 public class ProductRegionJoin {
 	
 	private String coordinates;
-	private int reg_id;
-	private int prod_id;
+	private int regionId;
+	private int productId;
 	private String name;
 	
 	public ProductRegionJoin() {
 
 	}
 
-	public ProductRegionJoin(String coordinates, int reg_id, int prod_id, String name) {
+	
+	public ProductRegionJoin(String coordinates, int regionId, int productId, String name) {
 		this.coordinates = coordinates;
-		this.reg_id = reg_id;
-		this.prod_id = prod_id;
+		this.regionId = regionId;
+		this.productId = productId;
 		this.name = name;
-
 	}
+
 
 	public String getCoordinates() {
 		return coordinates;
@@ -27,21 +28,20 @@ public class ProductRegionJoin {
 		this.coordinates = coordinates;
 	}
 
-	public int getReg_id() {
-		return reg_id;
+	public int getRegionId() {
+		return regionId;
 	}
 
-	public void setReg_id(int reg_id) {
-		this.reg_id = reg_id;
+	public void setRegionId(int regionId) {
+		this.regionId = regionId;
 	}
 
-
-	public int getProd_id() {
-		return prod_id;
+	public int getProductId() {
+		return productId;
 	}
 
-	public void setProd_id(int reg_id) {
-		this.prod_id = reg_id;
+	public void setProductId(int prodId) {
+		this.productId = prodId;
 	}
 
 	public String getName() {
@@ -52,11 +52,6 @@ public class ProductRegionJoin {
 		this.name = name;
 	}
 
-	@Override
-	public String toString() {
-		return "ProductDetail [prod_id=" + prod_id + ", name=" + name + ", reg_id=" + reg_id
-				 + ", coordinates=" + coordinates + "]";
-	}
-
+	
 
 }
