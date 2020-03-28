@@ -7,9 +7,9 @@ package ca.foc.dom;
 
 public class ProductDetail {
 
-	private int prod_id;
+	private int productId;
 	private String name;
-	private int reg_id;
+	private int regionId;
 	private String regionName;
 	private String coordinates;
 	
@@ -19,11 +19,11 @@ public class ProductDetail {
 
 	}
 
-	public ProductDetail(String coordinates, int reg_id, String regionName, int prod_id, String name) {
+	public ProductDetail(String coordinates, int regionId, String regionName, int productId, String name) {
 		this.coordinates = coordinates;
-		this.reg_id = reg_id;
+		this.regionId = regionId;
 		this.regionName= regionName;
-		this.prod_id = prod_id;
+		this.productId = productId;
 		this.name = name;
 
 	}
@@ -36,12 +36,12 @@ public class ProductDetail {
 		this.coordinates = coordinates;
 	}
 
-	public int getReg_id() {
-		return reg_id;
+	public int getRegionId() {
+		return regionId;
 	}
 
-	public void setReg_id(int reg_id) {
-		this.reg_id = reg_id;
+	public void setRegionId(int regionId) {
+		this.regionId = regionId;
 	}
 
 	public String getRegionName() {
@@ -52,12 +52,12 @@ public class ProductDetail {
 		this.regionName = regionName;
 	}
 
-	public int getProd_id() {
-		return prod_id;
+	public int getProductId() {
+		return productId;
 	}
 
-	public void setProd_id(int reg_id) {
-		this.prod_id = reg_id;
+	public void setProductId(int regionId) {
+		this.productId = regionId;
 	}
 
 	public String getName() {
@@ -70,7 +70,7 @@ public class ProductDetail {
 
 	@Override
 	public String toString() {
-		return "ProductDetail [prod_id=" + prod_id + ", name=" + name + ", reg_id=" + reg_id
+		return "ProductDetail [productId=" + productId + ", name=" + name + ", regionId=" + regionId
 				+ ", regionName=" + regionName + ", coordinates=" + coordinates + "]";
 	}
 

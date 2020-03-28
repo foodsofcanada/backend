@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ca.foc.domain.*;
 import ca.foc.dom.ProductDetail;
 import ca.foc.dom.SearchObject;
+import ca.foc.dom.TopTenObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,8 +90,8 @@ public class ProductController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/products/top")
 	// public List<Product> getproductData()
-	public List<TopTenSearched> getTopTenSearched() {
-		List<TopTenSearched> products = new ArrayList<>();
+	public List<TopTenObject> getTopTenSearched() {
+		List<TopTenObject> products = new ArrayList<>();
 		topTenSearchedService.getTopTenSearched().forEach(products::add);
 		return products;
 

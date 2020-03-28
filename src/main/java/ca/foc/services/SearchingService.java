@@ -21,6 +21,7 @@ import ca.foc.dom.SearchObject;
 import ca.foc.domain.Product;
 import ca.foc.domain.ProductRegion;
 import ca.foc.domain.TopTenSearched;
+import ca.foc.domain.TopTenSearchedIdentity;
 
 /**
  * Service class. Implement Searching by filters
@@ -30,7 +31,7 @@ import ca.foc.domain.TopTenSearched;
  *         Claudia R. Receive a SearchObject object with 3 arrayList one for
  *         each filter. Then filters are passed to a String and inserted in each
  *         query. Returns a list with ProductDetail objects that fit the search
- *         The data returned is Coordinates, reg_id, regionName,prod_id name
+ *         The data returned is Coordinates, regionId, regionName,productId name
  * 
  *         Date:March-15-2020
  *         Modified: product list is empty, added.
@@ -82,35 +83,7 @@ public class SearchingService {
 		if (products.length() > 0)
 			products = products.substring(0, products.length() - 2);
 		
-		/*Updated Counter. Counts every time a product is selected in the search sidebar */
 		
-		for (int i=0; i<productList.size();i++) {
-		int uniqueid= productList.get(i);
-		    TopTenSearched top = new TopTenSearched();
-		 System.out.println(top.toString());
-		 System.out.println (topTenSearchedRepository.existsById(uniqueid));
-		 if (topTenSearchedRepository.existsById(uniqueid)) {
-		    	Optional<TopTenSearched> t = (topTenSearchedRepository.findById(uniqueid));
-		    	top=t.get();
-		    	
-		    	int counter=top.getSearch_counter()+1;
-		    	top.setSearch_counter(counter);
-		    	topTenSearchedRepository.save(top);
-		    }
-		    else {
-		    	System.out.println("Prodid: "+ uniqueid);
-		    
-		    	Optional<Product>  pr= productRepository.findById(uniqueid);
-		    	//System.out.println(productRegionRepository.existsByProdId(uniqueid));
-		    	//System.out.println(pr.toString());
-		    	Product r= pr.get();
-		    	System.out.println(r.toString());
-		    	top.setSearch_counter(1);
-		    //op.setCoordinate(r.getCoordinate());
-		    	top.setProduct_id( r.getProd_id());
-		    	topTenSearchedRepository.save(top);
-		    }
-		}
        }
 		// Build a string with regions id filters
 		if (!regionList.isEmpty()) {
@@ -127,42 +100,43 @@ public class SearchingService {
 			if (!seasonList.isEmpty()) {
 				// Check if regions is not empty. Then search by product id, region id and season
 				if (!regionList.isEmpty()) {
-					Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
-									+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prodId "
-									+ "INNER JOIN Region r ON pr.reg_id = r.reg_id "
-									+ "WHERE pr.prodId IN(" + products + ") " 
-									+ "AND pr.reg_id IN (" + regions + ") " 
+					Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+									+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
+									+ "INNER JOIN Region r ON pr.regionId = r.regionId "
+									+ "WHERE pr.productId IN(" + products + ") " 
+									+ "AND pr.regionId IN (" + regions + ") " 
 									+ "AND p.season IN (" + seasons + ")");
 
 					resultSearch = query.getResultList();
 
 				} else 
 				    { // regions is empty only search by product id and season
-					Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
-									+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prodId "
-									+ "INNER JOIN Region r ON pr.reg_id = r.reg_id "
-									+ "WHERE pr.prodId IN(" + products + ") " + "AND p.season IN (" + seasons + ")");
+					Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+									+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
+									+ "INNER JOIN Region r ON pr.regionId = r.regionId "
+									+ "WHERE pr.productId IN(" + products + ") " 
+									+ "AND p.season IN (" + seasons + ")");
 					resultSearch = query.getResultList();
 
 				    }
 				// if seasonList is empty the check if region is not empty
 			} else if (!regionList.isEmpty()) {
 				// then search by product_id and region id
-				Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
-						+ "INNER JOIN ProductRegion pr on p.prod_id =pr.prodId "
-						+ "INNER JOIN Region r ON pr.reg_id = r.reg_id " 
-						+ "WHERE pr.prod_id IN (" + products + ") "
-						+ "AND pr.prodId IN (" + regions + ")");
+				Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+						+ "INNER JOIN ProductRegion pr on p.productId =pr.productId "
+						+ "INNER JOIN Region r ON pr.regionId = r.regionId " 
+						+ "WHERE pr.productId IN (" + products + ") "
+						+ "AND pr.regionId IN (" + regions + ")");
 
 				resultSearch = query.getResultList();
-			
+				
 			} else if (regionList.isEmpty() && seasonList.isEmpty())
 			// season is empty and region is empty then search by product id
 			{
-				Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
-						+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prodId "
-						+ "INNER JOIN Region r ON pr.reg_id = r.reg_id " 
-						+ "WHERE pr.prodId IN(" + products + ") ");
+				Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+						+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
+						+ "INNER JOIN Region r ON pr.regionId = r.regionId " 
+						+ "WHERE pr.productId IN(" + products + ") ");
 				resultSearch = query.getResultList();
 
 			}
@@ -173,10 +147,10 @@ public class SearchingService {
 				// Check if regions is not empty. Then search by region id and  season
 				if (!regionList.isEmpty()) {
 
-					Query query = em .createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
-									+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prodId "
-									+ "INNER JOIN Region r ON pr.reg_id = r.reg_id "
-									+ "WHERE pr.reg_id IN (" + regions + ") " 
+					Query query = em .createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+									+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
+									+ "INNER JOIN Region r ON pr.regionId = r.regionId "
+									+ "WHERE pr.regionId IN (" + regions + ") " 
 									+ "AND p.season IN (" + seasons + ")");
 
 					resultSearch = query.getResultList();
@@ -184,9 +158,9 @@ public class SearchingService {
 				} else { // regions is empty only search by  season
 
 					Query query = em
-							.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
-									+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prodId "
-									+ "INNER JOIN Region r ON pr.reg_id = r.reg_id " 
+							.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+									+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
+									+ "INNER JOIN Region r ON pr.regionId = r.regionId " 
 									+ "WHERE p.season IN (" + seasons + ")");
 					resultSearch = query.getResultList();
 
@@ -194,10 +168,10 @@ public class SearchingService {
 				// if seasonList is empty the check if region is not empty
 			} else if (!regionList.isEmpty()) {
 				// then search by  region id
-				Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
-						+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prodId "
-						+ "INNER JOIN Region r ON pr.reg_id = r.reg_id "
-						+ "WHERE pr.reg_id IN (" + regions + ")");
+				Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+						+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
+						+ "INNER JOIN Region r ON pr.regionId = r.regionId "
+						+ "WHERE pr.regionId IN (" + regions + ")");
 
 				resultSearch = query.getResultList();
 
@@ -205,9 +179,9 @@ public class SearchingService {
 			} else //if (regionList.isEmpty() && seasonList.isEmpty())
 			// season is empty and region is empty then search by product id
 			{
-				Query query = em.createQuery("SELECT pr.coordinate, r.reg_id, r.name, p.prod_id, p.name from Product p "
-						+ "INNER JOIN ProductRegion pr on p.prod_id = pr.prod_id "
-						+ "INNER JOIN Region r ON pr.reg_id = r.reg_id " );
+				Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+						+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
+						+ "INNER JOIN Region r ON pr.regionId = r.regionId " );
 				resultSearch = query.getResultList();
 
 			}
@@ -218,33 +192,41 @@ public class SearchingService {
 			Object[] line = (Object[]) it.next();
 			ProductDetail pd = new ProductDetail();
 			pd.setCoordinates((String) line[0]);
-			pd.setReg_id((int) line[1]);
+			pd.setRegionId((int) line[1]);
 			pd.setRegionName((String) line[2]);
-			pd.setProd_id((int) line[3]);
+			pd.setProductId((int) line[3]);
 			pd.setName((String) line[4]);
 			list.add(pd);
 			
 		/*to fill top ten searched table */	
-//		 int uniqueid= pd.getProd_id();
-//		    TopTenSearched top = new TopTenSearched();
-//		 
-//		    if (topTenSearchedRepository.existsById(uniqueid)) {
-//		    	Optional<TopTenSearched> t = (topTenSearchedRepository.findById(uniqueid));
-//		    	top=t.get();
-//		    	
-//		    	int counter=top.getSearch_counter()+1;
-//		    	top.setSearch_counter(counter);
-//		    	topTenSearchedRepository.save(top);
-//		    }
-//		    else {
-//		    	top.setSearch_counter(1);
-//		    	top.setCoordinate(pd.getCoordinates());
-//		    	top.setProduct_id(pd.getProd_id());
-//		    	topTenSearchedRepository.save(top);
-//		    }
+		 int uniqueid= pd.getProductId();
+		 int regionid= pd.getRegionId();
+		    TopTenSearched top = new TopTenSearched();
+		   
+		  if (topTenSearchedRepository.existsById(new TopTenSearchedIdentity(uniqueid,regionid))) {
+		    	
+		    	Optional<TopTenSearched> t = (topTenSearchedRepository.findById(new TopTenSearchedIdentity(uniqueid,regionid)));
+		    	top=t.get();
+		    	
+		    	int counter=top.getSearchCounter()+1;
+		    	top.setSearchCounter(counter);
+		    	topTenSearchedRepository.save(top);
+		  }
+		  else {
+			  TopTenSearchedIdentity topId= new TopTenSearchedIdentity(pd.getProductId(),pd.getRegionId());
+			  top.setSearchCounter(1);
+		      top.setCoordinate(pd.getCoordinates());	    	
+		      top.setTopTenSearchedIdentity(topId);
+		      top.setProductName(pd.getName());
+		      top.setRegionName(pd.getRegionName());
+		    	
+		      topTenSearchedRepository.save(top);
+		    }
+		  
+
 		}
 		em.close();
-
+		
 		return list;
 	}
 

@@ -58,9 +58,9 @@ public class ProductService implements IProductService {
 		List<ProductRegionJoin> resultSearch = null;
 		List<ProductRegionJoin> list = new ArrayList<ProductRegionJoin>();
 		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("SELECT pr.coordinate, pr.reg_id, p.prod_id, p.name from Product p "
-				+ "INNER JOIN ProductRegion pr ON p.prod_id=pr.prod_id "
-				+ "WHERE pr.reg_id =" + id);
+		Query query = em.createQuery("SELECT pr.coordinate, pr.regionId, p.productId, p.name from Product p "
+				+ "INNER JOIN ProductRegion pr ON p.productId=pr.productId "
+				+ "WHERE pr.regionId =" + id);
 		
 		resultSearch = query.getResultList();
 		//List<ProductDetail> list = (List<ProductDetail>) query.getResultList();

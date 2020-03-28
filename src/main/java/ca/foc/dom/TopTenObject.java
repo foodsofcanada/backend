@@ -1,9 +1,9 @@
 package ca.foc.dom;
 
 public class TopTenObject {
-	private int prod_id;
+	private int productId;
 	private String name;
-	private int reg_id;
+	private int regionId;
 	private String regionName;
 	private String coordinates;
 	
@@ -13,58 +13,70 @@ public class TopTenObject {
 		
 	}
 
-	public TopTenObject(String coordinates, int reg_id, String regionName, int prod_id, String name) {
-		this.coordinates = coordinates;
-		this.reg_id = reg_id;
-		this.regionName= regionName;
-		this.prod_id = prod_id;
+	
+	public TopTenObject(int productId, String name, int regionId, String regionName, String coordinates) {
+		
+		this.productId = productId;
 		this.name = name;
-
-	}
-
-	public String getCoordinates() {
-		return coordinates;
-	}
-
-	public void setCoordinates(String coordinates) {
+		this.regionId = regionId;
+		this.regionName = regionName;
 		this.coordinates = coordinates;
 	}
 
-	public int getReg_id() {
-		return reg_id;
+
+	public int getProductId() {
+		return productId;
 	}
 
-	public void setReg_id(int reg_id) {
-		this.reg_id = reg_id;
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
-	public String getRegionName() {
-		return regionName;
-	}
-
-	public void setRegionName(String regionName) {
-		this.regionName = regionName;
-	}
-
-	public int getProd_id() {
-		return prod_id;
-	}
-
-	public void setProd_id(int reg_id) {
-		this.prod_id = reg_id;
-	}
 
 	public String getName() {
 		return name;
 	}
 
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
+
+	public int getRegionId() {
+		return regionId;
+	}
+
+
+	public void setRegionId(int regionId) {
+		this.regionId = regionId;
+	}
+
+
+	public String getRegionName() {
+		return regionName;
+	}
+
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
+	}
+
+
+	public String getCoordinates() {
+		return coordinates;
+	}
+
+
+	public void setCoordinates(String coordinates) {
+		this.coordinates = coordinates;
+	}
+
+
 	@Override
 	public String toString() {
-		return "ProductDetail [prod_id=" + prod_id + ", name=" + name +  ", reg_id=" + reg_id
+		return "Top Ten products: [prod_id=" + productId + ", name=" + name +  ", reg_id=" + regionId
 				+ ", regionName=" + regionName + ", coordinates=" + coordinates + "]";
 	}
 

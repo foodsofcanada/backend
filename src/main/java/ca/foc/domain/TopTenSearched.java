@@ -1,8 +1,12 @@
 package ca.foc.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 /**
@@ -13,50 +17,95 @@ import javax.persistence.Table;
 
 
 @Entity
+//@IdClass(TopTenSearchedIdentity.class)
 @Table(name="foc_top_ten_searched")
 public class TopTenSearched {
 	
-	@Id
-	@Column(name="prod_id")
-	private int  product_id;    
+	@EmbeddedId
+	private TopTenSearchedIdentity topTenSearchedIdentity;
+//	@Id
+//	@Column(name="prod_id")
+//	private int  productId;   
+//	@Id
+//	@Column(name="reg_id")
+//	private int regionId;
+	@Column(name="prod_name")
+	private String productName;
+	@Column(name="reg_name")
+	private String regionName;
 	@Column(name="search_counter")
-    private int search_counter;     
+    private int searchCounter; 
     private String coordinate;   
    
     public TopTenSearched() {
     	
     }
+    
+
+	public TopTenSearched(TopTenSearchedIdentity topTenSearchedIdentity, String productName, String regionName, int searchCounter, String coordinate) {
+		this.topTenSearchedIdentity = topTenSearchedIdentity;
+		this.productName = productName;
+		this.regionName = regionName;
+		this.searchCounter = searchCounter;
+		this.coordinate = coordinate;
+	}
+
+
+    
+	public TopTenSearchedIdentity getTopTenSearchedIdentity() {
+		
+		return topTenSearchedIdentity;
+	}
+
+
+	public void setTopTenSearchedIdentity(TopTenSearchedIdentity topTenSearchedIdentity) {
+		this.topTenSearchedIdentity = topTenSearchedIdentity;
+	}
+
 	
-    public TopTenSearched(int product_id, int search_counter) {
-		this.product_id = product_id;
-		this.search_counter = search_counter;
-		//this.coordinate = coordinate;
+	public String getProductName() {
+		return productName;
 	}
-	public int getProduct_id() {
-		return product_id;
+
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
-	public void setProduct_id(int i) {
-		this.product_id = i;
+
+
+	public String getRegionName() {
+		return regionName;
 	}
-	public int getSearch_counter() {
-		return search_counter;
+
+
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
 	}
-	public void setSearch_counter(int search_counter) {
-		this.search_counter = search_counter;
+
+
+	public int getSearchCounter() {
+		return searchCounter;
 	}
+
+	public void setSearchCounter(int searchCounter) {
+		this.searchCounter = searchCounter;
+	}
+
+
 	public String getCoordinate() {
 		return coordinate;
 	}
+
 	public void setCoordinate(String coordinate) {
 		this.coordinate = coordinate;
 	}
 
+
 	@Override
 	public String toString() {
-		return "TopTenSearched [product_id=" + product_id + ", search_counter=" + search_counter + ", coordinate="
-			 + coordinate+ "]";
-	} 
-	
-    
+		return "TopTenSearched [topTenSearchedIdentity=" + topTenSearchedIdentity + ", productName=" + productName
+				+ ", regionName=" + regionName + ", searchCounter=" + searchCounter + ", coordinate=" + coordinate
+				+ "]";
+	}
 
 }

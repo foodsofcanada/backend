@@ -7,11 +7,11 @@ import javax.persistence.*;
 public class Product {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int prod_id;
+	@Column(name="prod_id")
+	private int productId;
 	private String name;
 	private String description;
 	private String season;
-
 	private Integer age;
 	private String img_path;
 	private String shelf_life;
@@ -31,7 +31,6 @@ public class Product {
 	public Product(String name, String description, String season, Integer age, String img_path, String shelf_life,
 			String danger, String growth_phases, String scientific_name, String history, String cooking_use,
 			String preservation, String fun_fact, String origin_country) {
-		super();
 		this.name = name;
 		this.description = description;
 		this.season = season;
@@ -49,20 +48,14 @@ public class Product {
 	}
 
 	// Getters and setters
-	public Integer getSearch_counter() {
-		return search_counter;
+	
+	
+	public int getProductId() {
+		return productId;
 	}
 
-	public void setSearch_counter(Integer search_counter) {
-		this.search_counter = search_counter;
-	}
-
-	public int getProd_id() {
-		return prod_id;
-	}
-
-	public void setProd_id(int prod_id) {
-		this.prod_id = prod_id;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 	public String getName() {
@@ -176,5 +169,22 @@ public class Product {
 	public void setOrigin_country(String origin_country) {
 		this.origin_country = origin_country;
 	}
+	public Integer getSearch_counter() {
+		return search_counter;
+	}
+
+	public void setSearch_counter(Integer search_counter) {
+		this.search_counter = search_counter;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [productId=" + productId + ", name=" + name + ", description=" + description + ", season="
+				+ season + ", age=" + age + ", img_path=" + img_path + ", shelf_life=" + shelf_life + ", danger="
+				+ danger + ", growth_phases=" + growth_phases + ", scientific_name=" + scientific_name + ", history="
+				+ history + ", cooking_use=" + cooking_use + ", preservation=" + preservation + ", fun_fact=" + fun_fact
+				+ ", origin_country=" + origin_country + ", search_counter=" + search_counter + "]";
+	}
+
 
 }

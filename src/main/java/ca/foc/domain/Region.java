@@ -9,7 +9,7 @@ public class Region {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "reg_id")
-	private int reg_id;
+	private int regionId;
 	
 //	@OneToMany(mappedBy="region", cascade = CascadeType.ALL)
 //	private List<ProductRegion> productRegion;
@@ -20,11 +20,11 @@ public class Region {
 	
 	//getters and setters
 	
-	public long getReg_id() {
-		return reg_id;
+	public long getRegionId() {
+		return regionId;
 	}
-	public void setReg_id(int reg_id) {
-		this.reg_id = reg_id;
+	public void setRegionId(int reg_id) {
+		this.regionId = reg_id;
 	}
 	public String getName() {
 		return name;
@@ -40,7 +40,7 @@ public class Region {
 	}
 	@Override
 	public String toString() {
-		return "Region [reg_id=" + reg_id + ", name=" + name + ", polygon=" + polygon + "]";
+		return "Region [reg_id=" + regionId + ", name=" + name + ", polygon=" + polygon + "]";
 	}
 	
 	
