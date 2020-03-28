@@ -10,12 +10,8 @@ public class Region {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "reg_id")
 	private int regionId;
-	
-//	@OneToMany(mappedBy="region", cascade = CascadeType.ALL)
-//	private List<ProductRegion> productRegion;
-	
-	private String name;
-	
+	@Column(name ="name")
+	private String regionName;	
 	private  Polygon polygon;
 	
 	//getters and setters
@@ -26,11 +22,11 @@ public class Region {
 	public void setRegionId(int reg_id) {
 		this.regionId = reg_id;
 	}
-	public String getName() {
-		return name;
+	public String getRegionName() {
+		return regionName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setRegionName(String name) {
+		this.regionName = name;
 	}
 	public Polygon getPolygon() {
 		return polygon;
@@ -40,7 +36,7 @@ public class Region {
 	}
 	@Override
 	public String toString() {
-		return "Region [reg_id=" + regionId + ", name=" + name + ", polygon=" + polygon + "]";
+		return "Region [reg_id=" + regionId + ", name=" + regionName + ", polygon=" + polygon + "]";
 	}
 	
 	
