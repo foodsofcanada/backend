@@ -33,6 +33,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil tokenUtil;
 
+    public JwtRequestFilter(JwtTokenUtil jwtTokenUtil) {
+        this.tokenUtil = jwtTokenUtil;
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,

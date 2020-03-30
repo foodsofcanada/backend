@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * JwtAuthenticationController - ca.foc.controller.JwtAuthenticationController
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 public class JwtAuthenticationController {
 
     @Autowired
@@ -30,6 +30,7 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtUserDetailsService userDetailsService;
 
+    @CrossOrigin
     @RequestMapping( value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest request) {
         System.out.println("Request Received");
