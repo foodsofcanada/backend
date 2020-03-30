@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import ca.foc.dao.FavProductsRepository;
 import ca.foc.domain.Member;
 import ca.foc.domain.ProductSuggestion;
 import ca.foc.services.MemberService;
@@ -50,6 +52,8 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+	 @Autowired
+	FavProductsRepository favProductsRepository;
 
 	/* Find a member by email */
 	@GetMapping("/members/{email}")

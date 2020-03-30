@@ -135,8 +135,17 @@ public class MemberService {
 		return productSuggestionRepository.findAll();
 	}
 
-
 	
+//	public List<FavouriteProductModel> getProductsInFavourite(String email) {
+//        EntityManager em = emf.createEntityManager();
+//        Query query = em.createQuery("select p.name from " +
+//                "Product p inner join FavouriteProducts fp on " +
+//                "p.prod_id=fp.prod_id where fp.email="+email);
+//        List<FavouriteProductModel> list = (List<FavouriteProductModel>) query.getResultList();
+//        return list;
+//    }
+//
+//	
 	
 }
 
