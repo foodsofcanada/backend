@@ -1,8 +1,10 @@
 package ca.foc.dom;
 
-/*
- *Class to return object response for searching
+/**
+ * Class to return object response for searching
+ * @author Claudia Rivera
  */
+
 
 
 public class ProductDetail {
@@ -14,7 +16,7 @@ public class ProductDetail {
 	private String coordinates;
 	
 	
-
+	//Constructors
 	public ProductDetail() {
 
 	}
@@ -28,6 +30,7 @@ public class ProductDetail {
 
 	}
 
+	//Getters and setters
 	public String getCoordinates() {
 		return coordinates;
 	}

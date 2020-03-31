@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import ca.foc.dao.FavProductsRepository;
+import ca.foc.dom.Favourite;
+import ca.foc.dom.FavouriteResponse;
+import ca.foc.domain.FavouriteProducts;
 import ca.foc.domain.Member;
 import ca.foc.domain.ProductSuggestion;
 import ca.foc.services.MemberService;
@@ -35,16 +38,15 @@ import ca.foc.services.MemberService;
  *         View suggestions
  *         Edit profile
  *         Delete profile 
- *		   Claudia. March/21/2020
- *         Missing:
+ *		   Claudia Rivera. March/21/2020
+ *        
  *
  *       
- *         ---add products To Favorites
- *         ---delete from favourites 
- *         ---getProducts in Favourites 
- *         ---Change member role
- * 
- *         Claudia: March/15/2020
+ *         add products To Favorites
+ *         delete from favourites 
+ *         getProducts in Favourites 
+ *         Change member role
+ *        Mariia Voronina
  * 
  */
 @RestController
@@ -52,8 +54,7 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
-	 @Autowired
-	FavProductsRepository favProductsRepository;
+	
 
 	/* Find a member by email */
 	@GetMapping("/members/{email}")
@@ -116,8 +117,32 @@ public class MemberController {
 		return "Request sent";
 
 	}
-
-	/* View products suggestions. Admin */
+	
+	/*Member add a product to Favourite List*/
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PostMapping("/fav")
+	@ResponseBody
+	public boolean addFavourite(@RequestBody Favourite product) {
+		return memberService.addDeleteProductFavourites(product);
+	}
+   
+	
+	
+//	@PostMapping(path = "/fav/{product}")
+//    public FavouriteProducts addProduct(@RequestBody FavouriteProducts product){
+//        favProductsRepository.save(product);
+//        return product;
+//
+//    }
+//    @DeleteMapping("/deleteFav/{product}")
+//    public void deleteProductsFromFavourites(@PathVariable FavouriteProducts product){
+//        favProductsRepository.delete(product);
+//    }
+    
+    /**********************************************************/
+    /*       Admin Operations related to manage members       */
+    /**********************************************************/
+    /* View products suggestions. Admin */
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/suggestions")
 	// public List<Product> getproductData()
@@ -127,5 +152,11 @@ public class MemberController {
 		return products;
 
 	}
+	
+
+    @PutMapping("/changerole/{email}")
+    public void changeMemberRole(@PathVariable String email){
+        memberService.changeMemberRole(email);
+    }
 
 }

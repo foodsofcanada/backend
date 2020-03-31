@@ -1,5 +1,6 @@
 package ca.foc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -10,13 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import ca.foc.dao.FavProductsRepository;
 import ca.foc.dao.MemberRepository;
 import ca.foc.dao.ProductSuggestionRepository;
+import ca.foc.dom.Favourite;
+import ca.foc.dom.FavouriteResponse;
+import ca.foc.domain.FavouriteProducts;
+import ca.foc.domain.FavouriteProductsIdentity;
 import ca.foc.domain.Member;
 import ca.foc.domain.ProductSuggestion;
 
 /**
- * Service class for Member: 
+ * Service class for Member: Methods related to member
+ * 
  * @author 787428
  *
  */
@@ -29,18 +36,22 @@ public class MemberService {
 	@Autowired
 	ProductSuggestionRepository productSuggestionRepository;
 	@Autowired
+	FavProductsRepository favProductsRepository;
+	@Autowired
 	EntityManagerFactory emf;
 	
+	
+	//Find all members in Member table
 	public Iterable<Member> getAllMembers(){
 		return memberRepository.findAll();
 	}
-
-	//@Override
+	//Save member in member table
 	public void saveMember(Member member) {
 		memberRepository.save(member);
 		
 	}
 	
+	//Find a member by email 
 	public Optional<Member> findByEmail(String email){
 		return memberRepository.findByEmail(email);
 	}
@@ -67,9 +78,9 @@ public class MemberService {
 		return memberDb;
 	}
 	
-	/*Register a new member
+	/* Register a new member
 	 * Return true if member was added
-	 * */
+	 */
 	
 	public boolean NewMember(Member member) {
 		boolean result= false;
@@ -97,13 +108,14 @@ public class MemberService {
 	
 	/*
 	 * Update member- Edit profile: change first name, last name, password, email.
-	 * Returns the member that was updated*/
+	 * Returns the member that was updated
+	 * */
 	
 	public Member EditMember(String email, Member newmember) {
 		//newmember is the member from the form
 		//find member by email and update with data from the form
 		Optional<Member> m = memberRepository.findByEmail(email);
-		System.out.println(newmember.toString());
+		
 		Member memberUpdated= m.get();
 		memberUpdated.setEmail(newmember.getEmail());
 		memberUpdated.setFirstname(newmember.getFirstname());
@@ -112,15 +124,13 @@ public class MemberService {
 		
 		return memberRepository.save(memberUpdated);
 	}
-	
-	
+		
 	
 	/* Delete a member in the database*/
 	public void deleteMember(String email) {
 		memberRepository.deleteByEmail(email);
 	}
-	
-	
+		
 	/*Methods related to ProductSuggestions*/
 	
 	public void saveProductSuggested(String name, String description) {
@@ -136,6 +146,71 @@ public class MemberService {
 	}
 
 	
+	/*Favourites related*/
+	/* add a product to the favourite list.*
+	 * First check if the product is already in the list. Using a composite primary key*/
+	
+	public boolean  addDeleteProductFavourites(Favourite favourite) {
+		boolean isFavourite= false; // false if the product is deleted from favourites or true if it was saved
+		
+		System.out.println("HI si pasa");
+		//FavouriteResponse fr= new FavouriteResponse(); 
+		System.out.println(favourite.toString());
+		FavouriteProductsIdentity key= new FavouriteProductsIdentity();
+		key.setEmail(favourite.getEmail());		
+		key.setProductId(favourite.getProdId());
+		key.setRegionId(favourite.getRegiId());
+		 
+		System.out.println(key.toString());
+		
+//		
+//		 EntityManager em = emf.createEntityManager();
+//         Query query = em.createQuery("Select p.name from " +
+//                                       "Product p INNER JOIN FavouriteProducts fp " 
+//                                       + " ON p.productId = fp.productId "
+//                                       +" WHERE email ='"+key.getEmail()
+//                                       +"' AND regionId ="+ key.getRegionId()
+//                                       +" AND fp.productId ="+ key.getProductId()
+//                                       );
+//		 String productName= (String) query.getSingleResult();
+		//check if the key exists in FavouriteProducts table
+		
+		if(favProductsRepository.existsById(key)) {
+			// remove from table and return and object with an attribute isFavourite set to false
+//			fr.setCoordinate(favourite.getCoordinates());
+//			fr.setIsFavourite(false);
+//			//fr.setName(productName);
+//			fr.setProductId(key.getProductId());
+//			fr.setRegionId(key.getRegionId());			
+			Optional<FavouriteProducts> fp = favProductsRepository.findById(key);
+			FavouriteProducts fpDB= fp.get();
+			fpDB.toString();
+			favProductsRepository.delete(fpDB);  
+			isFavourite= false;
+			
+		}
+		else {
+			// add to table 
+//			
+//			fr.setCoordinate(favourite.getCoordinates());
+//			fr.setIsFavourite(true);
+//			//fr.setName(productName);
+//			fr.setProductId(key.getProductId());
+//			fr.setRegionId(key.getRegionId());
+			FavouriteProducts fp = new FavouriteProducts();
+			fp.setCoordinates(favourite.getCoordinates());
+			fp.setFavouriteProductsIdentity(new FavouriteProductsIdentity(key.getEmail(),key.getProductId(),key.getRegionId()));
+			favProductsRepository.save(fp);
+			isFavourite =true;
+		}
+		
+		return isFavourite;
+			
+		
+	}
+
+/*Mariia*/
+	
 //	public List<FavouriteProductModel> getProductsInFavourite(String email) {
 //        EntityManager em = emf.createEntityManager();
 //        Query query = em.createQuery("select p.name from " +
@@ -146,6 +221,29 @@ public class MemberService {
 //    }
 //
 //	
+	/*Admin manage member*/
+    public void deleteAccount(String email) {
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createQuery("DELETE from Member m where m.email="+email);
+        query.executeUpdate();
+    }
+
+
+    public void changeMemberRole(String email) {
+        EntityManager em = emf.createEntityManager();
+        Query query = em.createQuery("select role from Member where email="+email);
+        List<Integer> role = query.getResultList();
+        int roleToUpdate = 0;
+        if (role.get(0) == 1) {
+            roleToUpdate = 0;
+        }
+        else if (role.get(0)==0) {
+            roleToUpdate = 1;
+        }
+        Query queryUpdate = em.createQuery("UPDATE Member m SET role=?");
+        queryUpdate.setParameter(1,roleToUpdate);
+        queryUpdate.executeUpdate();
+    }
 	
 }
 

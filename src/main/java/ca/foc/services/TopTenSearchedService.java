@@ -3,19 +3,23 @@ package ca.foc.services;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import ca.foc.dao.TopTenSearchedRepository;
 import ca.foc.dom.TopTenObject;
 import ca.foc.domain.TopTenSearched;
 import ca.foc.domain.TopTenSearchedIdentity;
 
+/**
+ *  Class service to get  a list of products in the top ten table
+ *   
+ * @author Claudia Rivera
+ * Date: March-27-2020
+ *
+ */
 
 @Service
 public class TopTenSearchedService implements  ITopTenSearched{
@@ -25,8 +29,12 @@ public class TopTenSearchedService implements  ITopTenSearched{
 	@Autowired
 	EntityManagerFactory emf;
 		
-	
-	/* Returns top ten products in  products in top ten table database */
+	/**
+	 * Returns top ten products in top ten table database
+	 * @return a list of TopTenObjects with the following attributes:
+	 * productId, name, regionId, regionName, coordinate
+	 */
+	/* Returns top ten products in top ten table database */
 	
 	@SuppressWarnings("unchecked")
 	@Override

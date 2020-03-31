@@ -2,10 +2,12 @@ package ca.foc.dom;
 
 import java.util.ArrayList;
 
-/*
- * Class to help with search functionality
- * 
+/**
+ * Class to help with search functionality. This is the object that is received from the front end
+ * @author Claudia Rivera
+ *
  */
+
 
 public class SearchObject {
 
@@ -13,9 +15,6 @@ public class SearchObject {
 	private ArrayList<Integer> regionSearched; // Input with regions id to search
 	private ArrayList<String> seasonSearched; // Input with seasons to search
 
-//	private String productsSearched;
-//	private String seasonSearched;
-//	private String regionSearched;
 
 	public SearchObject() {
 

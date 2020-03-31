@@ -1,4 +1,9 @@
 package ca.foc.dom;
+/**
+ * Class to sent a response to the front end. Top ten Table
+ * @author Claudia Rivera
+ *
+ */
 
 public class TopTenObject {
 	private int productId;

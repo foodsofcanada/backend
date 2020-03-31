@@ -46,12 +46,6 @@ public class Member implements Serializable {
 		return email;
 	}
 
-	/*
-	 * public String getConfirmPassword() { return confirmPassword; }
-	 * 
-	 * public void setConfirmPassword(String confirmPassword) { this.confirmPassword
-	 * = confirmPassword; }
-	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}

@@ -9,8 +9,6 @@ import ca.foc.domain.Member;
 @Repository
 public interface MemberRepository extends CrudRepository<Member, String> {
 
-  
-
 		public  Optional<Member> findByEmail(String email);
 
 		public void deleteByEmail(String email);

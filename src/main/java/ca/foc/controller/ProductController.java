@@ -21,7 +21,7 @@ import java.util.Optional;
  * 
  * No implemented: uploadNewProducts(filePath:string)
  *                 editProduct
- *                 getTopTenSearched
+ *                
  */
 @RestController
 
@@ -36,24 +36,8 @@ public class ProductController {
 	ca.foc.services.TopTenSearchedService topTenSearchedService;
 
 	
-	// Add New Product. Admin operation
-	
-	@CrossOrigin(origins = "http://localhost:3000")
-	@PostMapping("/products/")
-	public Product addProduct(@RequestBody Product product) {
-		productService.addProduct(product);
-		return product;
-	}
-	
-	//Delete Product. Admin operation
-	@CrossOrigin(origins = "http://localhost:3000")
-	@DeleteMapping("/products/{id}")
-	@Transactional
-	public void deleteProduct(@PathVariable int id) {
-		productService.deleteProduct(id);
-	}
-	
-	//Search with filters
+
+	//Searching using filters
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/search")
 	public List<ProductDetail> search(@RequestBody SearchObject search) {
@@ -61,10 +45,6 @@ public class ProductController {
 		return searchingService.SerchingResult(search);
 
 	}
-	
-	// products in region in region  controller
-	
-	
 
 	/* Returns all products in the database */
 	@CrossOrigin(origins = "http://localhost:3000")
@@ -96,6 +76,26 @@ public class ProductController {
 		return products;
 
 	}
-
+	
+	 /**********************************************************/
+    /*       Admin Operations related to manage products       */
+    /**********************************************************/
+	// Add New Product. Admin operation
+	
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PostMapping("/products/")
+	public Product addProduct(@RequestBody Product product) {
+		productService.addProduct(product);
+		return product;
+	}
+	
+	//Delete Product. Admin operation
+	@CrossOrigin(origins = "http://localhost:3000")
+	@DeleteMapping("/products/{id}")
+	@Transactional
+	public void deleteProduct(@PathVariable int id) {
+		productService.deleteProduct(id);
+	}
+	
 
 }

@@ -17,7 +17,6 @@ import javax.persistence.Table;
 
 
 @Entity
-//@IdClass(TopTenSearchedIdentity.class)
 @Table(name="foc_top_ten_searched")
 public class TopTenSearched {
 	

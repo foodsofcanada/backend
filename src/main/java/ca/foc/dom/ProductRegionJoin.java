@@ -1,5 +1,11 @@
 package ca.foc.dom;
 
+/**
+ * 
+ * @author 787428
+ *
+ */
+
 public class ProductRegionJoin {
 	
 	private String coordinates;

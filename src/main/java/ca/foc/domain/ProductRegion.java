@@ -67,10 +67,5 @@ public class ProductRegion implements Serializable {
 		this.coordinate = coordinate;
 	}
 	
-	//getters and setters
-	
-	
-	
-	
 
 }
