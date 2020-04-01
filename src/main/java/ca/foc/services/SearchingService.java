@@ -100,7 +100,7 @@ public class SearchingService {
 			if (!seasonList.isEmpty()) {
 				// Check if regions is not empty. Then search by product id, region id and season
 				if (!regionList.isEmpty()) {
-					Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+					Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.regionName, p.productId, p.name from Product p "
 									+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
 									+ "INNER JOIN Region r ON pr.regionId = r.regionId "
 									+ "WHERE pr.productId IN(" + products + ") " 
@@ -111,7 +111,7 @@ public class SearchingService {
 
 				} else 
 				    { // regions is empty only search by product id and season
-					Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+					Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.regionName, p.productId, p.name from Product p "
 									+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
 									+ "INNER JOIN Region r ON pr.regionId = r.regionId "
 									+ "WHERE pr.productId IN(" + products + ") " 
@@ -122,7 +122,7 @@ public class SearchingService {
 				// if seasonList is empty the check if region is not empty
 			} else if (!regionList.isEmpty()) {
 				// then search by product_id and region id
-				Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+				Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.regionName, p.productId, p.name from Product p "
 						+ "INNER JOIN ProductRegion pr on p.productId =pr.productId "
 						+ "INNER JOIN Region r ON pr.regionId = r.regionId " 
 						+ "WHERE pr.productId IN (" + products + ") "
@@ -133,7 +133,7 @@ public class SearchingService {
 			} else if (regionList.isEmpty() && seasonList.isEmpty())
 			// season is empty and region is empty then search by product id
 			{
-				Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+				Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.regionName, p.productId, p.name from Product p "
 						+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
 						+ "INNER JOIN Region r ON pr.regionId = r.regionId " 
 						+ "WHERE pr.productId IN(" + products + ") ");
@@ -147,7 +147,7 @@ public class SearchingService {
 				// Check if regions is not empty. Then search by region id and  season
 				if (!regionList.isEmpty()) {
 
-					Query query = em .createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+					Query query = em .createQuery("SELECT pr.coordinate, r.regionId, r.regionName, p.productId, p.name from Product p "
 									+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
 									+ "INNER JOIN Region r ON pr.regionId = r.regionId "
 									+ "WHERE pr.regionId IN (" + regions + ") " 
@@ -158,7 +158,7 @@ public class SearchingService {
 				} else { // regions is empty only search by  season
 
 					Query query = em
-							.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+							.createQuery("SELECT pr.coordinate, r.regionId, r.regionName, p.productId, p.name from Product p "
 									+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
 									+ "INNER JOIN Region r ON pr.regionId = r.regionId " 
 									+ "WHERE p.season IN (" + seasons + ")");
@@ -168,7 +168,7 @@ public class SearchingService {
 				// if seasonList is empty the check if region is not empty
 			} else if (!regionList.isEmpty()) {
 				// then search by  region id
-				Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+				Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.regionName, p.productId, p.name from Product p "
 						+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
 						+ "INNER JOIN Region r ON pr.regionId = r.regionId "
 						+ "WHERE pr.regionId IN (" + regions + ")");
@@ -179,7 +179,7 @@ public class SearchingService {
 			} else //if (regionList.isEmpty() && seasonList.isEmpty())
 			// season is empty and region is empty then search by product id
 			{
-				Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.name, p.productId, p.name from Product p "
+				Query query = em.createQuery("SELECT pr.coordinate, r.regionId, r.regionName, p.productId, p.name from Product p "
 						+ "INNER JOIN ProductRegion pr on p.productId = pr.productId "
 						+ "INNER JOIN Region r ON pr.regionId = r.regionId " );
 				resultSearch = query.getResultList();
