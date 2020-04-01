@@ -1,5 +1,6 @@
 package ca.foc.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +17,13 @@ import ca.foc.dao.MemberRepository;
 import ca.foc.dao.ProductSuggestionRepository;
 import ca.foc.dom.Favourite;
 import ca.foc.dom.FavouriteResponse;
+import ca.foc.dom.TopTenObject;
 import ca.foc.domain.FavouriteProducts;
 import ca.foc.domain.FavouriteProductsIdentity;
 import ca.foc.domain.Member;
 import ca.foc.domain.ProductSuggestion;
+import ca.foc.domain.TopTenSearched;
+import ca.foc.domain.TopTenSearchedIdentity;
 
 /**
  * Service class for Member: Methods related to member
@@ -150,33 +154,26 @@ public class MemberService {
 	/* add a product to the favourite list.*
 	 * First check if the product is already in the list. Using a composite primary key*/
 	
-	public boolean  addDeleteProductFavourites(Favourite favourite) {
+	public boolean  addDeleteProductFavourites(String email, String coordinate, int productId, int regionId) {
 		boolean isFavourite= false; // false if the product is deleted from favourites or true if it was saved
 		
-		System.out.println("HI si pasa");
-		//FavouriteResponse fr= new FavouriteResponse(); 
-		System.out.println(favourite.toString());
+//		//System.out.println(favourite.toString());
+//		System.out.println("email: "+ email);
+//		System.out.println("coordinate: "+ coordinate);
+//		System.out.println("prod id: "+ productId);
+//		System.out.println("reg id: "+ regionId);
+
+		//System.out.println(favourite.toString());
 		FavouriteProductsIdentity key= new FavouriteProductsIdentity();
-		key.setEmail(favourite.getEmail());		
-		key.setProductId(favourite.getProdId());
-		key.setRegionId(favourite.getRegiId());
+		key.setEmail(email);		
+		key.setProductId(productId);
+		key.setRegionId(regionId);
 		 
-		System.out.println(key.toString());
+
+		//check if  the key exists in FavouriteProducts table
 		
-//		
-//		 EntityManager em = emf.createEntityManager();
-//         Query query = em.createQuery("Select p.name from " +
-//                                       "Product p INNER JOIN FavouriteProducts fp " 
-//                                       + " ON p.productId = fp.productId "
-//                                       +" WHERE email ='"+key.getEmail()
-//                                       +"' AND regionId ="+ key.getRegionId()
-//                                       +" AND fp.productId ="+ key.getProductId()
-//                                       );
-//		 String productName= (String) query.getSingleResult();
-		//check if the key exists in FavouriteProducts table
-		
-		if(favProductsRepository.existsById(key)) {
-			// remove from table and return and object with an attribute isFavourite set to false
+	   if(favProductsRepository.existsById(key)) {
+			// remove from table and return isFavourite false
 //			fr.setCoordinate(favourite.getCoordinates());
 //			fr.setIsFavourite(false);
 //			//fr.setName(productName);
@@ -190,23 +187,43 @@ public class MemberService {
 			
 		}
 		else {
-			// add to table 
-//			
-//			fr.setCoordinate(favourite.getCoordinates());
-//			fr.setIsFavourite(true);
-//			//fr.setName(productName);
-//			fr.setProductId(key.getProductId());
-//			fr.setRegionId(key.getRegionId());
-			FavouriteProducts fp = new FavouriteProducts();
-			fp.setCoordinates(favourite.getCoordinates());
-			fp.setFavouriteProductsIdentity(new FavouriteProductsIdentity(key.getEmail(),key.getProductId(),key.getRegionId()));
+			// add to table 	
+			//fr.setName(productName);
+			FavouriteProducts fp= new FavouriteProducts(); 
+			fp.setCoordinates(coordinate);
+			fp.setFavouriteProductsIdentity(new FavouriteProductsIdentity(email,productId,regionId));
 			favProductsRepository.save(fp);
 			isFavourite =true;
 		}
 		
-		return isFavourite;
-			
+		return isFavourite;		
 		
+	}
+	
+	/*Get all products in favourite table for a user identified by email*/
+	public List<FavouriteResponse> getProductsInFavourite(String email){
+			List<FavouriteProducts> resultSearch = null;
+			EntityManager em = emf.createEntityManager();
+			List<FavouriteResponse> list= new ArrayList<FavouriteResponse>();
+			Query query = em.createQuery("SELECT fp FROM FavouriteProducts fp");
+			
+			resultSearch = query.getResultList();
+			
+
+			for (int i= 0; i<resultSearch.size(); i++) {
+				FavouriteResponse favourite = new FavouriteResponse();
+				FavouriteProductsIdentity favId= resultSearch.get(i).getFavouriteProductsIdentity();
+					if(favId.getEmail().equals(email)) {
+						favourite.setCoordinate(resultSearch.get(i).getCoordinates());
+						favourite.setProductId(favId.getProductId());
+						favourite.setRegionId(favId.getRegionId());
+						list.add(favourite);
+					}
+				
+			}
+			em.close();
+			return list;
+
 	}
 
 /*Mariia*/

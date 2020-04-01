@@ -1,8 +1,12 @@
 package ca.foc.dom;
 
-import java.awt.Point;
+import java.io.Serializable;
 
-public class Favourite {
+public class Favourite implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String email;
 	private int productId;
 	private int regionId;

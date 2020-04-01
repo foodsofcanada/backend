@@ -13,23 +13,14 @@ public class FavouriteResponse {
 		
 	}
 
-	public FavouriteResponse(boolean isFavourite, int productId, int regionId, String coordinate) {
+	public FavouriteResponse( int productId, int regionId, String coordinate) {
 
-		this.isFavourite = isFavourite;
+	//	this.isFavourite = isFavourite;
 		//this.name = name;
 		this.productId = productId;
 		this.regionId = regionId;
 		this.coordinate = coordinate;
 	}
-
-	public boolean getIsFavourite() {
-		return isFavourite;
-	}
-
-	public void setIsFavourite(boolean isFavourite) {
-		this.isFavourite = isFavourite;
-	}
-
 	
 
 	public int getProductId() {
@@ -58,7 +49,7 @@ public class FavouriteResponse {
 
 	@Override
 	public String toString() {
-		return "FavouriteResponse [isFavourite=" + isFavourite + ", productId=" + productId
+		return "FavouriteResponse productId=" + productId
 				+ ", regionId=" + regionId + ", coordinate=" + coordinate + "]";
 	}
 	
