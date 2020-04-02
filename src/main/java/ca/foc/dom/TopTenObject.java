@@ -88,7 +88,6 @@ public class TopTenObject {
 		this.isFavourite = isFavourite;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Top Ten products: [prod_id=" + productId + ", name=" + name +  ", reg_id=" + regionId

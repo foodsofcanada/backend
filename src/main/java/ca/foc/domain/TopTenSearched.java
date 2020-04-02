@@ -22,12 +22,6 @@ public class TopTenSearched {
 	
 	@EmbeddedId
 	private TopTenSearchedIdentity topTenSearchedIdentity;
-//	@Id
-//	@Column(name="prod_id")
-//	private int  productId;   
-//	@Id
-//	@Column(name="reg_id")
-//	private int regionId;
 	@Column(name="prod_name")
 	private String productName;
 	@Column(name="reg_name")

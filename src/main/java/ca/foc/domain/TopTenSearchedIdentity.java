@@ -15,6 +15,10 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class TopTenSearchedIdentity implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Column(name="prod_id")
 	private int productId;
 	@Column(name="reg_id")

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import ca.foc.dao.FavProductsRepository;
 import ca.foc.dao.MemberRepository;
 import ca.foc.dao.ProductSuggestionRepository;
-import ca.foc.dom.ProductDetailFavourite;
 import ca.foc.dom.FavouriteResponse;
 import ca.foc.dom.TopTenObject;
 import ca.foc.domain.FavouriteProducts;

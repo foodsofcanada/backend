@@ -14,7 +14,6 @@ public class ProductDetail {
 	private int regionId;
 	private String regionName;
 	private String coordinates;
-	
 	private boolean isFavourite;
 	
 	
@@ -74,7 +73,7 @@ public class ProductDetail {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public boolean getIsfavourite() {
+	public boolean getIsFavourite() {
 		return isFavourite;
 	}
 	
