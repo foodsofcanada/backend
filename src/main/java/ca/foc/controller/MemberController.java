@@ -55,6 +55,7 @@ public class MemberController {
 	
 
 	/* Find a member by email */
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/members/{email}")
 	@ResponseBody
 	public MemberResponse findMember(@PathVariable String email) {

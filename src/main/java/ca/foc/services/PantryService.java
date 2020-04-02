@@ -1,5 +1,6 @@
 package ca.foc.services;
 
+import ca.foc.dao.PantryProductRegionRepository;
 import ca.foc.dao.PantryRepository;
 import ca.foc.domain.Pantry;
 import ca.foc.domain.PantryProductRegion;
@@ -21,6 +22,8 @@ public class PantryService {
     EntityManagerFactory emf;
 	@Autowired
 	PantryRepository pantryRepository;
+	@Autowired
+	PantryProductRegionRepository pantryProductRegionRepository;
 
 	/*Member create a Pantry attributes: owner(email), imagePath, description and Pantry*/
     public void createPantry(Pantry pantry) {    	
@@ -44,28 +47,42 @@ public class PantryService {
     	return pantryRepository.save(pantryUpdated);
     }
 
-    public void addProductToPantry(int pantryId, int productId, int regionId) {
+    public boolean addProductToPantry(int pantryId, int productId, int regionId) {
         PantryProductRegion ppr = new PantryProductRegion();
-//        ppr.setPantryId(pantryId);
-//        ppr.setProductId(productId);
-//        ppr.setRegionId(regionId);
-    	
-    	EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("insert into PantryProductRegion " +
-                " (pantryId, productId, regionId) values (?,?,?)");
-        query.setParameter(1,pantryId);
-        query.setParameter(2,productId);
-        query.setParameter(3,regionId);
-        //return false;
+        boolean save= false;
+        //find if it this exists
+        Optional<PantryProductRegion> pprO=pantryProductRegionRepository.findByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
+        if (!pprO.isPresent()) {
+        ppr.setPantryId(pantryId);
+        ppr.setProductId(productId);
+        ppr.setRegionId(regionId);
+        pantryProductRegionRepository.save(ppr);
+        save = true;
+        }
+     
+//    	EntityManager em = emf.createEntityManager();
+//        Query query = em.createQuery("insert into PantryProductRegion " +
+//                " (pantryId, productId, regionId) values (?,?,?)");
+//        query.setParameter(1,pantryId);
+//        query.setParameter(2,productId);
+//        query.setParameter(3,regionId);
+        return save;
     }
 
 
-    public boolean deleteProductFromPantry(int pantry_id, int prod_id) {
-        EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("delete from PantryProductRegion ppr " +
-                "where  ppr.pantry_id="+pantry_id+" " +
-                "and ppr.prod_id="+prod_id);
-        return false;
+    public boolean deleteProductFromPantry(int pantryId, int productId, int regionId) {
+        
+    	
+    	 PantryProductRegion ppr = new PantryProductRegion();
+         boolean deleted= false;
+         //find if it this exists
+         Optional<PantryProductRegion> pprO=pantryProductRegionRepository.findByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
+         if (!pprO.isPresent()) {
+         pantryProductRegionRepository.deleteByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
+         deleted = true;
+         }
+         
+         return deleted;
     }
 
 

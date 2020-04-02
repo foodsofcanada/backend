@@ -54,16 +54,19 @@ public class PantryController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/addproduct/{pantryId}/{productId}/{regionId}")
-    public void addProductToPantry(@PathVariable int pantryId, @PathVariable int productId, @PathVariable int regionId) {
-        pantryService.addProductToPantry(pantryId, productId, regionId);
+    @ResponseBody
+    public boolean addProductToPantry(@PathVariable int pantryId, @PathVariable int productId, @PathVariable int regionId) {
+        return pantryService.addProductToPantry(pantryId, productId, regionId);
     }
 
    
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @DeleteMapping("/deleteProduct/{prod_id}{pantry_id}")
-    public void deleteProductFromPantry(@PathVariable int prod_id, @PathVariable int pantry_id)
-    {
-        pantryService.deleteProductFromPantry(pantry_id,prod_id);
-    }
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @DeleteMapping("/deleteProduct/{pantryId}/{productId}/{regionId")
+//    @ResponseBody
+//   	@Transactional
+//    public void deleteProductFromPantry(@PathVariable int pantryId, @PathVariable int productId, @PathVariable int regionId)
+//    {
+//        pantryService.deleteProductFromPantry(pantryId,productId, regionId);
+//    }
 }
