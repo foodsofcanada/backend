@@ -11,6 +11,7 @@ public class TopTenObject {
 	private int regionId;
 	private String regionName;
 	private String coordinates;
+	private boolean isFavourite;
 	
 	
 
@@ -19,13 +20,14 @@ public class TopTenObject {
 	}
 
 	
-	public TopTenObject(int productId, String name, int regionId, String regionName, String coordinates) {
+	public TopTenObject(int productId, String name, int regionId, String regionName, String coordinates, boolean isFavourite) {
 		
 		this.productId = productId;
 		this.name = name;
 		this.regionId = regionId;
 		this.regionName = regionName;
 		this.coordinates = coordinates;
+		this.isFavourite= isFavourite;
 	}
 
 
@@ -76,6 +78,14 @@ public class TopTenObject {
 
 	public void setCoordinates(String coordinates) {
 		this.coordinates = coordinates;
+	}
+	
+	public boolean getIsFavourite() {
+		return isFavourite;
+	}
+
+	public void setIsFavourite(boolean isFavourite) {
+		this.isFavourite = isFavourite;
 	}
 
 

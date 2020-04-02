@@ -15,20 +15,24 @@ public class ProductDetail {
 	private String regionName;
 	private String coordinates;
 	
+	private boolean isFavourite;
+	
 	
 	//Constructors
 	public ProductDetail() {
 
 	}
 
-	public ProductDetail(String coordinates, int regionId, String regionName, int productId, String name) {
+	public ProductDetail(String coordinates, int regionId, String regionName, int productId, String name, boolean isFavourite) {
 		this.coordinates = coordinates;
 		this.regionId = regionId;
 		this.regionName= regionName;
 		this.productId = productId;
 		this.name = name;
+		this.isFavourite=isFavourite;
 
 	}
+
 
 	//Getters and setters
 	public String getCoordinates() {
@@ -70,12 +74,15 @@ public class ProductDetail {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	@Override
-	public String toString() {
-		return "ProductDetail [productId=" + productId + ", name=" + name + ", regionId=" + regionId
-				+ ", regionName=" + regionName + ", coordinates=" + coordinates + "]";
+	public boolean getIsfavourite() {
+		return isFavourite;
 	}
+	
+	public void setIsFavourite(boolean isFavourite) {
+		this.isFavourite= isFavourite;
+	}
+
+	
 
 
 

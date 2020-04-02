@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import ca.foc.dom.Favourite;
+import ca.foc.dom.ProductDetailFavourite;
 import ca.foc.dom.FavouriteResponse;
 import ca.foc.dom.TopTenObject;
 import ca.foc.domain.Member;

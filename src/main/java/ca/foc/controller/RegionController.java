@@ -4,6 +4,7 @@ import ca.foc.dom.ProductDetail;
 import ca.foc.dom.ProductRegionJoin;
 import ca.foc.domain.Product;
 import ca.foc.domain.Region;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,9 +43,9 @@ public class RegionController {
 
 	//Get products in region 
 	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping("/productRegion/{id}")
-	public List<ProductRegionJoin> getAllProductsInRegion(@PathVariable int id) {
-		return productService.getAllProductsInRegion(id);
+	@GetMapping("/productRegion/{id}/{email}")
+	public List<ProductRegionJoin> getAllProductsInRegion(@PathVariable int id,@PathVariable String email) {
+		return productService.getAllProductsInRegion(id,email);
 	}
 	
 	//Get region 

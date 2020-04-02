@@ -13,11 +13,14 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ca.foc.dao.FavProductsRepository;
 import ca.foc.dao.ProductRegionRepository;
 import ca.foc.dao.ProductRepository;
 import ca.foc.dao.TopTenSearchedRepository;
 import ca.foc.dom.ProductDetail;
+import ca.foc.dom.ProductDetailFavourite;
 import ca.foc.dom.SearchObject;
+import ca.foc.domain.FavouriteProductsIdentity;
 import ca.foc.domain.Product;
 import ca.foc.domain.ProductRegion;
 import ca.foc.domain.TopTenSearched;
@@ -31,7 +34,7 @@ import ca.foc.domain.TopTenSearchedIdentity;
  *         Claudia R. Receive a SearchObject object with 3 arrayList one for
  *         each filter. Then filters are passed to a String and inserted in each
  *         query. Returns a list with ProductDetail objects that fit the search
- *         The data returned is Coordinates, regionId, regionName,productId name
+ *         The data returned is Coordinates, regionId, regionName,productId name.
  * 
  *         Date:March-15-2020
  *         Modified: product list is empty, added.
@@ -49,10 +52,18 @@ public class SearchingService {
 	@Autowired
 	ProductRegionRepository productRegionRepository;
 	@Autowired
+	FavProductsRepository favProductsRepository;
+	@Autowired
 	EntityManagerFactory emf;
+	
 
 	public List<ProductDetail> SerchingResult(SearchObject so) {
 
+		String memberId= so.getEmail();
+//		System.out.println("memeber email: "+memberId);
+//		System.out.println("memeber email: "+memberId.length());
+//		System.out.println("memeber : "+!memberId.equals("")+memberId!=null);
+		
 		ArrayList<Integer> productList = so.getProductsSearched();
 		ArrayList<String> seasonList = so.getSeasonSearched();
 		ArrayList<Integer> regionList = so.getRegionSearched();
@@ -60,7 +71,7 @@ public class SearchingService {
 		EntityManager em = emf.createEntityManager();
 		List<ProductDetail> resultSearch = null;
 		List<ProductDetail> list = new ArrayList<ProductDetail>();
-
+		
 		String seasons = "";
 		String regions = "";
 		String products = "";
@@ -188,7 +199,10 @@ public class SearchingService {
 
 		}
 		Iterator it = resultSearch.iterator();
-		while (it.hasNext()) {
+		
+		//when a member is not signed
+					
+		 while (it.hasNext()) {
 			Object[] line = (Object[]) it.next();
 			ProductDetail pd = new ProductDetail();
 			pd.setCoordinates((String) line[0]);
@@ -225,6 +239,26 @@ public class SearchingService {
 		  
 
 		}
+		
+	//member is signed
+		 if (!memberId.isEmpty()) {
+			 
+			 System.out.println("member is here: "+ memberId);
+			 FavouriteProductsIdentity key= new FavouriteProductsIdentity();
+			 key.setEmail(memberId);
+			
+			for(int i=0; i<list.size();i++) {
+				
+				 key.setProductId(list.get(i).getProductId());
+				 key.setRegionId(list.get(i).getRegionId());
+				 if(favProductsRepository.existsById(key)) {
+					 list.get(i).setIsFavourite(true);
+				 }
+							 
+			}						
+			
+		}
+		
 		em.close();
 		
 		return list;

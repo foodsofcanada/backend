@@ -12,17 +12,19 @@ public class ProductRegionJoin {
 	private int regionId;
 	private int productId;
 	private String name;
+	private boolean isFavourite;
 	
 	public ProductRegionJoin() {
 
 	}
 
 	
-	public ProductRegionJoin(String coordinates, int regionId, int productId, String name) {
+	public ProductRegionJoin(String coordinates, int regionId, int productId, String name, boolean isFavourite) {
 		this.coordinates = coordinates;
 		this.regionId = regionId;
 		this.productId = productId;
 		this.name = name;
+		this.isFavourite=isFavourite;
 	}
 
 
@@ -57,7 +59,14 @@ public class ProductRegionJoin {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public boolean getIsFavourite() {
+		return isFavourite;
+	}
 
+	public void setIsFavourite(boolean isFavourite) {
+		this.isFavourite = isFavourite;
+	}
 	
 
 }

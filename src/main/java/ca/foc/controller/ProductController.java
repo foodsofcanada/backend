@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import ca.foc.domain.*;
 import ca.foc.dom.ProductDetail;
 import ca.foc.dom.SearchObject;
 import ca.foc.dom.TopTenObject;
+import ca.foc.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +24,10 @@ import java.util.Optional;
  *                
  */
 @RestController
-
 public class ProductController {
 
 	@Autowired
 	ca.foc.services.ProductService productService;
-
 	@Autowired
 	ca.foc.services.SearchingService searchingService;
 	@Autowired
@@ -68,12 +66,10 @@ public class ProductController {
 	
 	/* Returns all products in the top ten table */
 	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping("/products/top")
-	// public List<Product> getproductData()
-	public List<TopTenObject> getTopTenSearched() {
-		List<TopTenObject> products = new ArrayList<>();
-		topTenSearchedService.getTopTenSearched().forEach(products::add);
-		return products;
+	@GetMapping("/products/top/{email}")
+	public List<TopTenObject> getTopTenSearched(@PathVariable String email) {
+		
+		return topTenSearchedService.getTopTenSearched(email);
 
 	}
 	

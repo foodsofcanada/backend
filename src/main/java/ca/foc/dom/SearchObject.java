@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 
 public class SearchObject {
-
+	
+	private String email; // this is the attribute to check if a member is signed on
 	private ArrayList<Integer> productsSearched; // Input with products id to search
 	private ArrayList<Integer> regionSearched; // Input with regions id to search
 	private ArrayList<String> seasonSearched; // Input with seasons to search
@@ -20,11 +21,19 @@ public class SearchObject {
 
 	}
 
-	public SearchObject(ArrayList<Integer> productsSearched,ArrayList<Integer> regionSearched,  ArrayList<String> seasonSearched){
-		super();
+	public SearchObject(String email, ArrayList<Integer> productsSearched,ArrayList<Integer> regionSearched,  ArrayList<String> seasonSearched){
+		this.email=email;
 		this.productsSearched = productsSearched;	
 		this.regionSearched = regionSearched;
 		this.seasonSearched = seasonSearched;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email=email;
 	}
 
 	public ArrayList<Integer> getProductsSearched() {

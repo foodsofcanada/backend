@@ -1,9 +1,12 @@
 package ca.foc.services;
 
+import ca.foc.dao.FavProductsRepository;
 import ca.foc.dao.ProductRepository;
 import ca.foc.dom.ProductDetail;
 import ca.foc.dom.ProductRegionJoin;
+import ca.foc.domain.FavouriteProductsIdentity;
 import ca.foc.domain.Product;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +30,8 @@ public class ProductService implements IProductService {
 
 	@Autowired
 	ProductRepository productRepository;
+	@Autowired
+	FavProductsRepository favProductsRepository;
 	@Autowired
 	EntityManagerFactory emf;
 
@@ -53,8 +58,8 @@ public class ProductService implements IProductService {
 
 	/* Returns a list of products in a Region */
 	@Override
-	public List<ProductRegionJoin> getAllProductsInRegion(int id) {
-
+	public List<ProductRegionJoin> getAllProductsInRegion(int id, String email) {
+		String memberId=email;
 		List<ProductRegionJoin> resultSearch = null;
 		List<ProductRegionJoin> list = new ArrayList<ProductRegionJoin>();
 		EntityManager em = emf.createEntityManager();
@@ -63,8 +68,6 @@ public class ProductService implements IProductService {
 				+ "WHERE pr.regionId =" + id);
 		
 		resultSearch = query.getResultList();
-		//List<ProductDetail> list = (List<ProductDetail>) query.getResultList();
-		//em.close();
 		
 		Iterator it = resultSearch.iterator();
 		while (it.hasNext()) {
@@ -76,6 +79,23 @@ public class ProductService implements IProductService {
 			prj.setName((String) line[3]);
 			list.add(prj);
 		}
+	       if (!memberId.isEmpty()) {
+			 FavouriteProductsIdentity key= new FavouriteProductsIdentity();
+			 key.setEmail(memberId);
+			
+			for(int i=0; i<list.size();i++) {
+				
+				 key.setProductId(list.get(i).getProductId());
+				 key.setRegionId(list.get(i).getRegionId());
+				 if(favProductsRepository.existsById(key)) {
+					 list.get(i).setIsFavourite(true);
+				 }
+							 
+			}						
+			
+		}
+		
+		
 		em.close();
 
 		return list;

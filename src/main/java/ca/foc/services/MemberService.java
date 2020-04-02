@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import ca.foc.dao.FavProductsRepository;
 import ca.foc.dao.MemberRepository;
 import ca.foc.dao.ProductSuggestionRepository;
-import ca.foc.dom.Favourite;
+import ca.foc.dom.ProductDetailFavourite;
 import ca.foc.dom.FavouriteResponse;
 import ca.foc.dom.TopTenObject;
 import ca.foc.domain.FavouriteProducts;
@@ -26,7 +26,8 @@ import ca.foc.domain.TopTenSearched;
 import ca.foc.domain.TopTenSearchedIdentity;
 
 /**
- * Service class for Member: Methods related to member
+ * Service class for Member: Methods related to member.
+ * 
  * 
  * @author 787428
  *
@@ -75,7 +76,7 @@ public class MemberService {
 		}
 		else
 		{
-			System.out.println("member doesnt exist");
+			System.out.println("member doesn't exist");
 		}
 		
 			
@@ -157,28 +158,15 @@ public class MemberService {
 	public boolean  addDeleteProductFavourites(String email, String coordinate, int productId, int regionId) {
 		boolean isFavourite= false; // false if the product is deleted from favourites or true if it was saved
 		
-//		//System.out.println(favourite.toString());
-//		System.out.println("email: "+ email);
-//		System.out.println("coordinate: "+ coordinate);
-//		System.out.println("prod id: "+ productId);
-//		System.out.println("reg id: "+ regionId);
-
-		//System.out.println(favourite.toString());
 		FavouriteProductsIdentity key= new FavouriteProductsIdentity();
 		key.setEmail(email);		
 		key.setProductId(productId);
 		key.setRegionId(regionId);
 		 
-
-		//check if  the key exists in FavouriteProducts table
+		//check if the key exists in FavouriteProducts table
 		
 	   if(favProductsRepository.existsById(key)) {
-			// remove from table and return isFavourite false
-//			fr.setCoordinate(favourite.getCoordinates());
-//			fr.setIsFavourite(false);
-//			//fr.setName(productName);
-//			fr.setProductId(key.getProductId());
-//			fr.setRegionId(key.getRegionId());			
+					
 			Optional<FavouriteProducts> fp = favProductsRepository.findById(key);
 			FavouriteProducts fpDB= fp.get();
 			fpDB.toString();
@@ -188,7 +176,7 @@ public class MemberService {
 		}
 		else {
 			// add to table 	
-			//fr.setName(productName);
+			
 			FavouriteProducts fp= new FavouriteProducts(); 
 			fp.setCoordinates(coordinate);
 			fp.setFavouriteProductsIdentity(new FavouriteProductsIdentity(email,productId,regionId));
@@ -217,6 +205,7 @@ public class MemberService {
 						favourite.setCoordinate(resultSearch.get(i).getCoordinates());
 						favourite.setProductId(favId.getProductId());
 						favourite.setRegionId(favId.getRegionId());
+						favourite.setIsFavourite(true);
 						list.add(favourite);
 					}
 				

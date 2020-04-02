@@ -8,8 +8,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import ca.foc.dao.FavProductsRepository;
 import ca.foc.dao.TopTenSearchedRepository;
 import ca.foc.dom.TopTenObject;
+import ca.foc.domain.FavouriteProductsIdentity;
 import ca.foc.domain.TopTenSearched;
 import ca.foc.domain.TopTenSearchedIdentity;
 
@@ -27,18 +30,21 @@ public class TopTenSearchedService implements  ITopTenSearched{
 	@Autowired
 	TopTenSearchedRepository topTenSearchedRepository;
 	@Autowired
+	FavProductsRepository favProductsRepository;
+	@Autowired
 	EntityManagerFactory emf;
 		
 	/**
 	 * Returns top ten products in top ten table database
+	 * @param email to identify a member
 	 * @return a list of TopTenObjects with the following attributes:
 	 * productId, name, regionId, regionName, coordinate
 	 */
 	/* Returns top ten products in top ten table database */
-	
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<TopTenObject> getTopTenSearched() {
+	public List<TopTenObject> getTopTenSearched(String email) {
+		String memberId = email;
+		System.out.println(memberId);
 		List<TopTenSearched> resultSearch = null;
 		EntityManager em = emf.createEntityManager();
 		List<TopTenObject> list= new ArrayList<TopTenObject>();
@@ -58,6 +64,22 @@ public class TopTenSearchedService implements  ITopTenSearched{
 			topten.setRegionId(topId.getRegionId());
 			list.add(topten);
 		}
+		//if a member is logged in
+		
+		 if (!memberId.isEmpty()) {
+			 FavouriteProductsIdentity key= new FavouriteProductsIdentity();
+			 key.setEmail(memberId);
+			
+			for(int i=0; i<list.size();i++) {
+				
+				 key.setProductId(list.get(i).getProductId());
+				 key.setRegionId(list.get(i).getRegionId());
+				 if(favProductsRepository.existsById(key)) {
+					 list.get(i).setIsFavourite(true);
+				 }
+							 
+			}	
+		 }
 		em.close();
 		return list;
 
