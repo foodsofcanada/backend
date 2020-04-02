@@ -32,12 +32,12 @@ public class PantryService {
     }
     
     /*Member delete a pantry*/
-    public void deletePantry(int pantry_id) {
+    public void deletePantry(Long pantry_id) {
     	pantryRepository.deleteById(pantry_id);
     }
 
     /*member edit a pantry: name,description and imgPath*/
-    public Pantry editPantry(int pantryId, Pantry newPantry) {
+    public Pantry editPantry(Long pantryId, Pantry newPantry) {
     	Optional<Pantry>p = pantryRepository.findById(pantryId);
     	Pantry pantryUpdated = p.get();
     	pantryUpdated.setDescription(newPantry.getDescription());
@@ -71,18 +71,17 @@ public class PantryService {
 
 
     public boolean deleteProductFromPantry(int pantryId, int productId, int regionId) {
-        
-    	
+       
     	 PantryProductRegion ppr = new PantryProductRegion();
-         boolean deleted= false;
-         //find if it this exists
-         Optional<PantryProductRegion> pprO=pantryProductRegionRepository.findByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
+          boolean deleted= false;
+        // find if it this exists
+        Optional<PantryProductRegion> pprO=pantryProductRegionRepository.findByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
          if (!pprO.isPresent()) {
          pantryProductRegionRepository.deleteByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
-         deleted = true;
+        deleted = true;
          }
          
-         return deleted;
+        return deleted;
     }
 
 

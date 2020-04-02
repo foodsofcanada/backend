@@ -33,7 +33,7 @@ public class PantryController {
     @DeleteMapping("/deletepantry/{id}")
     @ResponseBody
 	@Transactional
-    public String deletePantry(@PathVariable int id) {
+    public String deletePantry(@PathVariable Long id) {
         pantryService.deletePantry(id);
         return "Pantry deleted";
     }
@@ -61,12 +61,12 @@ public class PantryController {
 
    
 
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    @DeleteMapping("/deleteProduct/{pantryId}/{productId}/{regionId")
-//    @ResponseBody
-//   	@Transactional
-//    public void deleteProductFromPantry(@PathVariable int pantryId, @PathVariable int productId, @PathVariable int regionId)
-//    {
-//        pantryService.deleteProductFromPantry(pantryId,productId, regionId);
-//    }
+    @CrossOrigin(origins = "http://localhost:3000")
+    @DeleteMapping("/deleteproduct/{pantryId}/{productId}/{regionId}")
+    @ResponseBody
+    @Transactional
+    public boolean deleteProductFromPantry(@PathVariable int pantryId, @PathVariable int productId, @PathVariable int regionId)
+    {
+        return  pantryService.deleteProductFromPantry(pantryId,productId,regionId);
+    }
 }

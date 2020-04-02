@@ -15,7 +15,7 @@ public class Pantry {
 
     @Id
     @Column (name="pantry_id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long pantryId;
     private String owner;
     @Column(name="imagen_path")
@@ -23,6 +23,10 @@ public class Pantry {
     private String description;
     @Column(name="name")
     private String pantryName;
+    
+    public Pantry() {
+    	
+    }
 
     public Pantry(long pantry_id, String owner,String imgPath, String description, String pantryName) {
         this.pantryId = pantry_id;
