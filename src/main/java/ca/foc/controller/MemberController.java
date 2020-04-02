@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import ca.foc.dom.FavouriteResponse;
+import ca.foc.dom.MemberResponse;
 import ca.foc.dom.TopTenObject;
 import ca.foc.domain.Member;
 import ca.foc.domain.ProductSuggestion;
@@ -56,7 +57,7 @@ public class MemberController {
 	/* Find a member by email */
 	@GetMapping("/members/{email}")
 	@ResponseBody
-	public Optional<Member> findMember(@PathVariable String email) {
+	public MemberResponse findMember(@PathVariable String email) {
 
 		return memberService.findByEmail(email);
 	}
@@ -91,7 +92,7 @@ public class MemberController {
 	@ResponseBody
 	public Member editMember(@PathVariable String email, @RequestBody Member member) {
 
-		return memberService.EditMember(email, member);
+		return memberService.editMember(email, member);
 	}
 
 	// Delete profile member operation

@@ -16,6 +16,7 @@ import ca.foc.dao.FavProductsRepository;
 import ca.foc.dao.MemberRepository;
 import ca.foc.dao.ProductSuggestionRepository;
 import ca.foc.dom.FavouriteResponse;
+import ca.foc.dom.MemberResponse;
 import ca.foc.dom.TopTenObject;
 import ca.foc.domain.FavouriteProducts;
 import ca.foc.domain.FavouriteProductsIdentity;
@@ -56,8 +57,16 @@ public class MemberService {
 	}
 	
 	//Find a member by email 
-	public Optional<Member> findByEmail(String email){
-		return memberRepository.findByEmail(email);
+	public MemberResponse findByEmail(String email){
+		Optional<Member> m = memberRepository.findByEmail(email);
+		MemberResponse mr = new MemberResponse();
+		if (m.isPresent()) {
+		 Member member = m.get();
+		 mr.setIsExist(true);
+		 mr.setFirstName(member.getFirstname());
+		 mr.setLastName(member.getLastname());
+		}
+		return mr; 
 	}
 	
 	/*Validate email and password*/
@@ -115,7 +124,7 @@ public class MemberService {
 	 * Returns the member that was updated
 	 * */
 	
-	public Member EditMember(String email, Member newmember) {
+	public Member editMember(String email, Member newmember) {
 		//newmember is the member from the form
 		//find member by email and update with data from the form
 		Optional<Member> m = memberRepository.findByEmail(email);

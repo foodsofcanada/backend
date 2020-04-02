@@ -2,6 +2,7 @@ package ca.foc.services;
 
 import ca.foc.dao.PantryRepository;
 import ca.foc.domain.Pantry;
+import ca.foc.domain.PantryProductRegion;
 import ca.foc.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,36 +11,52 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class PantryService {
-    @Autowired
+   
+	@Autowired
     EntityManagerFactory emf;
+	@Autowired
+	PantryRepository pantryRepository;
 
-//    public boolean createPantry(int pantry_id, String email, String description, String name) {
-//        EntityManager em = emf.createEntityManager();
-//        Query query = em.createQuery("insert into (pantry_id, owner, name,description)" +
-//                "values (?,?,?,?)");
-//        query.setParameter(1,pantry_id);
-//        query.setParameter(2,email);
-//        query.setParameter(3,name);
-//        query.setParameter(4,description);
-//        query.executeUpdate();
-//
-//        return false;
-//    }
+	/*Member create a Pantry attributes: owner(email), imagePath, description and Pantry*/
+    public void createPantry(Pantry pantry) {    	
+    	pantryRepository.save(pantry);
+    	
+    }
+    
+    /*Member delete a pantry*/
+    public void deletePantry(int pantry_id) {
+    	pantryRepository.deleteById(pantry_id);
+    }
 
+    /*member edit a pantry: name,description and imgPath*/
+    public Pantry editPantry(int pantryId, Pantry newPantry) {
+    	Optional<Pantry>p = pantryRepository.findById(pantryId);
+    	Pantry pantryUpdated = p.get();
+    	pantryUpdated.setDescription(newPantry.getDescription());
+    	pantryUpdated.setImgPath(newPantry.getImgPath());
+    	pantryUpdated.setPantryName(newPantry.getPantryName());
+    	
+    	return pantryRepository.save(pantryUpdated);
+    }
 
-    public boolean addProductToPantry(int pantry_id, int prod_id, int reg_id) {
-        EntityManager em = emf.createEntityManager();
+    public void addProductToPantry(int pantryId, int productId, int regionId) {
+        PantryProductRegion ppr = new PantryProductRegion();
+//        ppr.setPantryId(pantryId);
+//        ppr.setProductId(productId);
+//        ppr.setRegionId(regionId);
+    	
+    	EntityManager em = emf.createEntityManager();
         Query query = em.createQuery("insert into PantryProductRegion " +
-                "ppr" +
-                " (pantry_id, prod_id, reg_id) values (?,?,?)");
-        query.setParameter(1,pantry_id);
-        query.setParameter(2,prod_id);
-        query.setParameter(3,reg_id);
-        return false;
+                " (pantryId, productId, regionId) values (?,?,?)");
+        query.setParameter(1,pantryId);
+        query.setParameter(2,productId);
+        query.setParameter(3,regionId);
+        //return false;
     }
 
 
@@ -52,12 +69,7 @@ public class PantryService {
     }
 
 
-    public boolean deletePantry(int pantry_id) {
-        EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("delete from Pantry p " +
-                "where p.pantry_id="+pantry_id);
-        return false;
-    }
+   
 
 
     public List<Pantry> getUserPantries(String email) {
