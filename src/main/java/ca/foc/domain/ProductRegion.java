@@ -4,6 +4,16 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+
+/**
+ * 
+ * Class to represent ProductRegion Table in database
+ * 
+ * @author 
+ *
+ */
+
+
 @Entity
 @IdClass(ProductRegion.class)
 @Table(name = "foc_product_region")
@@ -11,26 +21,51 @@ public class ProductRegion implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	private long prod_id;
+	@Column(name= "prod_id")
+	private int productId;
 	@Id
-	private int reg_id;
+	@Column(name= "reg_id")
+	private int regionId;
+	
+	private String coordinate ;
 
-	// getters and setters
-
-	public long getProd_id() {
-		return prod_id;
+	// Constructors
+	public ProductRegion() {
+		
+	}
+	
+	
+	public ProductRegion(int productId, int regionId, String coordinate) {
+		super();
+		this.productId = productId;
+		this.regionId = regionId;
+		this.coordinate = coordinate;
 	}
 
-	public void setProd_id(long prod_id) {
-		this.prod_id = prod_id;
+	//getters and setters
+	public int getProductId() {
+		return productId;
 	}
 
-	public int getReg_id() {
-		return reg_id;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
-	public void setReg_id(int reg_id) {
-		this.reg_id = reg_id;
+	public int getRegionId() {
+		return regionId;
 	}
+
+	public void setRegionId(int regionId) {
+		this.regionId = regionId;
+	}
+
+	public String getCoordinate() {
+		return coordinate;
+	}
+
+	public void setCoordinate(String coordinate) {
+		this.coordinate = coordinate;
+	}
+	
 
 }

@@ -2,47 +2,66 @@ package ca.foc.domain;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "foc_pantries")
 public class Pantry {
 
-    private long pantry_id;
+    @Id
+    @Column (name="pantry_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int pantryId;
+    private String owner;
+    @Column(name="imagen_path")
     private String imgPath;
-    private List<Product> products;
     private String description;
-    private String name;
+    @Column(name="name")
+    private String pantryName;
+    
+    public Pantry() {
+    	
+    }
 
-    public Pantry(long pantry_id, String imgPath, List<Product> products, String description, String name) {
-        this.pantry_id = pantry_id;
+    public Pantry(int pantry_id, String owner,String imgPath, String description, String pantryName) {
+        this.pantryId = pantry_id;
         this.imgPath = imgPath;
-        this.products = products;
+        this.owner = owner;
         this.description = description;
-        this.name = name;
+        this.pantryName = pantryName;
     }
 
-    public long getPantry_id() {
-        return pantry_id;
-    }
+    public int getPantryId() {
+		return pantryId;
+	}
 
-    public void setPantry_id(long pantry_id) {
-        this.pantry_id = pantry_id;
-    }
-
-    public String getImgPath() {
+	public String getImgPath() {
         return imgPath;
     }
 
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
     }
+    
+    
+    public String getOwner() {
+		return owner;
+	}
 
-    public List<Product> getProducts() {
-        return products;
-    }
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
+	public void setPantryId(int pantryId) {
+		this.pantryId = pantryId;
+	}
 
-    public String getDescription() {
+	public String getDescription() {
         return description;
     }
 
@@ -50,11 +69,11 @@ public class Pantry {
         this.description = description;
     }
 
-    public String getName() {
-        return name;
+    public String getPantryName() {
+        return pantryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPantryName(String name) {
+        this.pantryName = name;
     }
 }

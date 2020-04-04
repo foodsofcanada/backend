@@ -1,29 +1,22 @@
 package ca.foc.dom;
 
-/**
- * Class to return object response for searching, products in pantries and favourites
- * @author Claudia Rivera
- */
-
-
-
-public class ProductDetail {
-
+public class FavouriteResponse {
+	
+	
 	private int productId;
 	private String name;
 	private int regionId;
 	private String regionName;
-	private String coordinates;
+	private String coordinate;
 	private boolean isFavourite;
-	
-	
-	//Constructors
-	public ProductDetail() {
 
+	//Constructors
+	public FavouriteResponse() {
+		
 	}
 
-	public ProductDetail(String coordinates, int regionId, String regionName, int productId, String name, boolean isFavourite) {
-		this.coordinates = coordinates;
+	public FavouriteResponse(String coordinates, int regionId, String regionName, int productId, String name, boolean isFavourite) {
+		this.coordinate = coordinates;
 		this.regionId = regionId;
 		this.regionName= regionName;
 		this.productId = productId;
@@ -35,11 +28,11 @@ public class ProductDetail {
 
 	//Getters and setters
 	public String getCoordinates() {
-		return coordinates;
+		return coordinate;
 	}
 
 	public void setCoordinates(String coordinates) {
-		this.coordinates = coordinates;
+		this.coordinate = coordinates;
 	}
 
 	public int getRegionId() {
@@ -80,6 +73,13 @@ public class ProductDetail {
 	public void setIsFavourite(boolean isFavourite) {
 		this.isFavourite= isFavourite;
 	}
-
-
+	@Override
+	public String toString() {
+		return "FavouriteResponse productId=" + productId
+				+ ", regionId=" + regionId + ", coordinate=" + coordinate + "]";
+	}
+	
+	
+	
+	
 }

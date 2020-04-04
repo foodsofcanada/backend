@@ -1,34 +1,47 @@
 package ca.foc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import ca.foc.domain.*;
-import ca.foc.dao.ProductRepository;
 import ca.foc.dom.ProductDetail;
+import ca.foc.dom.SearchObject;
+import ca.foc.dom.TopTenObject;
+import ca.foc.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Product Controller
+ * 
+ * @author
+ * 
+ * 
+ * No implemented: uploadNewProducts(filePath:string)
+ *                 editProduct
+ *                
+ */
 @RestController
-// @RequestMapping("/api")
 public class ProductController {
 
 	@Autowired
-	ca.foc.services.QueryService queryservice;
+	ca.foc.services.ProductService productService;
 	@Autowired
-	ProductRepository productRepository;
+	ca.foc.services.SearchingService searchingService;
+	@Autowired
+	ca.foc.services.TopTenSearchedService topTenSearchedService;
 
-	// @GetMapping("/productRegion/{id}")
-	// public List<ProductDetail> getQuery(@PathVariable int id)
-	// {
-	// return queryservice.JPQLQuery(id);
-	// }
+	
+
+	//Searching using filters
 	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping("/productRegion/{id}")
-	public List<ProductDetail> getAllProductsInRegion(@PathVariable int id) {
-		return queryservice.getAllProductsInRegion(id);
+	@PostMapping("/search")
+	public List<ProductDetail> search(@RequestBody SearchObject search) {
+
+		return searchingService.SerchingResult(search);
+
 	}
 
 	/* Returns all products in the database */
@@ -37,25 +50,48 @@ public class ProductController {
 	// public List<Product> getproductData()
 	public List<Product> getAllProducts() {
 		List<Product> products = new ArrayList<>();
-		productRepository.findAll().forEach(products::add);
+		productService.getAllProducts().forEach(products::add);
 		return products;
 
 	}
-
+	
+    //Product Info 
 	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping(path = "/products/{id}")
+	@GetMapping("/products/{id}")
 	public Optional<Product> getProductInfo(@PathVariable int id) {
 
-		return productRepository.findById(id);
+		return productService.getProductInfo(id);
 
 	}
+	
+	/* Returns all products in the top ten table */
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/products/top/{email}")
+	public List<TopTenObject> getTopTenSearched(@PathVariable String email) {
+		
+		return topTenSearchedService.getTopTenSearched(email);
 
-	/*
-	 * @PostMapping public Product addProduct(@RequestBody Product product) {
-	 * productRepository.save(product); return product; }
-	 * 
-	 * @DeleteMapping(path = "/{id}") public void deleteProduct(@PathVariable int
-	 * id) { productRepository.deleteById(id); }
-	 */
+	}
+	
+	 /**********************************************************/
+    /*       Admin Operations related to manage products       */
+    /**********************************************************/
+	// Add New Product. Admin operation
+	
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PostMapping("/products/")
+	public Product addProduct(@RequestBody Product product) {
+		productService.addProduct(product);
+		return product;
+	}
+	
+	//Delete Product. Admin operation
+	@CrossOrigin(origins = "http://localhost:3000")
+	@DeleteMapping("/products/{id}")
+	@Transactional
+	public void deleteProduct(@PathVariable int id) {
+		productService.deleteProduct(id);
+	}
+	
 
 }

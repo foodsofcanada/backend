@@ -1,39 +1,33 @@
 package ca.foc.dom;
 
 /**
- * Class to return object response for searching, products in pantries and favourites
- * @author Claudia Rivera
+ * 
+ * @author 787428
+ *
  */
 
-
-
-public class ProductDetail {
-
+public class ProductRegionJoin {
+	
+	private String coordinates;
+	private int regionId;
 	private int productId;
 	private String name;
-	private int regionId;
-	private String regionName;
-	private String coordinates;
 	private boolean isFavourite;
 	
-	
-	//Constructors
-	public ProductDetail() {
+	public ProductRegionJoin() {
 
 	}
 
-	public ProductDetail(String coordinates, int regionId, String regionName, int productId, String name, boolean isFavourite) {
+	
+	public ProductRegionJoin(String coordinates, int regionId, int productId, String name, boolean isFavourite) {
 		this.coordinates = coordinates;
 		this.regionId = regionId;
-		this.regionName= regionName;
 		this.productId = productId;
 		this.name = name;
 		this.isFavourite=isFavourite;
-
 	}
 
 
-	//Getters and setters
 	public String getCoordinates() {
 		return coordinates;
 	}
@@ -50,20 +44,12 @@ public class ProductDetail {
 		this.regionId = regionId;
 	}
 
-	public String getRegionName() {
-		return regionName;
-	}
-
-	public void setRegionName(String regionName) {
-		this.regionName = regionName;
-	}
-
 	public int getProductId() {
 		return productId;
 	}
 
-	public void setProductId(int regionId) {
-		this.productId = regionId;
+	public void setProductId(int prodId) {
+		this.productId = prodId;
 	}
 
 	public String getName() {
@@ -73,13 +59,14 @@ public class ProductDetail {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public boolean getIsFavourite() {
 		return isFavourite;
 	}
-	
-	public void setIsFavourite(boolean isFavourite) {
-		this.isFavourite= isFavourite;
-	}
 
+	public void setIsFavourite(boolean isFavourite) {
+		this.isFavourite = isFavourite;
+	}
+	
 
 }

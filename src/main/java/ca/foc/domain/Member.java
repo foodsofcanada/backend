@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
@@ -21,14 +22,12 @@ public class Member implements Serializable {
 	private String firstname;
 	private String lastname;
 
-	// @CreatedDate
-	@Temporal(TemporalType.DATE)
+	
 	@Column(name = "date_joined")
+	@CreationTimestamp
 	private Date dateJoined;
 	private int role;
 
-	@Transient
-	private String confirmPassword;
 
 	public Member() {
 	}
@@ -45,14 +44,6 @@ public class Member implements Serializable {
 	/* Getters and setters */
 	public String getEmail() {
 		return email;
-	}
-
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
 	}
 
 	public void setEmail(String email) {
@@ -98,5 +89,13 @@ public class Member implements Serializable {
 	public void setRole(int role) {
 		this.role = role;
 	}
+
+	@Override
+	public String toString() {
+		return "Member [email=" + email + ", password=" + password + ", firstname=" + firstname + ", lastname="
+				+ lastname + ", dateJoined=" + dateJoined + ", role=" + role + "]";
+	}
+
+	
 
 }

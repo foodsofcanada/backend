@@ -1,47 +1,42 @@
 package ca.foc.domain;
 
-import java.util.List;
-
 import javax.persistence.*;
-
-
-import ca.foc.domain.ProductRegion;
 import org.springframework.data.geo.Polygon;
 
 @Entity
-@Table(name="FOC_REGION")
+@Table(name="foc_region")
 public class Region {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "reg_id")
-	private int reg_id;
-	
-//	@OneToMany(mappedBy="region", cascade = CascadeType.ALL)
-//	private List<ProductRegion> productRegion;
-	
-	private String name;
-	
+	private int regionId;
+	@Column(name ="name")
+	private String regionName;	
 	private  Polygon polygon;
 	
 	//getters and setters
 	
-	public long getReg_id() {
-		return reg_id;
+	public long getRegionId() {
+		return regionId;
 	}
-	public void setReg_id(int reg_id) {
-		this.reg_id = reg_id;
+	public void setRegionId(int reg_id) {
+		this.regionId = reg_id;
 	}
-	public String getName() {
-		return name;
+	public String getRegionName() {
+		return regionName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setRegionName(String name) {
+		this.regionName = name;
 	}
 	public Polygon getPolygon() {
 		return polygon;
 	}
 	public void setPolygon(Polygon polygon) {
 		this.polygon = polygon;
+	}
+	@Override
+	public String toString() {
+		return "Region [reg_id=" + regionId + ", name=" + regionName + ", polygon=" + polygon + "]";
 	}
 	
 	
