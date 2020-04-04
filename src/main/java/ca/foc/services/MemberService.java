@@ -154,13 +154,28 @@ public class MemberService {
 	
 	/* Delete a member in the database*/
 	public void deleteMember(String email) {
+
 		//first delete FavouriteProducts, Pantries
 		List<Pantry> pantryMember= pantryRepository.findByEmail(email); //find all pantries belongs to a member
 		for (int i = 0; i < pantryMember.size(); i++ ) {
 			int pantryId= pantryMember.get(i).getPantryId();
 				pantryProductRegionRepository.deleteByPantryId(pantryId);
 		}
+		List<FavouriteResponse> favouriteMember = this.getProductsInFavourite(email);
+		for (int i = 0; i < favouriteMember.size(); i++ ) {
+			FavouriteProductsIdentity id= new FavouriteProductsIdentity();
+			id.setEmail(email);
+			id.setProductId(favouriteMember.get(i).getProductId());
+			id.setRegionId(favouriteMember.get(i).getRegionId());
+			Optional<FavouriteProducts> fp = favProductsRepository.findById(id);
+			FavouriteProducts fpDB= fp.get();
+			fpDB.toString();
+			favProductsRepository.delete(fpDB);  
+		}
+		
+		
 		pantryRepository.deleteByEmail(email);
+		
 		memberRepository.deleteByEmail(email);
 	}
 		
