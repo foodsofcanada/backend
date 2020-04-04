@@ -25,8 +25,8 @@ public class PantryController {
     //Create pantry
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/createPantry")
-    public void createPantry(@RequestBody Pantry pantry) {
-        pantryService.createPantry(pantry);
+    public Pantry createPantry(@RequestBody Pantry pantry) {
+        return pantryService.createPantry(pantry);
     }
     
     //delete pantry

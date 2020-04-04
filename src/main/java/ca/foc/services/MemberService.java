@@ -18,6 +18,7 @@ import ca.foc.dao.PantryProductRegionRepository;
 import ca.foc.dao.PantryRepository;
 import ca.foc.dao.ProductSuggestionRepository;
 import ca.foc.dom.FavouriteResponse;
+import ca.foc.dom.MemberInfo;
 import ca.foc.dom.MemberResponse;
 import ca.foc.dom.TopTenObject;
 import ca.foc.domain.FavouriteProducts;
@@ -32,7 +33,9 @@ import ca.foc.domain.TopTenSearchedIdentity;
  * Service class for Member: Methods related to member.
  * 
  * 
- * @author 787428
+ * @author 
+ * 
+ * Claudia Rivera
  *
  */
 
@@ -77,17 +80,25 @@ public class MemberService {
 	}
 	
 	/*Validate email and password*/
-	public Member CheckMember(String email, String password) {
+	@SuppressWarnings("null")
+	public MemberInfo CheckMember(String email, String password) {
 		
 		Member memberDb = null;
+		MemberInfo memberInfo = new MemberInfo();
 		Optional<Member> member= memberRepository.findByEmail(email);  // find a member within the database by the email. Email is unique 
 		if (member.isPresent()) {
-			
-			memberDb= member.get();
+			memberDb= member.get();//member in the database
 			//Check if the fetched member matches the input username and the hash of the password matches
 			if (!memberDb.getEmail().equals(email)||!BCrypt.checkpw(password, memberDb.getPassword())) {
-				memberDb=null;	
+				memberDb=null;			
 			}
+			if (memberDb!= null) {
+			memberInfo.setEmail(memberDb.getEmail());
+			memberInfo.setFirstName(memberDb.getFirstname());
+			memberInfo.setLastName(memberDb.getLastname());
+			}
+			else
+				memberInfo=null;
 		}
 		else
 		{
@@ -95,7 +106,7 @@ public class MemberService {
 		}
 		
 			
-		return memberDb;
+		return memberInfo;
 	}
 	
 	/* Register a new member
@@ -131,7 +142,7 @@ public class MemberService {
 	 * Returns the member that was updated
 	 * */
 	
-	public Member editMember(String email, Member newmember) {
+	public MemberInfo editMember(String email, Member newmember) {
 		//newmember is the member from the form
 		//find member by email and update with data from the form
 		Optional<Member> m = memberRepository.findByEmail(email);
@@ -148,7 +159,12 @@ public class MemberService {
 			//Set the member password to a BCrypt hash of the input password with a complexity of 4 iterations
 	    	memberUpdated.setPassword(BCrypt.hashpw(newmember.getPassword(),BCrypt.gensalt(4)));
 		}
-		return memberRepository.save(memberUpdated);
+		Member memberSaved = memberRepository.save(memberUpdated);
+		MemberInfo memberInfo = new MemberInfo();
+		memberInfo.setEmail(memberSaved.getEmail());;
+		memberInfo.setFirstName(memberSaved.getFirstname());
+		memberInfo.setLastName(memberSaved.getLastname());
+		return memberInfo;
 	}
 		
 	

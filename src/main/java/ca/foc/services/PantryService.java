@@ -33,8 +33,10 @@ public class PantryService {
 	FavProductsRepository favProductsRepository;
 
 	/*Member create a Pantry attributes: owner(email), imagePath, description and Pantry*/
-    public void createPantry(Pantry pantry) {    	
-    	pantryRepository.save(pantry);
+    public Pantry createPantry(Pantry pantry) {    	
+    	
+    	Pantry newpantry= pantryRepository.save(pantry);
+		return newpantry;
     	
     }
     

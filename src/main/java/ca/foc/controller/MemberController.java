@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import ca.foc.dom.FavouriteResponse;
+import ca.foc.dom.MemberInfo;
 import ca.foc.dom.MemberResponse;
 import ca.foc.dom.TopTenObject;
 import ca.foc.domain.Member;
@@ -71,9 +72,9 @@ public class MemberController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/login")
 	@ResponseBody
-	public Member checkMember(@RequestBody Member member) {
-		Member check = memberService.CheckMember(member.getEmail(), member.getPassword());
-		return check;
+	public MemberInfo checkMember(@RequestBody Member member) {
+		
+		return  memberService.CheckMember(member.getEmail(), member.getPassword());
 	}
 
 	/*
@@ -91,7 +92,7 @@ public class MemberController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PutMapping("/members/{email}")
 	@ResponseBody
-	public Member editMember(@PathVariable String email, @RequestBody Member member) {
+	public MemberInfo editMember(@PathVariable String email, @RequestBody Member member) {
 
 		return memberService.editMember(email, member);
 	}
