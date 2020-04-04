@@ -42,4 +42,6 @@ public interface FavProductsRepository extends CrudRepository<FavouriteProducts,
 
     @Override
     public void deleteAll();
+
+
 }

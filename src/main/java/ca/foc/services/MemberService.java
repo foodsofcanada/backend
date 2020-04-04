@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import ca.foc.dao.FavProductsRepository;
 import ca.foc.dao.MemberRepository;
+import ca.foc.dao.PantryProductRegionRepository;
+import ca.foc.dao.PantryRepository;
 import ca.foc.dao.ProductSuggestionRepository;
 import ca.foc.dom.FavouriteResponse;
 import ca.foc.dom.MemberResponse;
@@ -21,6 +23,7 @@ import ca.foc.dom.TopTenObject;
 import ca.foc.domain.FavouriteProducts;
 import ca.foc.domain.FavouriteProductsIdentity;
 import ca.foc.domain.Member;
+import ca.foc.domain.Pantry;
 import ca.foc.domain.ProductSuggestion;
 import ca.foc.domain.TopTenSearched;
 import ca.foc.domain.TopTenSearchedIdentity;
@@ -42,6 +45,10 @@ public class MemberService {
 	ProductSuggestionRepository productSuggestionRepository;
 	@Autowired
 	FavProductsRepository favProductsRepository;
+	@Autowired
+	PantryRepository pantryRepository;
+	@Autowired
+	PantryProductRegionRepository pantryProductRegionRepository;
 	@Autowired
 	EntityManagerFactory emf;
 	
@@ -138,15 +145,22 @@ public class MemberService {
 		   memberUpdated.setLastname(newmember.getLastname());
 		}
 		else if(!newmember.getPassword().equals("")) {
-	    	memberUpdated.setPassword(newmember.getPassword());
+			//Set the member password to a BCrypt hash of the input password with a complexity of 4 iterations
+	    	memberUpdated.setPassword(BCrypt.hashpw(newmember.getPassword(),BCrypt.gensalt(4)));
 		}
-		//System.out.println(memberUpdated.toString());
 		return memberRepository.save(memberUpdated);
 	}
 		
 	
 	/* Delete a member in the database*/
 	public void deleteMember(String email) {
+		//first delete FavouriteProducts, Pantries
+		List<Pantry> pantryMember= pantryRepository.findByEmail(email); //find all pantries belongs to a member
+		for (int i = 0; i < pantryMember.size(); i++ ) {
+			int pantryId= pantryMember.get(i).getPantryId();
+				pantryProductRegionRepository.deleteByPantryId(pantryId);
+		}
+		pantryRepository.deleteByEmail(email);
 		memberRepository.deleteByEmail(email);
 	}
 		

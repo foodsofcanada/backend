@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PantryRepository extends CrudRepository<Pantry, Integer> {
 
-	List<Pantry> findByOwner(String owner);
+	List<Pantry> findByEmail(String email);
+
+	void deleteByEmail(String email);
 
 }

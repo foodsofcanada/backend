@@ -55,7 +55,7 @@ public class PantryService {
     	return pantryRepository.save(pantryUpdated);
     }
     /*
-     * Memthod used to a member Add a product in their pantry 
+     * Method used to a member Add a product in their pantry 
      */
 
     public boolean addProductToPantry(int pantryId, int productId, int regionId, String coordinate) {
@@ -76,16 +76,17 @@ public class PantryService {
         return save;
     }
 
-
+    //Delete a product in a pantry
     public boolean deleteProductFromPantry(int pantryId, int productId, int regionId) {
        
     	 PantryProductRegion ppr = new PantryProductRegion();
           boolean deleted= false;
         // find if it this exists
         Optional<PantryProductRegion> pprO=pantryProductRegionRepository.findByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
-         if (!pprO.isPresent()) {
-         pantryProductRegionRepository.deleteByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
-        deleted = true;
+         if (pprO.isPresent()) {
+        	 
+          pantryProductRegionRepository.deleteByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
+          deleted = true;
          }
          
         return deleted;
@@ -94,11 +95,11 @@ public class PantryService {
     /*Get all Pantries in Pantries table for a user identified by email*/
     public List<Pantry> getUserPantries(String email) {
     	
-    	return pantryRepository.findByOwner(email);
+    	return pantryRepository.findByEmail(email);
         
     }
 
-
+    //Display all products in a pantry
     public List<ProductDetail> getProductsInPantry(String email,int pantryId) {
     	String memberId= email;
     	//List<ProductDetail> resultSearch= null;
@@ -111,7 +112,11 @@ public class PantryService {
         Query query2 = em.createQuery("SELECT rr.regionName FROM Region rr INNER JOIN PantryProductRegion ppr ON rr.regionId = ppr.regionId");
         
         List<String> l = query2.getResultList();
-        String regName = l.get(0);;
+        String regName = "";
+        if (l.size() != 0) {
+        	 regName = l.get(0);
+        }
+       
         List<ProductDetail> resultSearch = (List<ProductDetail>) query1.getResultList();
         
 
