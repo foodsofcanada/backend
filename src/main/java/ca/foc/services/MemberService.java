@@ -128,13 +128,19 @@ public class MemberService {
 		//newmember is the member from the form
 		//find member by email and update with data from the form
 		Optional<Member> m = memberRepository.findByEmail(email);
-		
 		Member memberUpdated= m.get();
-		memberUpdated.setEmail(newmember.getEmail());
-		memberUpdated.setFirstname(newmember.getFirstname());
-		memberUpdated.setLastname(newmember.getLastname());
-		memberUpdated.setPassword(newmember.getPassword());
+		System.out.println(newmember.toString());
+		if(!newmember.getFirstname().equals("")) {
 		
+			memberUpdated.setFirstname(newmember.getFirstname());
+		}
+		else if(!newmember.getLastname().equals("")) {
+		   memberUpdated.setLastname(newmember.getLastname());
+		}
+		else if(!newmember.getPassword().equals("")) {
+	    	memberUpdated.setPassword(newmember.getPassword());
+		}
+		//System.out.println(memberUpdated.toString());
 		return memberRepository.save(memberUpdated);
 	}
 		

@@ -5,16 +5,18 @@ public class MemberResponse {
 	private boolean isExist;
 	private String firstName;
 	private String lastName;
+	private String password;
 	
 	public MemberResponse() {
 		
 	}
 
-	public MemberResponse(boolean isExist, String firstName, String lastName) {
+	public MemberResponse(boolean isExist, String firstName, String lastName,String password) {
 		super();
 		this.isExist = isExist;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.password= password;
 	}
 
 	public boolean getIsExist() {
@@ -39,6 +41,14 @@ public class MemberResponse {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	

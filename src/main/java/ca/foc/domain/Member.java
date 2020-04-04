@@ -90,6 +90,12 @@ public class Member implements Serializable {
 		this.role = role;
 	}
 
+	@Override
+	public String toString() {
+		return "Member [email=" + email + ", password=" + password + ", firstname=" + firstname + ", lastname="
+				+ lastname + ", dateJoined=" + dateJoined + ", role=" + role + "]";
+	}
+
 	
 
 }
