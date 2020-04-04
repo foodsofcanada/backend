@@ -1,33 +1,43 @@
 package ca.foc.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
+@IdClass(PantryProductRegion.class)
 @Table(name = "foc_pantry_product_region")
-public class PantryProductRegion {
+public class PantryProductRegion implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name= "pantry_id")
 	private int pantryId;
+	@Id
 	@Column(name= "reg_id")
 	private int regionId;
+	@Id
 	@Column(name= "prod_id")
 	private int productId;
-	//private String coordinates;
+	private String coordinate;
 	
 	public PantryProductRegion() {
 		
 	}
 	
-	public PantryProductRegion(int pantryId, int regionId, int productId) {
+	public PantryProductRegion(int pantryId, int regionId, int productId, String coordinate) {
 		
 		this.pantryId = pantryId;
 		this.regionId = regionId;
 		this.productId = productId;
-	//	this.coordinates = coordinates;
+		this.coordinate = coordinate;
 	}
 
 	public int getPantryId() {
@@ -54,13 +64,13 @@ public class PantryProductRegion {
 		this.productId = productId;
 	}
 
-//	public String getCoordinates() {
-//		return coordinates;
-//	}
-//
-//	public void setCoordinates(String coordinates) {
-//		this.coordinates = coordinates;
-//	}
+	public String getCoordinate() {
+		return coordinate;
+	}
+
+	public void setCoordinate(String coordinate) {
+		this.coordinate = coordinate;
+	}
 	
 	
 	

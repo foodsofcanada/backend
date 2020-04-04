@@ -164,7 +164,7 @@ public class MemberService {
 	 * First check if the product is already in the list. Using a composite primary key*/
 	
 	public boolean  addDeleteProductFavourites(String email, String coordinate, int productId, int regionId) {
-		boolean isFavourite= false; // false if the product is deleted from favourites or true if it was saved
+		boolean flag= false; // false if the product is deleted from favourites or true if it was saved
 		
 		FavouriteProductsIdentity key= new FavouriteProductsIdentity();
 		key.setEmail(email);		
@@ -179,7 +179,7 @@ public class MemberService {
 			FavouriteProducts fpDB= fp.get();
 			fpDB.toString();
 			favProductsRepository.delete(fpDB);  
-			isFavourite= false;
+			flag= false;
 			
 		}
 		else {
@@ -189,10 +189,10 @@ public class MemberService {
 			fp.setCoordinates(coordinate);
 			fp.setFavouriteProductsIdentity(new FavouriteProductsIdentity(email,productId,regionId));
 			favProductsRepository.save(fp);
-			isFavourite =true;
+			flag =true;
 		}
 		
-		return isFavourite;		
+		return flag;		
 		
 	}
 	
@@ -202,17 +202,25 @@ public class MemberService {
 			EntityManager em = emf.createEntityManager();
 			List<FavouriteResponse> list= new ArrayList<FavouriteResponse>();
 			Query query = em.createQuery("SELECT fp FROM FavouriteProducts fp");
-			
+			//Query query2 = em.createQuery("SELECT r.regionId FROM Region r");
 			resultSearch = query.getResultList();
 			
 
 			for (int i= 0; i<resultSearch.size(); i++) {
 				FavouriteResponse favourite = new FavouriteResponse();
 				FavouriteProductsIdentity favId= resultSearch.get(i).getFavouriteProductsIdentity();
-					if(favId.getEmail().equals(email)) {
-						favourite.setCoordinate(resultSearch.get(i).getCoordinates());
+				Query query2 = em.createQuery("SELECT r.regionName FROM Region r WHERE r.regionId= "+ favId.getRegionId());
+				Query query3 = em.createQuery("SELECT p.name FROM Product p WHERE p.productId= "+favId.getProductId());
+				String regName=(String) query2.getSingleResult();
+				String prodName= (String) query3.getSingleResult();
+				
+				if(favId.getEmail().equals(email)) {
+					  
+						favourite.setCoordinates(resultSearch.get(i).getCoordinates());
 						favourite.setProductId(favId.getProductId());
 						favourite.setRegionId(favId.getRegionId());
+						favourite.setRegionName(regName);
+						favourite.setName(prodName);
 						favourite.setIsFavourite(true);
 						list.add(favourite);
 					}

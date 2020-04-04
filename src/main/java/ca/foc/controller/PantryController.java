@@ -1,5 +1,6 @@
 package ca.foc.controller;
 import ca.foc.dao.PantryRepository;
+import ca.foc.dom.ProductDetail;
 import ca.foc.domain.Pantry;
 import ca.foc.domain.Product;
 import ca.foc.services.*;
@@ -33,34 +34,35 @@ public class PantryController {
     @DeleteMapping("/deletepantry/{id}")
     @ResponseBody
 	@Transactional
-    public String deletePantry(@PathVariable Long id) {
+    public String deletePantry(@PathVariable int id) {
         pantryService.deletePantry(id);
         return "Pantry deleted";
     }
-
+    //List of pantries for one user identified by email
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/userPantries/{email}")
     public List<Pantry> getUserPantries(@PathVariable String email) {
         return pantryService.getUserPantries(email);
     }
 
+    //List of products in a a pantry to belongs a member
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/productsInPantry/{pantry_id}")
-    public List<Product> getProductsInPantry(@PathVariable int pantry_id) {
-        return pantryService.getProductsInPantry(pantry_id);
+    @GetMapping("/productsInPantry/{email}/{pantryId}")
+    public List<ProductDetail> getProductsInPantry(@PathVariable String email,@PathVariable int pantryId) {
+        return pantryService.getProductsInPantry(email,pantryId);
     }
 
    
-
+    //Add a product to Pantry
     @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/addproduct/{pantryId}/{productId}/{regionId}")
+    @PostMapping("/pantryproduct/{pantryId}/{productId}/{regionId}/{coordinates}")
     @ResponseBody
-    public boolean addProductToPantry(@PathVariable int pantryId, @PathVariable int productId, @PathVariable int regionId) {
-        return pantryService.addProductToPantry(pantryId, productId, regionId);
+    public boolean addProductToPantry(@PathVariable int pantryId, @PathVariable int productId, @PathVariable int regionId, @PathVariable String coordinates) {
+        return pantryService.addProductToPantry(pantryId, productId, regionId, coordinates);
     }
 
    
-
+    //Delete a product from a pantry
     @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deleteproduct/{pantryId}/{productId}/{regionId}")
     @ResponseBody

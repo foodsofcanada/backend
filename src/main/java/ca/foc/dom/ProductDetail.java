@@ -1,7 +1,7 @@
 package ca.foc.dom;
 
 /**
- * Class to return object response for searching
+ * Class to return object response for searching, products in pantries and favourites
  * @author Claudia Rivera
  */
 
@@ -81,11 +81,5 @@ public class ProductDetail {
 		this.isFavourite= isFavourite;
 	}
 
-	
-
-
-
-	
-	
 
 }

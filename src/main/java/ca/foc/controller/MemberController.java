@@ -117,14 +117,13 @@ public class MemberController {
 
 	}
 	
-	/*Member add a product to Favourite List*/
+	/*Member add or delete a product in Favourite List*/
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/fav/{email}/{productId}/{regionId}/{coordinates}")
 	@ResponseBody
 	//@Transactional
 	public boolean addFavourite(@PathVariable String email, @PathVariable int productId, @PathVariable int regionId,@PathVariable String coordinates) {
-		
-		//return memberService.addDeleteProductFavourites(product);
+
 		return memberService.addDeleteProductFavourites(email,coordinates, productId,regionId);
 	}
    

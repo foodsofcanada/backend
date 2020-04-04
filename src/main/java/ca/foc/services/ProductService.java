@@ -66,9 +66,8 @@ public class ProductService implements IProductService {
 		Query query = em.createQuery("SELECT pr.coordinate, pr.regionId, p.productId, p.name from Product p "
 				+ "INNER JOIN ProductRegion pr ON p.productId=pr.productId "
 				+ "WHERE pr.regionId =" + id);
-		
 		resultSearch = query.getResultList();
-		
+
 		Iterator it = resultSearch.iterator();
 		while (it.hasNext()) {
 			Object[] line = (Object[]) it.next();

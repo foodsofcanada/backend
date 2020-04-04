@@ -1,16 +1,21 @@
 package ca.foc.services;
 
+import ca.foc.dao.FavProductsRepository;
 import ca.foc.dao.PantryProductRegionRepository;
 import ca.foc.dao.PantryRepository;
+import ca.foc.dom.ProductDetail;
+import ca.foc.domain.FavouriteProductsIdentity;
 import ca.foc.domain.Pantry;
 import ca.foc.domain.PantryProductRegion;
-import ca.foc.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +29,8 @@ public class PantryService {
 	PantryRepository pantryRepository;
 	@Autowired
 	PantryProductRegionRepository pantryProductRegionRepository;
+	@Autowired
+	FavProductsRepository favProductsRepository;
 
 	/*Member create a Pantry attributes: owner(email), imagePath, description and Pantry*/
     public void createPantry(Pantry pantry) {    	
@@ -32,12 +39,13 @@ public class PantryService {
     }
     
     /*Member delete a pantry*/
-    public void deletePantry(Long pantry_id) {
-    	pantryRepository.deleteById(pantry_id);
+    public void deletePantry(int pantryId) {
+    	pantryProductRegionRepository.deleteByPantryId(pantryId);
+    	pantryRepository.deleteById(pantryId);
     }
 
     /*member edit a pantry: name,description and imgPath*/
-    public Pantry editPantry(Long pantryId, Pantry newPantry) {
+    public Pantry editPantry(int pantryId, Pantry newPantry) {
     	Optional<Pantry>p = pantryRepository.findById(pantryId);
     	Pantry pantryUpdated = p.get();
     	pantryUpdated.setDescription(newPantry.getDescription());
@@ -46,26 +54,25 @@ public class PantryService {
     	
     	return pantryRepository.save(pantryUpdated);
     }
+    /*
+     * Memthod used to a member Add a product in their pantry 
+     */
 
-    public boolean addProductToPantry(int pantryId, int productId, int regionId) {
+    public boolean addProductToPantry(int pantryId, int productId, int regionId, String coordinate) {
         PantryProductRegion ppr = new PantryProductRegion();
         boolean save= false;
         //find if it this exists
         Optional<PantryProductRegion> pprO=pantryProductRegionRepository.findByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
+        System.out.println(pprO.toString());
         if (!pprO.isPresent()) {
         ppr.setPantryId(pantryId);
         ppr.setProductId(productId);
         ppr.setRegionId(regionId);
+        ppr.setCoordinate(coordinate);
         pantryProductRegionRepository.save(ppr);
         save = true;
         }
      
-//    	EntityManager em = emf.createEntityManager();
-//        Query query = em.createQuery("insert into PantryProductRegion " +
-//                " (pantryId, productId, regionId) values (?,?,?)");
-//        query.setParameter(1,pantryId);
-//        query.setParameter(2,productId);
-//        query.setParameter(3,regionId);
         return save;
     }
 
@@ -84,27 +91,62 @@ public class PantryService {
         return deleted;
     }
 
-
-   
-
-
+    /*Get all Pantries in Pantries table for a user identified by email*/
     public List<Pantry> getUserPantries(String email) {
-        EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("select pantry_id, owner,name,description" +
-                "from Pantry p where email="+email);
-        List<Pantry> pantry = (List<Pantry>) query.getResultList();
-        return pantry;
+    	
+    	return pantryRepository.findByOwner(email);
+        
     }
 
 
-    public List<Product> getProductsInPantry(int pantry_id) {
+    public List<ProductDetail> getProductsInPantry(String email,int pantryId) {
+    	String memberId= email;
+    	//List<ProductDetail> resultSearch= null;
+    	List<ProductDetail> list = new ArrayList<>();
         EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("Select" +" p.name " +
-                "from PantryProductRegion ppr " +
-                "inner join Product p on p.prod_id=ppr.prod_id " +
-                "where ppr.pantry_id ="+pantry_id);
-        List<Product> products = (List<Product>) query.getResultList();
-        return products;
+        Query query1 = em.createQuery("SELECT ppr.regionId, ppr.productId, p.name, ppr.coordinate "
+                 + " FROM PantryProductRegion ppr "
+                 + " INNER JOIN Product p on p.productId = ppr.productId " 
+                 + " WHERE ppr.pantryId ="+pantryId);
+        Query query2 = em.createQuery("SELECT rr.regionName FROM Region rr INNER JOIN PantryProductRegion ppr ON rr.regionId = ppr.regionId");
+        
+        List<String> l = query2.getResultList();
+        String regName = l.get(0);;
+        List<ProductDetail> resultSearch = (List<ProductDetail>) query1.getResultList();
+        
+
+        Iterator it = resultSearch.iterator();
+		while (it.hasNext()) {
+			Object[] line = (Object[]) it.next();
+			ProductDetail pd = new ProductDetail();
+			pd.setRegionId((int) line[0]);
+			pd.setProductId((int) line[1]);
+			pd.setName((String) line[2]);
+			pd.setCoordinates((String) line[3]);
+			pd.setRegionName(regName);
+			
+			
+			list.add(pd);
+		}
+        // check if products are favourites
+	       if (!memberId.isEmpty()) {
+			 FavouriteProductsIdentity key= new FavouriteProductsIdentity();
+			 key.setEmail(memberId);
+			
+			for(int i=0; i<list.size();i++) {
+				
+				 key.setProductId(list.get(i).getProductId());
+				 key.setRegionId(list.get(i).getRegionId());
+				 if(favProductsRepository.existsById(key)) {
+					 list.get(i).setIsFavourite(true);
+				 }
+							 
+			}						
+			
+		}
+		em.close();
+        
+        return list;
     }
 
 }
