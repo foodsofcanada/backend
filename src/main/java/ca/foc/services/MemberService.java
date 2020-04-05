@@ -33,9 +33,9 @@ import ca.foc.domain.TopTenSearchedIdentity;
  * Service class for Member: Methods related to member.
  * 
  * 
- * @author 
+ * @author
  * 
- * Claudia Rivera
+ *         Claudia Rivera
  *
  */
 
@@ -54,89 +54,87 @@ public class MemberService {
 	PantryProductRegionRepository pantryProductRegionRepository;
 	@Autowired
 	EntityManagerFactory emf;
-	
-	
-	//Find all members in Member table
-	public Iterable<Member> getAllMembers(){
+
+	// Find all members in Member table
+	public Iterable<Member> getAllMembers() {
 		return memberRepository.findAll();
 	}
-	//Save member in member table
+
+	// Save member in member table
 	public void saveMember(Member member) {
 		memberRepository.save(member);
-		
+
 	}
-	
-	//Find a member by email 
-	public MemberResponse findByEmail(String email){
+
+	// Find a member by email
+	public MemberResponse findByEmail(String email) {
 		Optional<Member> m = memberRepository.findByEmail(email);
 		MemberResponse mr = new MemberResponse();
 		if (m.isPresent()) {
-		 Member member = m.get();
-		 mr.setIsExist(true);
-		 mr.setFirstName(member.getFirstname());
-		 mr.setLastName(member.getLastname());
+			Member member = m.get();
+			mr.setIsExist(true);
+			mr.setFirstName(member.getFirstname());
+			mr.setLastName(member.getLastname());
 		}
-		return mr; 
+		return mr;
 	}
-	
-	/*Validate email and password*/
+
+	/* Validate email and password */
 	@SuppressWarnings("null")
 	public MemberInfo CheckMember(String email, String password) {
-		
+
 		Member memberDb = null;
 		MemberInfo memberInfo = new MemberInfo();
-		Optional<Member> member= memberRepository.findByEmail(email);  // find a member within the database by the email. Email is unique 
+		Optional<Member> member = memberRepository.findByEmail(email); // find a member within the database by the
+																		// email. Email is unique
 		if (member.isPresent()) {
-			memberDb= member.get();//member in the database
-			//Check if the fetched member matches the input username and the hash of the password matches
-			if (!memberDb.getEmail().equals(email)||!BCrypt.checkpw(password, memberDb.getPassword())) {
-				memberDb=null;			
+			memberDb = member.get();// member in the database
+			// Check if the fetched member matches the input username and the hash of the
+			// password matches
+			if (!memberDb.getEmail().equals(email) || !BCrypt.checkpw(password, memberDb.getPassword())) {
+				memberDb = null;
 			}
-			if (memberDb!= null) {
-			memberInfo.setEmail(memberDb.getEmail());
-			memberInfo.setFirstName(memberDb.getFirstname());
-			memberInfo.setLastName(memberDb.getLastname());
-			}
-			else
-				memberInfo=null;
-		}
-		else
-		{
+			if (memberDb != null) {
+				memberInfo.setEmail(memberDb.getEmail());
+				memberInfo.setFirstName(memberDb.getFirstname());
+				memberInfo.setLastName(memberDb.getLastname());
+			} else
+				memberInfo = null;
+		} else {
 			System.out.println("member doesn't exist");
 		}
-		
-			
+
 		return memberInfo;
 	}
-	
-	/* Register a new member
-	 * Return true if member was added
+
+	/*
+	 * Register a new member Return true if member was added
 	 */
-	
+
 	public boolean NewMember(Member member) {
-		boolean result= false;
-		
+		boolean result = false;
+
 		Optional<Member> m = memberRepository.findByEmail(member.getEmail());
-		
+
 		if (!m.isPresent()) {
-			result=true;  
-			Member nMember= new Member();  // new member
+			result = true;
+			Member nMember = new Member(); // new member
 			nMember.setFirstname(member.getFirstname());
 			nMember.setLastname(member.getLastname());
-			//Set the member password to a BCrypt hash of the input password with a complexity of 4 iterations
+			// Set the member password to a BCrypt hash of the input password with a
+			// complexity of 4 iterations
 			nMember.setPassword(BCrypt.hashpw(member.getPassword(), BCrypt.gensalt(4)));
 			nMember.setEmail(member.getEmail());
 			nMember.setRole(0); // set role to 0 by default
-			
+
 			memberRepository.save(nMember);
-		}
-		else
-			result=false;
-		
+		} else
+			result = false;
+
 		return result;
-		
+
 	}
-	
+
 	/*
 	 * Update member- Edit profile: change first name, last name, password, email.
 	 * Returns the member that was updated
@@ -146,7 +144,7 @@ public class MemberService {
 		//newmember is the member from the form
 		//find member by email and update with data from the form
 		Optional<Member> m = memberRepository.findByEmail(email);
-		Member memberUpdated= m.get();
+		Member memberUpdated = m.get();
 		System.out.println(newmember.toString());
 		if(!newmember.getFirstname().equals("")) {	
 			memberUpdated.setFirstname(newmember.getFirstname());
@@ -165,46 +163,44 @@ public class MemberService {
 //		memberInfo.setLastName(memberSaved.getLastname());
 		return memberRepository.save(memberUpdated);
 	}
-		
-	
-	/* Delete a member in the database*/
+
+	/* Delete a member in the database */
 	public void deleteMember(String email) {
 
-		//first delete FavouriteProducts, Pantries
-		List<Pantry> pantryMember= pantryRepository.findByEmail(email); //find all pantries belongs to a member
-		for (int i = 0; i < pantryMember.size(); i++ ) {
-			int pantryId= pantryMember.get(i).getPantryId();
-				pantryProductRegionRepository.deleteByPantryId(pantryId);
+		// first delete FavouriteProducts, Pantries
+		List<Pantry> pantryMember = pantryRepository.findByEmail(email); // find all pantries belongs to a member
+		for (int i = 0; i < pantryMember.size(); i++) {
+			int pantryId = pantryMember.get(i).getPantryId();
+			pantryProductRegionRepository.deleteByPantryId(pantryId);
 		}
 		List<FavouriteResponse> favouriteMember = this.getProductsInFavourite(email);
-		for (int i = 0; i < favouriteMember.size(); i++ ) {
-			FavouriteProductsIdentity id= new FavouriteProductsIdentity();
+		for (int i = 0; i < favouriteMember.size(); i++) {
+			FavouriteProductsIdentity id = new FavouriteProductsIdentity();
 			id.setEmail(email);
 			id.setProductId(favouriteMember.get(i).getProductId());
 			id.setRegionId(favouriteMember.get(i).getRegionId());
 			Optional<FavouriteProducts> fp = favProductsRepository.findById(id);
-			FavouriteProducts fpDB= fp.get();
+			FavouriteProducts fpDB = fp.get();
 			fpDB.toString();
-			favProductsRepository.delete(fpDB);  
+			favProductsRepository.delete(fpDB);
 		}
-		
-		
+
 		pantryRepository.deleteByEmail(email);
-		
+
 		memberRepository.deleteByEmail(email);
 	}
-		
-	/*Methods related to ProductSuggestions*/
-	
+
+	/* Methods related to ProductSuggestions */
+
 	public void saveProductSuggested(String name, String description) {
 		ProductSuggestion ps = new ProductSuggestion();
 		ps.setDescription(description);
 		ps.setName(name);
 		productSuggestionRepository.save(ps);
-		
+
 	}
-	
-	public Iterable<ProductSuggestion> getAll(){
+
+	public Iterable<ProductSuggestion> getAll() {
 		return productSuggestionRepository.findAll();
 	}
 
@@ -279,46 +275,46 @@ public class MemberService {
 					}
 				
 			}
-			em.close();
-			return list;
+
+		}
+		em.close();
+		return list;
 
 	}
 
-/*Mariia*/
-	
-//	public List<FavouriteProductModel> getProductsInFavourite(String email) {
-//        EntityManager em = emf.createEntityManager();
-//        Query query = em.createQuery("select p.name from " +
-//                "Product p inner join FavouriteProducts fp on " +
-//                "p.prod_id=fp.prod_id where fp.email="+email);
-//        List<FavouriteProductModel> list = (List<FavouriteProductModel>) query.getResultList();
-//        return list;
-//    }
-//
-//	
-	/*Admin manage member*/
-    public void deleteAccount(String email) {
-        EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("DELETE from Member m where m.email="+email);
-        query.executeUpdate();
-    }
+	/* Mariia */
 
+	// public List<FavouriteProductModel> getProductsInFavourite(String email) {
+	// EntityManager em = emf.createEntityManager();
+	// Query query = em.createQuery("select p.name from " +
+	// "Product p inner join FavouriteProducts fp on " +
+	// "p.prod_id=fp.prod_id where fp.email="+email);
+	// List<FavouriteProductModel> list = (List<FavouriteProductModel>)
+	// query.getResultList();
+	// return list;
+	// }
+	//
+	//
+	/* Admin manage member */
+	public void deleteAccount(String email) {
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createQuery("DELETE from Member m where m.email=" + email);
+		query.executeUpdate();
+	}
 
-    public void changeMemberRole(String email) {
-        EntityManager em = emf.createEntityManager();
-        Query query = em.createQuery("select role from Member where email="+email);
-        List<Integer> role = query.getResultList();
-        int roleToUpdate = 0;
-        if (role.get(0) == 1) {
-            roleToUpdate = 0;
-        }
-        else if (role.get(0)==0) {
-            roleToUpdate = 1;
-        }
-        Query queryUpdate = em.createQuery("UPDATE Member m SET role=?");
-        queryUpdate.setParameter(1,roleToUpdate);
-        queryUpdate.executeUpdate();
-    }
-	
+	public void changeMemberRole(String email) {
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createQuery("select role from Member where email=" + email);
+		List<Integer> role = query.getResultList();
+		int roleToUpdate = 0;
+		if (role.get(0) == 1) {
+			roleToUpdate = 0;
+		} else if (role.get(0) == 0) {
+			roleToUpdate = 1;
+		}
+		Query queryUpdate = em.createQuery("UPDATE Member m SET role=?");
+		queryUpdate.setParameter(1, roleToUpdate);
+		queryUpdate.executeUpdate();
+	}
+
 }
-
