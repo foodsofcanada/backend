@@ -23,7 +23,7 @@ import java.util.Optional;
  *                 editProduct
  *                
  */
-@CrossOrigin(origins = "http://foc-react.s3-website.ca-central-1.amazonaws.com")
+@CrossOrigin
 @RestController
 public class ProductController {
 
