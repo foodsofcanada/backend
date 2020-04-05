@@ -3,15 +3,12 @@ package ca.foc.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-
 import ca.foc.dao.FavProductsRepository;
 import ca.foc.dao.MemberRepository;
 import ca.foc.dao.PantryProductRegionRepository;
@@ -145,7 +142,7 @@ public class MemberService {
 		//find member by email and update with data from the form
 		Optional<Member> m = memberRepository.findByEmail(email);
 		Member memberUpdated = m.get();
-		System.out.println(newmember.toString());
+		
 		if(!newmember.getFirstname().equals("")) {	
 			memberUpdated.setFirstname(newmember.getFirstname());
 		}
@@ -186,7 +183,6 @@ public class MemberService {
 		}
 
 		pantryRepository.deleteByEmail(email);
-
 		memberRepository.deleteByEmail(email);
 	}
 
@@ -256,8 +252,7 @@ public class MemberService {
 			for (int i= 0; i<resultSearch.size(); i++) {
 				FavouriteResponse favourite = new FavouriteResponse();
 				FavouriteProductsIdentity favId= resultSearch.get(i).getFavouriteProductsIdentity();
-				
-			
+							
 				Query query2 = em.createQuery("SELECT r.regionName FROM Region r WHERE r.regionId= "+ favId.getRegionId());
 				Query query3 = em.createQuery("SELECT p.name FROM Product p WHERE p.productId= "+favId.getProductId());
 				String regName=(String) query2.getSingleResult();
@@ -272,11 +267,9 @@ public class MemberService {
 						favourite.setName(prodName);
 						favourite.setIsFavourite(true);
 						list.add(favourite);
-					}
-				
+					}				
 			}
 
-		}
 		em.close();
 		return list;
 

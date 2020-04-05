@@ -9,7 +9,7 @@ import javax.persistence.*;
  * 
  * Class to represent ProductRegion Table in database
  * 
- * @author 
+ * @author Claudia Rivera
  *
  */
 

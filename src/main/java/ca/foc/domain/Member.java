@@ -8,7 +8,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
-
+/**
+ * 
+ * @author Claudia Rivera
+ *
+ */
 @Entity
 @Table(name = "foc_members")
 public class Member implements Serializable {

@@ -16,7 +16,7 @@ public class Pantry {
     @Id
     @Column (name="pantry_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int pantryId;
+	private Integer pantryId;
     @Column(name="owner")
     private String email;
     @Column(name="imagen_path")
@@ -29,7 +29,7 @@ public class Pantry {
     	
     }
 
-    public Pantry(int pantry_id, String email,String imgPath, String description, String pantryName) {
+    public Pantry(Integer pantry_id, String email,String imgPath, String description, String pantryName) {
         this.pantryId = pantry_id;
         this.imgPath = imgPath;
         this.email = email;
@@ -37,7 +37,7 @@ public class Pantry {
         this.pantryName = pantryName;
     }
 
-    public int getPantryId() {
+    public Integer getPantryId() {
 		return pantryId;
 	}
 
@@ -58,7 +58,7 @@ public class Pantry {
 		this.email = email;
 	}
 
-	public void setPantryId(int pantryId) {
+	public void setPantryId(Integer pantryId) {
 		this.pantryId = pantryId;
 	}
 

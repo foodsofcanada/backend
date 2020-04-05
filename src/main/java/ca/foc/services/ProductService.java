@@ -23,6 +23,7 @@ import javax.persistence.Query;
  * ProductServices - ca.foc.services.ProductServices
  * 
  * This class implements methods for Product entity and ProductRegion
+ * @author Claudia Rivera
  * 
  */
 @Service
@@ -40,7 +41,7 @@ public class ProductService implements IProductService {
 		return productRepository.findAll();
 	}
 
-	/* Porduct Info.Returns an optional object */
+	/* Product Info.Returns an optional object */
 	public Optional<Product> getProductInfo(int id) {
 		return productRepository.findById(id);
 	}

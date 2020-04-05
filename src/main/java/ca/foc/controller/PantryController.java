@@ -1,6 +1,7 @@
 package ca.foc.controller;
 import ca.foc.dao.PantryRepository;
 import ca.foc.dom.ProductDetail;
+import ca.foc.domain.Member;
 import ca.foc.domain.Pantry;
 import ca.foc.domain.Product;
 import ca.foc.services.*;
@@ -82,5 +83,14 @@ public class PantryController {
    		return pantryService.getPantryInfo(email,pantryId);
 
    	}
+   	
+   	/* Edit profile Returns the member updated */
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PutMapping("/pantry/{pantryId}")
+	@ResponseBody
+	public Pantry editPantry(@PathVariable int pantryId, @RequestBody Pantry pantry) {
+
+		return pantryService.editPantry(pantryId, pantry);
+	}
     
 }

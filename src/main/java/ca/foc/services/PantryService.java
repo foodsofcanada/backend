@@ -18,7 +18,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Pantry service
+ * @author Claudia Rivera, Mariia Voronina
+ * 
+ *
+ */
 
 @Service
 public class PantryService {
@@ -45,21 +50,42 @@ public class PantryService {
     	pantryProductRegionRepository.deleteByPantryId(pantryId);
     	pantryRepository.deleteById(pantryId);
     }
-
-    /*member edit a pantry: name,description and imgPath*/
-    public Pantry editPantry(int pantryId, Pantry newPantry) {
+    /**
+     * member edit a pantry: name,description and imgPath*
+     * @param pantryId
+     * @param newPantry
+     * @return a Pantry object
+     */
+    
+    public Pantry editPantry(Integer pantryId, Pantry newPantry) {
     	Optional<Pantry>p = pantryRepository.findById(pantryId);
     	Pantry pantryUpdated = p.get();
-    	pantryUpdated.setDescription(newPantry.getDescription());
-    	pantryUpdated.setImgPath(newPantry.getImgPath());
-    	pantryUpdated.setPantryName(newPantry.getPantryName());
+//    	
+//    	if(newPantry.getPantryId()!=null) {
+//    		pantryUpdated.setPantryId(pantryUpdated.getPantryId());//pantryId cannot be changed
+//    	}
+//
+//    	if(!newPantry.getEmail().equals("")) {
+//    		pantryUpdated.setEmail(pantryUpdated.getEmail());// Pantry email cannot be changed
+//    	}
     	
+    	if(!newPantry.getDescription().equals("")) {
+    		pantryUpdated.setDescription(newPantry.getDescription());
+    	}
+    	if(!newPantry.getImgPath().equals("")) {
+    	pantryUpdated.setImgPath(newPantry.getImgPath());
+    	}
+    	if(!newPantry.getPantryName().equals("")) {
+    	pantryUpdated.setPantryName(newPantry.getPantryName());
+    	}
     	return pantryRepository.save(pantryUpdated);
     }
-    /*
-     * Method used to a member Add a product in their pantry 
+    
+    
+    /**
+    /* addProductToPantry.-Method used to a member Add a product in their pantry 
+     * @return a boolean true if product was added or false otherwise
      */
-
     public boolean addProductToPantry(int pantryId, int productId, int regionId, String coordinate) {
         PantryProductRegion ppr = new PantryProductRegion();
         boolean save= false;
@@ -101,7 +127,7 @@ public class PantryService {
         
     }
     
-    /*Get Pnntry Info*/
+    /*Get Pantry Info*/
 
     public Optional<Pantry> getPantryInfo(String email, int pantryId) {
     	return pantryRepository.findByEmailAndPantryId(email, pantryId);
@@ -117,28 +143,29 @@ public class PantryService {
                  + " FROM PantryProductRegion ppr "
                  + " INNER JOIN Product p on p.productId = ppr.productId " 
                  + " WHERE ppr.pantryId ="+pantryId);
-        Query query2 = em.createQuery("SELECT rr.regionName FROM Region rr INNER JOIN PantryProductRegion ppr ON rr.regionId = ppr.regionId");
+       // Query query2 = em.createQuery("SELECT rr.regionName FROM Region rr INNER JOIN PantryProductRegion ppr ON rr.regionId = ppr.regionId");
         
-        List<String> l = query2.getResultList();
-        String regName = "";
-        if (l.size() != 0) {
-        	 regName = l.get(0);
-        }
+//        List<String> l = query2.getResultList();
+//        String regName = "";
+//        if (l.size() != 0) {
+//        	 regName = l.get(0);
+//        }
        
         List<ProductDetail> resultSearch = (List<ProductDetail>) query1.getResultList();
-        
-
         Iterator it = resultSearch.iterator();
 		while (it.hasNext()) {
+			
 			Object[] line = (Object[]) it.next();
 			ProductDetail pd = new ProductDetail();
 			pd.setRegionId((int) line[0]);
 			pd.setProductId((int) line[1]);
 			pd.setName((String) line[2]);
 			pd.setCoordinates((String) line[3]);
+			
+			Query query2 = em.createQuery("SELECT DISTINCT rr.regionName FROM Region rr INNER JOIN PantryProductRegion ppr ON rr.regionId = ppr.regionId where rr.regionId= "+pd.getRegionId());
+			String regName = (String) query2.getSingleResult();
 			pd.setRegionName(regName);
-			
-			
+						
 			list.add(pd);
 		}
         // check if products are favourites
