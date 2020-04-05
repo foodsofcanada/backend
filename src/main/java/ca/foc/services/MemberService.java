@@ -148,8 +148,7 @@ public class MemberService {
 		Optional<Member> m = memberRepository.findByEmail(email);
 		Member memberUpdated= m.get();
 		System.out.println(newmember.toString());
-		if(!newmember.getFirstname().equals("")) {
-		
+		if(!newmember.getFirstname().equals("")) {	
 			memberUpdated.setFirstname(newmember.getFirstname());
 		}
 		if(!newmember.getLastname().equals("")) {
