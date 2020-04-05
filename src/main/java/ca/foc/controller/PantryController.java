@@ -36,9 +36,9 @@ public class PantryController {
     @DeleteMapping("/deletepantry/{id}")
     @ResponseBody
 	@Transactional
-    public String deletePantry(@PathVariable int id) {
-        pantryService.deletePantry(id);
-        return "Pantry deleted";
+    public boolean deletePantry(@PathVariable int id) {
+        
+        return pantryService.deletePantry(id);
     }
     //List of pantries for one user identified by email
     @CrossOrigin(origins = "http://localhost:3000")

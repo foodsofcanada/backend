@@ -44,12 +44,23 @@ public class PantryService {
 		return newpantry;
     	
     }
-    
-    /*Member delete a pantry*/
-    public void deletePantry(int pantryId) {
-    	pantryProductRegionRepository.deleteByPantryId(pantryId);
+    /**
+     * Member delete a pantry
+     */
+  
+    public boolean deletePantry(int pantryId) {
+    	boolean validation= false;
+    	Optional<Pantry> p = pantryRepository.findById(pantryId);
+    	if (p.isPresent()) {
+    	pantryProductRegionRepository.deleteByPantryId(pantryId);;
     	pantryRepository.deleteById(pantryId);
+    	validation = true;
+    	}
+    	
+    	return validation;
     }
+    
+    
     /**
      * member edit a pantry: name,description and imgPath*
      * @param pantryId
@@ -103,8 +114,14 @@ public class PantryService {
      
         return save;
     }
-
-    //Delete a product in a pantry
+    /**
+     * Delete a product in a pantry
+     * @param pantryId
+     * @param productId
+     * @param regionId
+     * @return True if poduct was deleted false otherwise
+     */
+    
     public boolean deleteProductFromPantry(int pantryId, int productId, int regionId) {
        
     	 PantryProductRegion ppr = new PantryProductRegion();
