@@ -40,7 +40,7 @@ public class ProductService implements IProductService {
 		return productRepository.findAll();
 	}
 
-	/* Returns an optional object */
+	/* Porduct Info.Returns an optional object */
 	public Optional<Product> getProductInfo(int id) {
 		return productRepository.findById(id);
 	}

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 //@RequestMapping("/api")
@@ -71,4 +72,15 @@ public class PantryController {
     {
         return  pantryService.deleteProductFromPantry(pantryId,productId,regionId);
     }
+    
+    //Pantry Info 
+   	@CrossOrigin(origins = "http://localhost:3000")
+   	@GetMapping("/pantryinfo/{email}/{pantryId}")
+   	@ResponseBody
+   	public Optional<Pantry> getProductInfo(@PathVariable String email, @PathVariable Integer pantryId) {
+
+   		return pantryService.getPantryInfo(email,pantryId);
+
+   	}
+    
 }

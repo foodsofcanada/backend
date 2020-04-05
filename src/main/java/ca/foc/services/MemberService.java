@@ -142,7 +142,7 @@ public class MemberService {
 	 * Returns the member that was updated
 	 * */
 	
-	public MemberInfo editMember(String email, Member newmember) {
+	public Member editMember(String email, Member newmember) {
 		//newmember is the member from the form
 		//find member by email and update with data from the form
 		Optional<Member> m = memberRepository.findByEmail(email);
@@ -152,19 +152,19 @@ public class MemberService {
 		
 			memberUpdated.setFirstname(newmember.getFirstname());
 		}
-		else if(!newmember.getLastname().equals("")) {
+		if(!newmember.getLastname().equals("")) {
 		   memberUpdated.setLastname(newmember.getLastname());
 		}
-		else if(!newmember.getPassword().equals("")) {
+		if(!newmember.getPassword().equals("")) {
 			//Set the member password to a BCrypt hash of the input password with a complexity of 4 iterations
 	    	memberUpdated.setPassword(BCrypt.hashpw(newmember.getPassword(),BCrypt.gensalt(4)));
 		}
-		Member memberSaved = memberRepository.save(memberUpdated);
-		MemberInfo memberInfo = new MemberInfo();
-		memberInfo.setEmail(memberSaved.getEmail());;
-		memberInfo.setFirstName(memberSaved.getFirstname());
-		memberInfo.setLastName(memberSaved.getLastname());
-		return memberInfo;
+//		Member memberSaved = memberRepository.save(memberUpdated);
+//		MemberInfo memberInfo = new MemberInfo();
+//		memberInfo.setEmail(memberSaved.getEmail());;
+//		memberInfo.setFirstName(memberSaved.getFirstname());
+//		memberInfo.setLastName(memberSaved.getLastname());
+		return memberRepository.save(memberUpdated);
 	}
 		
 	
@@ -213,38 +213,39 @@ public class MemberService {
 	/*Favourites related*/
 	/* add a product to the favourite list.*
 	 * First check if the product is already in the list. Using a composite primary key*/
-	
-	public boolean  addDeleteProductFavourites(String email, String coordinate, int productId, int regionId) {
-		boolean flag= false; // false if the product is deleted from favourites or true if it was saved
-		
-		FavouriteProductsIdentity key= new FavouriteProductsIdentity();
-		key.setEmail(email);		
-		key.setProductId(productId);
-		key.setRegionId(regionId);
-		 
-		//check if the key exists in FavouriteProducts table
-		
-	   if(favProductsRepository.existsById(key)) {
+	public boolean  addDeleteProductFavourites(String email, String coordinate, int productId, int regionId) {	
+
+		boolean flag = false; // false if the product is deleted from favourites or true if it was saved
+		FavouriteProductsIdentity key= new FavouriteProductsIdentity();	
+		key.setEmail(email);					
+		key.setEmail(email);
+		key.setProductId(productId);			
+		key.setRegionId(regionId);			
+		 	
+		//check if the key exists in FavouriteProducts table			
+			
+	   if(favProductsRepository.existsById(key)) {			
+						
+			Optional<FavouriteProducts> fp = favProductsRepository.findById(key);				
+			FavouriteProducts fpDB= fp.get();				
+			fpDB.toString();				
+			favProductsRepository.delete(fpDB);  				
+			flag= false;				
+
+
+		}			
+		else {				// add to table
 					
-			Optional<FavouriteProducts> fp = favProductsRepository.findById(key);
-			FavouriteProducts fpDB= fp.get();
-			fpDB.toString();
-			favProductsRepository.delete(fpDB);  
-			flag= false;
+
+			FavouriteProducts fp = new FavouriteProducts();
+			fp.setCoordinates(coordinate);				
+			fp.setFavouriteProductsIdentity(new FavouriteProductsIdentity(email,productId,regionId));				
+			favProductsRepository.save(fp);				
+			flag =true;				
+		}			
 			
-		}
-		else {
-			// add to table 	
+		return flag;					
 			
-			FavouriteProducts fp= new FavouriteProducts(); 
-			fp.setCoordinates(coordinate);
-			fp.setFavouriteProductsIdentity(new FavouriteProductsIdentity(email,productId,regionId));
-			favProductsRepository.save(fp);
-			flag =true;
-		}
-		
-		return flag;		
-		
 	}
 	
 	/*Get all products in favourite table for a user identified by email*/
@@ -260,6 +261,8 @@ public class MemberService {
 			for (int i= 0; i<resultSearch.size(); i++) {
 				FavouriteResponse favourite = new FavouriteResponse();
 				FavouriteProductsIdentity favId= resultSearch.get(i).getFavouriteProductsIdentity();
+				
+			
 				Query query2 = em.createQuery("SELECT r.regionName FROM Region r WHERE r.regionId= "+ favId.getRegionId());
 				Query query3 = em.createQuery("SELECT p.name FROM Product p WHERE p.productId= "+favId.getProductId());
 				String regName=(String) query2.getSingleResult();

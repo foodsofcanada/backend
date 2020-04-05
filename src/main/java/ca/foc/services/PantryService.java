@@ -100,7 +100,13 @@ public class PantryService {
     	return pantryRepository.findByEmail(email);
         
     }
+    
+    /*Get Pnntry Info*/
 
+    public Optional<Pantry> getPantryInfo(String email, int pantryId) {
+    	return pantryRepository.findByEmailAndPantryId(email, pantryId);
+    }
+    
     //Display all products in a pantry
     public List<ProductDetail> getProductsInPantry(String email,int pantryId) {
     	String memberId= email;

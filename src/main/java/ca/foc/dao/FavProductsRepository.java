@@ -5,6 +5,7 @@ import ca.foc.domain.FavouriteProductsIdentity;
 
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface FavProductsRepository extends CrudRepository<FavouriteProducts, FavouriteProductsIdentity> {
@@ -19,6 +20,7 @@ public interface FavProductsRepository extends CrudRepository<FavouriteProducts,
    // @Override
    // public Optional<FavouriteProducts> findById(Integer integer);
 
+    //public  Optional<FavouriteProducts> findByEmailAndProductIdAndRegionId(String email, int productId, int regionId);
     @Override
     public boolean existsById(FavouriteProductsIdentity id);
 
@@ -42,6 +44,8 @@ public interface FavProductsRepository extends CrudRepository<FavouriteProducts,
 
     @Override
     public void deleteAll();
+
+	//public List<FavouriteProducts> findByEmail(String email);
 
 
 }

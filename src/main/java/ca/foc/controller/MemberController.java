@@ -92,7 +92,7 @@ public class MemberController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PutMapping("/members/{email}")
 	@ResponseBody
-	public MemberInfo editMember(@PathVariable String email, @RequestBody Member member) {
+	public Member editMember(@PathVariable String email, @RequestBody Member member) {
 
 		return memberService.editMember(email, member);
 	}

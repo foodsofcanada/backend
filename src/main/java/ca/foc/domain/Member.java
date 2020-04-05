@@ -21,8 +21,6 @@ public class Member implements Serializable {
 	private String password;
 	private String firstname;
 	private String lastname;
-
-	
 	@Column(name = "date_joined")
 	@CreationTimestamp
 	private Date dateJoined;
@@ -33,7 +31,7 @@ public class Member implements Serializable {
 	}
 
 	public Member(String email, String password, String firstname, String lastname, int role) {
-		super();
+		
 		this.email = email;
 		this.password = password;
 		this.firstname = firstname;
