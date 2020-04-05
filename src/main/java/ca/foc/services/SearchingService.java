@@ -27,18 +27,17 @@ import ca.foc.domain.TopTenSearchedIdentity;
 
 /**
  * Service class. Implement Searching by filters
- * 
- * @author
- * 
- *         Claudia R. Receive a SearchObject object with 3 arrayList one for
+ * 	       Receive a SearchObject object with 3 arrayList one for
  *         each filter. Then filters are passed to a String and inserted in each
  *         query. Returns a list with ProductDetail objects that fit the search
  *         The data returned is Coordinates, regionId, regionName,productId name.
- * 
  *         Date:March-15-2020
  *         Modified: product list is empty, added.
  *         Date: March 18-2020
+ *         Modified: Add when a member is present to include product isFavourite 
+ * 	       Date: March 30-2020
  * 
+ * @author Claudia Rivera. 
  *
  */
 @Service

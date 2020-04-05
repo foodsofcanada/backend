@@ -10,9 +10,9 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 /**
+ * Top Ten most searched product table
  * 
- * 
- *
+ *@author Claudia Rivera
  */
 
 

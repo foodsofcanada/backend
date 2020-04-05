@@ -36,29 +36,33 @@ public class ProductService implements IProductService {
 	@Autowired
 	EntityManagerFactory emf;
 
-	/* Returns all products in the database */
+	/**
+	 * Get all products 
+	 * @return a list of all products in the database
+	 */
 	public List<Product> getAllProducts() {
 		return productRepository.findAll();
 	}
+	
+	/**
+	 * Method to get product information identifying by id
+	 * @param id, product id
+	 * @return Product
+	 */
 
-	/* Product Info.Returns an optional object */
 	public Optional<Product> getProductInfo(int id) {
 		return productRepository.findById(id);
 	}
-
-	/* Add a new product in the database */
-	public Product addProduct(Product product) {
-		productRepository.save(product);
-		return product;
-	}
-
-	/* Delete a product in the database */
-	public void deleteProduct(int id) {
-		productRepository.deleteById(id);
-	}
-
+	
+	/**
+	 * Get All products in one region identified by region id
+	 * @param id, region id
+	 * @param email, email of a member if  a member is present 
+	 * @return List of products in a region
+	 */
 	/* Returns a list of products in a Region */
 	@Override
+
 	public List<ProductRegionJoin> getAllProductsInRegion(int id, String email) {
 		String memberId=email;
 		List<ProductRegionJoin> resultSearch = null;
@@ -101,6 +105,32 @@ public class ProductService implements IProductService {
 		return list;
 	}
 	
+	/*
+	/***** Admin operation related to manage products****
+	 *****************************************************/
+	
+	
+	/**
+	 * Add a new product in the database
+	 * @param product
+	 * @return the product added
+	 */
+
+	public Product addProduct(Product product) {
+		productRepository.save(product);
+		return product;
+	}
+
+	/**
+	 * Delete a product in the database
+	 * @param id. ProductId
+	 */
+	
+	public void deleteProduct(int id) {
+		productRepository.deleteById(id);
+	}
+
+
 	
 
 }

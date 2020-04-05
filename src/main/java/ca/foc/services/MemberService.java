@@ -188,11 +188,21 @@ public class MemberService {
 
 	/* Methods related to ProductSuggestions */
 
-	public void saveProductSuggested(String name, String description) {
+	public boolean saveProductSuggested(String name, String description) {
+		boolean validation = false;
 		ProductSuggestion ps = new ProductSuggestion();
 		ps.setDescription(description);
 		ps.setName(name);
-		productSuggestionRepository.save(ps);
+		ps=productSuggestionRepository.save(ps);
+		int id = ps.getId();
+		Optional<ProductSuggestion> psDB = productSuggestionRepository.findById(id);
+		
+		//check if the product was saved in the product suggestion table
+		if  (productSuggestionRepository.existsById(id)) {
+			validation = true;
+			
+		}
+		return validation;
 
 	}
 

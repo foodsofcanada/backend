@@ -111,11 +111,8 @@ public class MemberController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/suggest/{name}/{description}")
 	@ResponseBody
-	public String addSuggestion(@PathVariable String name, @PathVariable String description) {
-
-		memberService.saveProductSuggested(name, description);
-		return "Request sent";
-
+	public boolean addSuggestion(@PathVariable String name, @PathVariable String description) {
+		return memberService.saveProductSuggested(name, description);
 	}
 	
 	/*Member add or delete a product in Favourite List*/

@@ -22,7 +22,9 @@ import java.util.Optional;
  * Pantry service
  * @author Claudia Rivera, Mariia Voronina
  * 
- *
+ *Modified: createPantry,DeletePantry,editPantry,getProductsInPantry to get the appropriate response
+ *          -Claudia Rivera 
+ *          Date: April 01-2020
  */
 
 @Service
@@ -37,7 +39,12 @@ public class PantryService {
 	@Autowired
 	FavProductsRepository favProductsRepository;
 
-	/*Member create a Pantry attributes: owner(email), imagePath, description and Pantry*/
+	/**
+	 * Member create a Pantry attributes: owner(email), imagePath, description and Pantry
+	 * @param pantry
+	 * @return the pantry created
+	 */
+	
     public Pantry createPantry(Pantry pantry) {    	
     	
     	Pantry newpantry= pantryRepository.save(pantry);
