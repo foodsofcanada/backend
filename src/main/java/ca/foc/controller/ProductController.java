@@ -23,6 +23,7 @@ import java.util.Optional;
  *                 editProduct
  *                
  */
+@CrossOrigin(origins = "http://foc-react.s3-website.ca-central-1.amazonaws.com")
 @RestController
 public class ProductController {
 
@@ -36,7 +37,7 @@ public class ProductController {
 	
 
 	//Searching using filters
-	@CrossOrigin(origins = "http://localhost:3000")
+//	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/search")
 	public List<ProductDetail> search(@RequestBody SearchObject search) {
 
@@ -45,9 +46,8 @@ public class ProductController {
 	}
 
 	/* Returns all products in the database */
-	@CrossOrigin(origins = "http://localhost:3000")
+//	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/products")
-	// public List<Product> getproductData()
 	public List<Product> getAllProducts() {
 		List<Product> products = new ArrayList<>();
 		productService.getAllProducts().forEach(products::add);
@@ -56,7 +56,7 @@ public class ProductController {
 	}
 	
     //Product Info 
-	@CrossOrigin(origins = "http://localhost:3000")
+//	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/products/{id}")
 	public Optional<Product> getProductInfo(@PathVariable int id) {
 
@@ -65,7 +65,7 @@ public class ProductController {
 	}
 	
 	/* Returns all products in the top ten table */
-	@CrossOrigin(origins = "http://localhost:3000")
+//	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/products/top/{email}")
 	public List<TopTenObject> getTopTenSearched(@PathVariable String email) {
 		
@@ -78,7 +78,7 @@ public class ProductController {
     /**********************************************************/
 	// Add New Product. Admin operation
 	
-	@CrossOrigin(origins = "http://localhost:3000")
+//	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/products/")
 	public Product addProduct(@RequestBody Product product) {
 		productService.addProduct(product);
@@ -86,7 +86,7 @@ public class ProductController {
 	}
 	
 	//Delete Product. Admin operation
-	@CrossOrigin(origins = "http://localhost:3000")
+//	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping("/products/{id}")
 	@Transactional
 	public void deleteProduct(@PathVariable int id) {

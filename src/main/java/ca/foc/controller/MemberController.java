@@ -47,6 +47,7 @@ import ca.foc.services.MemberService;
  *        Mariia Voronina
  * 
  */
+@CrossOrigin(origins = "http://foc-react.s3-website.ca-central-1.amazonaws.com")
 @RestController
 public class MemberController {
 
@@ -55,7 +56,6 @@ public class MemberController {
 	
 
 	/* Find a member by email */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/members/{email}")
 	@ResponseBody
 	public MemberResponse findMember(@PathVariable String email) {
@@ -68,7 +68,6 @@ public class MemberController {
 	 * Verify if a member exists in the database. Return the member founded, null
 	 * otherwise
 	 */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/login")
 	@ResponseBody
 	public Member checkMember(@RequestBody Member member) {
@@ -79,7 +78,6 @@ public class MemberController {
 	/*
 	 * Register a new member. Returns true if the member was added. false other wise
 	 */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/registration")
 	@ResponseBody
 	public boolean addMember(@RequestBody Member member) {
@@ -88,7 +86,6 @@ public class MemberController {
 	}
 
 	/* Edit profile Returns the member updated */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PutMapping("/members/{email}")
 	@ResponseBody
 	public Member editMember(@PathVariable String email, @RequestBody Member member) {
@@ -97,7 +94,6 @@ public class MemberController {
 	}
 
 	// Delete profile member operation
-	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping("/members/{email}")
 	@ResponseBody
 	@Transactional
@@ -107,7 +103,6 @@ public class MemberController {
 	}
 
 	/* Member suggest a product */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/suggest/{name}/{description}")
 	@ResponseBody
 	public String addSuggestion(@PathVariable String name, @PathVariable String description) {
@@ -118,7 +113,6 @@ public class MemberController {
 	}
 	
 	/*Member add or delete a product in Favourite List*/
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/fav/{email}/{productId}/{regionId}/{coordinates}")
 	@ResponseBody
 	//@Transactional
@@ -128,7 +122,6 @@ public class MemberController {
 	}
    
 	/* Returns all products in favourite table */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/favourites/{email}")
 	public List<FavouriteResponse> getProductsInFavourite(@PathVariable String email) {
 		List<FavouriteResponse> favourites = new ArrayList<>();
@@ -152,7 +145,6 @@ public class MemberController {
     /*       Admin Operations related to manage members       */
     /**********************************************************/
     /* View products suggestions. Admin */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/suggestions")
 	// public List<Product> getproductData()
 	public List<ProductSuggestion> getAllProducts() {

@@ -23,6 +23,7 @@ import java.util.Optional;
  *            
  *  Claudia: March/15/2020          
  */
+@CrossOrigin(origins = "http://foc-react.s3-website.ca-central-1.amazonaws.com")
 @RestController
 //@RequestMapping(path = "/region")
 public class RegionController {
@@ -35,21 +36,18 @@ public class RegionController {
 	
 	
 	//Get all regions
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/regions")
 	public List<Region> getAllRegions() {
 		return regionService.getAllRegions();
 	}
 
-	//Get products in region 
-	@CrossOrigin(origins = "http://localhost:3000")
+	//Get products in region
 	@GetMapping("/productRegion/{id}/{email}")
 	public List<ProductRegionJoin> getAllProductsInRegion(@PathVariable int id,@PathVariable String email) {
 		return productService.getAllProductsInRegion(id,email);
 	}
 	
-	//Get region 
-	@CrossOrigin(origins = "http://localhost:3000")
+	//Get region
 	@GetMapping("/regions/{id}")
 	public Optional<Region> getRegion(@PathVariable int id) {
 

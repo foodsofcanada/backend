@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://foc-react.s3-website.ca-central-1.amazonaws.com")
 @RestController
 //@RequestMapping("/api")
 public class PantryController {
@@ -23,14 +23,12 @@ public class PantryController {
     
     
     //Create pantry
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/createPantry")
     public void createPantry(@RequestBody Pantry pantry) {
         pantryService.createPantry(pantry);
     }
     
     //delete pantry
-    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deletepantry/{id}")
     @ResponseBody
 	@Transactional
@@ -39,14 +37,12 @@ public class PantryController {
         return "Pantry deleted";
     }
     //List of pantries for one user identified by email
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/userPantries/{email}")
     public List<Pantry> getUserPantries(@PathVariable String email) {
         return pantryService.getUserPantries(email);
     }
 
     //List of products in a a pantry to belongs a member
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/productsInPantry/{email}/{pantryId}")
     public List<ProductDetail> getProductsInPantry(@PathVariable String email,@PathVariable int pantryId) {
         return pantryService.getProductsInPantry(email,pantryId);
