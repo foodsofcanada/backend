@@ -47,7 +47,7 @@ import ca.foc.services.MemberService;
  *        Mariia Voronina
  * 
  */
-@CrossOrigin(origins = "http://foc-react.s3-website.ca-central-1.amazonaws.com")
+@CrossOrigin
 @RestController
 public class MemberController {
 

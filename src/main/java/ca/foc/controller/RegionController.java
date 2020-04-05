@@ -23,7 +23,7 @@ import java.util.Optional;
  *            
  *  Claudia: March/15/2020          
  */
-@CrossOrigin(origins = "http://foc-react.s3-website.ca-central-1.amazonaws.com")
+@CrossOrigin
 @RestController
 //@RequestMapping(path = "/region")
 public class RegionController {
