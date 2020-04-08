@@ -32,6 +32,7 @@ import java.util.Optional;
  *            
  *  Claudia: March/15/2020          
  */
+@CrossOrigin
 @RestController
 public class RegionController {
 	
@@ -45,8 +46,6 @@ public class RegionController {
 	 * Get all regions
 	 * @return List with all regions in database
 	 */
-	
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/regions")
 	public List<Region> getAllRegions() {
 		return regionService.getAllRegions();
@@ -57,8 +56,6 @@ public class RegionController {
 	 * @param email. Member email
 	 * @return list of products found in a specific region 
 	 */
-
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/productRegion/{id}/{email}")
 	public List<ProductRegionJoin> getAllProductsInRegion(@PathVariable int id,@PathVariable String email) {
 		return productService.getAllProductsInRegion(id,email);
@@ -68,15 +65,10 @@ public class RegionController {
 	 * @param id. region Id
 	 * @return the region info for a region identified by region id
 	 */
-
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/regions/{id}")
 	public Optional<Region> getRegion(@PathVariable int id) {
 
 		return regionService.getRegionById(id);
 
 	}
-
-	
-	
 }

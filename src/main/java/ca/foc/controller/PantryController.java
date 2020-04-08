@@ -22,7 +22,7 @@ import java.util.Optional;
  * 	Configuration to send and get request from and to back end. Claudia Rivera
  *
  */
-
+@CrossOrigin
 @RestController
 public class PantryController {
    
@@ -37,8 +37,6 @@ public class PantryController {
      * @param pantry object with attributes to save the pantry: Patry name, Pantry description 
      * @return Pantry created
      */
-    
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/createPantry")
     public Pantry createPantry(@RequestBody Pantry pantry) {
         return pantryService.createPantry(pantry);
@@ -50,7 +48,6 @@ public class PantryController {
      * @return true if the pantry was successfully deleted, otherwise false.
      */
     //delete pantry
-    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deletepantry/{id}")
     @ResponseBody
 	@Transactional
@@ -64,8 +61,6 @@ public class PantryController {
      * @param email, Member email
      * @return List of pantries belong to the same member
      */
-    
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/userPantries/{email}")
     public List<Pantry> getUserPantries(@PathVariable String email) {
         return pantryService.getUserPantries(email);
@@ -76,8 +71,6 @@ public class PantryController {
      * @param pantryId, Id of the pantr
      * @return list of products with the appropiate response (productDetail Object)
      */
-
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/productsInPantry/{email}/{pantryId}")
     public List<ProductDetail> getProductsInPantry(@PathVariable String email,@PathVariable int pantryId) {
         return pantryService.getProductsInPantry(email,pantryId);
@@ -91,7 +84,6 @@ public class PantryController {
      * @param coordinates. Location on the map
      * @return True if product was added, false otherwise
      */
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/pantryproduct/{pantryId}/{productId}/{regionId}/{coordinates}")
     @ResponseBody
     public boolean addProductToPantry(@PathVariable int pantryId, @PathVariable int productId, @PathVariable int regionId, @PathVariable String coordinates) {
@@ -105,7 +97,6 @@ public class PantryController {
     * @param regionId. Id of the regions
     * @return boolean true if the pantry was deleted. false otherwise
     */
-    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deleteproduct/{pantryId}/{productId}/{regionId}")
     @ResponseBody
     @Transactional
@@ -119,7 +110,6 @@ public class PantryController {
      * @param pantryId, Pantry Id
      * @return a Pantry object with the appropiate response
      */
-   	@CrossOrigin(origins = "http://localhost:3000")
    	@GetMapping("/pantryinfo/{email}/{pantryId}")
    	@ResponseBody
    	public Optional<Pantry> getProductInfo(@PathVariable String email, @PathVariable Integer pantryId) {
@@ -134,7 +124,6 @@ public class PantryController {
    	 * @param pantry Pantry object contains the new information
    	 * @return Pantry updated
    	 */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PutMapping("/pantry/{pantryId}")
 	@ResponseBody
 	public Pantry editPantry(@PathVariable int pantryId, @RequestBody Pantry pantry) {
