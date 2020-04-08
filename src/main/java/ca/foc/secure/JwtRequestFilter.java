@@ -24,7 +24,7 @@ import static ca.foc.secure.Constants.HEADER_STRING;
  * the user is authenticated.
  * JwtRequestFilter - ca.foc.secure.JwtRequestFilter
  */
-@Component
+//@Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired

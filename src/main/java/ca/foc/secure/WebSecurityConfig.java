@@ -25,9 +25,9 @@ import java.util.Arrays;
 /**
  * WebSecurityConfig - ca.foc.secure.WebSecurityConfig
  */
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@Configuration
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

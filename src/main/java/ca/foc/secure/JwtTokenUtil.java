@@ -19,7 +19,7 @@ import static ca.foc.secure.Constants.EXPIRATION_TIME;
 /**
  * JwtTokenUtil - ca.foc.secure.JwtTokenUtil
  */
-@Component
+//@Component
 public class JwtTokenUtil {
 
 //    Key key = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
@@ -60,7 +60,7 @@ public class JwtTokenUtil {
         return doGenerateToken(claims, deets.getUsername());
     }
 
-    /* Generates a JWT token by defining the token claims,
+    /** Generates a JWT token by defining the token claims,
     signing with the key and compacting JWT to be URL-safe
     * */
     private String doGenerateToken(Map<String, Object> claims, String subject) {
