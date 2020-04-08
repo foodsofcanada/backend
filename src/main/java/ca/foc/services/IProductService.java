@@ -4,13 +4,12 @@ import java.util.List;
 
 import ca.foc.dom.ProductRegionJoin;
 
-
-
-
+/**
+ * Interface with one to implement in product service involving ProductRegion Table
+ * @author Claudia Rivera
+ *
+ */
 public interface IProductService {
-	//List<ProductRegionJoin>  getAllProductsInRegion(int id);
-
 	List<ProductRegionJoin> getAllProductsInRegion(int id, String email);
 	
-
 }

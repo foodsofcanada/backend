@@ -15,14 +15,18 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class TopTenSearchedIdentity implements Serializable{
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
+	/**
+	 * ProductId part of the composite primary key in TopTenSearched table
+	 */
 	@Column(name="prod_id")
 	private int productId;
+	/**
+	 * RegionId part of the composite primary key in TopTenSearched table
+	 */
 	@Column(name="reg_id")
-	private int regionId;
+		private int regionId;
 	
 	public TopTenSearchedIdentity(){
 		

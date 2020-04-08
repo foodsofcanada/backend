@@ -1,7 +1,6 @@
 package ca.foc.domain;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -11,12 +10,19 @@ import javax.persistence.Embeddable;
  * Date:31-03-2020
  *
  */
-
 @Embeddable
 public class FavouriteProductsIdentity implements Serializable{
-	
+	/**
+	 * member email
+	 */
 	private String email;
+	/**
+	 * Product Id
+	 */
 	@Column(name="prod_id")
+	/**
+	 * Region I d
+	 */
 	private int productId;
 	@Column(name="reg_id")
 	private int regionId;

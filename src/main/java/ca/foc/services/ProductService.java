@@ -2,10 +2,12 @@ package ca.foc.services;
 
 import ca.foc.dao.FavProductsRepository;
 import ca.foc.dao.ProductRepository;
+import ca.foc.dao.ProductSuggestionRepository;
 import ca.foc.dom.ProductDetail;
 import ca.foc.dom.ProductRegionJoin;
 import ca.foc.domain.FavouriteProductsIdentity;
 import ca.foc.domain.Product;
+import ca.foc.domain.ProductSuggestion;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import javax.persistence.Query;
  * ProductServices - ca.foc.services.ProductServices
  * 
  * This class implements methods for Product entity and ProductRegion
+ * @author Claudia Rivera
  * 
  */
 @Service
@@ -33,30 +36,34 @@ public class ProductService implements IProductService {
 	@Autowired
 	FavProductsRepository favProductsRepository;
 	@Autowired
+	ProductSuggestionRepository productSuggestionRepository;
+	@Autowired
 	EntityManagerFactory emf;
 
-	/* Returns all products in the database */
+	/**
+	 * Get all products 
+	 * @return a list of all products in the database
+	 */
 	public List<Product> getAllProducts() {
 		return productRepository.findAll();
 	}
+	
+	/**
+	 * Method to get product information identifying by id
+	 * @param id, product id
+	 * @return Product
+	 */
 
-	/* Returns an optional object */
 	public Optional<Product> getProductInfo(int id) {
 		return productRepository.findById(id);
 	}
-
-	/* Add a new product in the database */
-	public Product addProduct(Product product) {
-		productRepository.save(product);
-		return product;
-	}
-
-	/* Delete a product in the database */
-	public void deleteProduct(int id) {
-		productRepository.deleteById(id);
-	}
-
-	/* Returns a list of products in a Region */
+	
+	/**
+	 * Get All products in one region identified by region id
+	 * @param id, region id
+	 * @param email, email of a member if  a member is present 
+	 * @return List of products in a region
+	 */
 	@Override
 	public List<ProductRegionJoin> getAllProductsInRegion(int id, String email) {
 		String memberId=email;
@@ -100,6 +107,34 @@ public class ProductService implements IProductService {
 		return list;
 	}
 	
+	public Iterable<ProductSuggestion> getAll() {
+		return productSuggestionRepository.findAll();
+	}
+	
+	/*
+	/***** Admin operation related to manage products****
+	 *****************************************************/
+	
+	
+	/**
+	 * Add a new product in the database
+	 * @param product
+	 * @return the product added
+	 */
+	public Product addProduct(Product product) {
+		productRepository.save(product);
+		return product;
+	}
+
+	/**
+	 * Delete a product in the database
+	 * @param id. ProductId
+	 */	
+	public void deleteProduct(int id) {
+		productRepository.deleteById(id);
+	}
+
+
 	
 
 }

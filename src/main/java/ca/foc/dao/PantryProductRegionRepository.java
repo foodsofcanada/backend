@@ -7,6 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import ca.foc.domain.PantryProductRegion;
 
+/**
+ * Interface to provide CRUD operations to PantryProductRegion entity
+ * @author Claudia Rivera, Maria Voronina
+ *
+ */
 @Repository
 public interface PantryProductRegionRepository extends CrudRepository<PantryProductRegion, Integer>{
 	public  Optional<PantryProductRegion> findByPantryIdAndProductIdAndRegionId(int pantryId, int productId, int regionId);

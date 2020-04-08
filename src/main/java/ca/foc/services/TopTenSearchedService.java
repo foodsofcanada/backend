@@ -17,11 +17,12 @@ import ca.foc.domain.TopTenSearched;
 import ca.foc.domain.TopTenSearchedIdentity;
 
 /**
- *  Class service to get  a list of products in the top ten table
+ *  Service class  to get  a list of products in the top ten table
  *   
  * @author Claudia Rivera
  * Date: March-27-2020
- *
+ * Modified: Include isFavourite when the list is displayed when a member is present
+ * Date: March-30-2020
  */
 
 @Service

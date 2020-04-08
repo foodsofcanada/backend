@@ -7,9 +7,9 @@ import javax.persistence.*;
 
 /**
  * 
- * Class to represent ProductRegion Table in database
+ * Class to represent ProductRegion Table in database: regionId and productId are the primary key
  * 
- * @author 
+ * @author Claudia Rivera
  *
  */
 
@@ -20,13 +20,21 @@ import javax.persistence.*;
 public class ProductRegion implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Product id.- primary key
+	 */
 	@Id
 	@Column(name= "prod_id")
 	private int productId;
+	/**
+	 * RegionId- primary key
+	 */
 	@Id
 	@Column(name= "reg_id")
 	private int regionId;
-	
+	/**
+	 * marker used by google maps
+	 */
 	private String coordinate ;
 
 	// Constructors

@@ -7,7 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
-
+/**
+ * 
+ * Entity to represent foc_pantry_product_region table in database
+ * @author Mariia Voronina
+ * 
+ * Claudia: configuration to have a composite primary key: Pantry_id, Product_id, region_id
+ *
+ */
 @Entity
 @IdClass(PantryProductRegion.class)
 @Table(name = "foc_pantry_product_region")

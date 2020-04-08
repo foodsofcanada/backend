@@ -10,22 +10,33 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 /**
+ * Top Ten most searched product table
  * 
- * 
- *
+ *@author Claudia Rivera
  */
 
 
 @Entity
 @Table(name="foc_top_ten_searched")
 public class TopTenSearched {
-	
+	/**
+	 * Composite primary ke: productId,regionId
+	 */
 	@EmbeddedId
 	private TopTenSearchedIdentity topTenSearchedIdentity;
+	/**
+	 * Name of the product
+	 */
 	@Column(name="prod_name")
 	private String productName;
 	@Column(name="reg_name")
+	/**
+	 * Region name
+	 */
 	private String regionName;
+	/**
+	 * Int to keep tracking the number of times a product with this primary key was searched
+	 */
 	@Column(name="search_counter")
     private int searchCounter; 
     private String coordinate;   

@@ -14,9 +14,14 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Product Controller
- * 
- * @author
+ * ProductController - ca.foc.controller.ProductController
+ * ProductController-  invokes:
+ * 							 ProductService class to process product related tasks, 
+ * 							 SearchingSearchingService class to process searching by filters function
+ *                           TopTenSearchedService to get the top ten most searched products
+ *                           and then redirects to the front end.
+ * 					  
+ * @author Claudia Rivera
  * 
  * 
  * No implemented: uploadNewProducts(filePath:string)
@@ -35,9 +40,11 @@ public class ProductController {
 	ca.foc.services.TopTenSearchedService topTenSearchedService;
 
 	
-
-	//Searching using filters
-//	@CrossOrigin(origins = "http://localhost:3000")
+	/**
+	 * Searching using filters
+	 * @param search. Object containig the filters to apply in the searching
+	 * @return result list containing all products found during the searching
+	 */
 	@PostMapping("/search")
 	public List<ProductDetail> search(@RequestBody SearchObject search) {
 
@@ -45,8 +52,10 @@ public class ProductController {
 
 	}
 
-	/* Returns all products in the database */
-//	@CrossOrigin(origins = "http://localhost:3000")
+	/**
+	 * Get all products in the database
+	 * @return list of all products in the database
+	 */
 	@GetMapping("/products")
 	public List<Product> getAllProducts() {
 		List<Product> products = new ArrayList<>();
@@ -54,9 +63,13 @@ public class ProductController {
 		return products;
 
 	}
-	
-    //Product Info 
-//	@CrossOrigin(origins = "http://localhost:3000")
+
+	/**
+	 * Product Info 
+	 * @param id product id 
+	 * @return an product detail object containing in its attributes the appropiate response 
+	 */
+
 	@GetMapping("/products/{id}")
 	public Optional<Product> getProductInfo(@PathVariable int id) {
 
@@ -64,8 +77,11 @@ public class ProductController {
 
 	}
 	
-	/* Returns all products in the top ten table */
-//	@CrossOrigin(origins = "http://localhost:3000")
+	/**
+	 *  Returns all products in the top ten table
+	 * @param email
+	 * @return all products in the top ten table
+	 */
 	@GetMapping("/products/top/{email}")
 	public List<TopTenObject> getTopTenSearched(@PathVariable String email) {
 		
@@ -76,22 +92,38 @@ public class ProductController {
 	 /**********************************************************/
     /*       Admin Operations related to manage products       */
     /**********************************************************/
-	// Add New Product. Admin operation
-	
-//	@CrossOrigin(origins = "http://localhost:3000")
+	 
+	/**
+	 * Add New Product. Admin operation
+	 * @param product
+	 * @return the product that was added
+	 */
 	@PostMapping("/products/")
 	public Product addProduct(@RequestBody Product product) {
 		productService.addProduct(product);
 		return product;
 	}
-	
-	//Delete Product. Admin operation
-//	@CrossOrigin(origins = "http://localhost:3000")
+  
+	/**
+	 * Delete Product. Admin operation
+	 * @param id product id
+	 */
 	@DeleteMapping("/products/{id}")
 	@Transactional
 	public void deleteProduct(@PathVariable int id) {
 		productService.deleteProduct(id);
 	}
 	
+	/**
+	 * View products suggestions. Admin
+	 * @return list of products suggested
+	 */
+	@GetMapping("/suggestions")
+	public List<ProductSuggestion> getAllProductsSuggested() {
+		List<ProductSuggestion> products = new ArrayList<>();
+		productService.getAll().forEach(products::add);
+		return products;
+
+	}
 
 }

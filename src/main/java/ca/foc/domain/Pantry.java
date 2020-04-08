@@ -1,5 +1,15 @@
 package ca.foc.domain;
-
+/**
+ * ******************************************** **
+ * Pantry - ca.foc.domain.Pantry
+ *
+ * @author Christian Garrovillo
+ * Information and Communications Technologies
+ * Software Development
+ * 
+ * Mariia: configuration of Spring Boot annotations
+ * * ********************************************* **
+ */
 import java.util.List;
 
 import javax.persistence.Column;
@@ -16,8 +26,9 @@ public class Pantry {
     @Id
     @Column (name="pantry_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int pantryId;
-    private String owner;
+	private Integer pantryId;
+    @Column(name="owner")
+    private String email;
     @Column(name="imagen_path")
     private String imgPath;
     private String description;
@@ -28,15 +39,15 @@ public class Pantry {
     	
     }
 
-    public Pantry(int pantry_id, String owner,String imgPath, String description, String pantryName) {
+    public Pantry(Integer pantry_id, String email,String imgPath, String description, String pantryName) {
         this.pantryId = pantry_id;
         this.imgPath = imgPath;
-        this.owner = owner;
+        this.email = email;
         this.description = description;
         this.pantryName = pantryName;
     }
 
-    public int getPantryId() {
+    public Integer getPantryId() {
 		return pantryId;
 	}
 
@@ -49,15 +60,15 @@ public class Pantry {
     }
     
     
-    public String getOwner() {
-		return owner;
+    public String getEmail() {
+		return email;
 	}
 
-	public void setOwner(String owner) {
-		this.owner = owner;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public void setPantryId(int pantryId) {
+	public void setPantryId(Integer pantryId) {
 		this.pantryId = pantryId;
 	}
 

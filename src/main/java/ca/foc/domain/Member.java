@@ -8,24 +8,50 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
-
+/**
+ * ******************************************** **
+ * Member - ca.foc.domain.Member
+ *
+ * @author Christian Garrovillo
+ * Information and Communications Technologies
+ * Software Development
+ * * ********************************************* **
+ * 
+ * Claudia: implementation of dateJoined and configuration of Spring Boot annotations
+ */
 @Entity
 @Table(name = "foc_members")
 public class Member implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Member email, is used as a primary key
+	 */
 	@Id
 	@Column(unique = true)
 	private String email;
+	/**
+	 * member password
+	 */
 	@Column(name = "hashepw")
 	private String password;
+	/**
+	 * Member firstname
+	 */
 	private String firstname;
+	/**
+	 * Member lastname
+	 */
 	private String lastname;
-
-	
+	/**
+	 * Date registrattion
+	 */
 	@Column(name = "date_joined")
 	@CreationTimestamp
 	private Date dateJoined;
+	/**
+	 * Member role default 0,
+	 */
 	private int role;
 
 
@@ -33,7 +59,7 @@ public class Member implements Serializable {
 	}
 
 	public Member(String email, String password, String firstname, String lastname, int role) {
-		super();
+		
 		this.email = email;
 		this.password = password;
 		this.firstname = firstname;

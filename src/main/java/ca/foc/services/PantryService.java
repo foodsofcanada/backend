@@ -18,7 +18,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Pantry service
+ * @author Claudia Rivera, Mariia Voronina
+ * 
+ *Modified: createPantry,DeletePantry,editPantry,getProductsInPantry to get the appropriate response
+ *          -Claudia Rivera 
+ *          Date: April 01-2020
+ */
 
 @Service
 public class PantryService {
@@ -32,32 +39,66 @@ public class PantryService {
 	@Autowired
 	FavProductsRepository favProductsRepository;
 
-	/*Member create a Pantry attributes: owner(email), imagePath, description and Pantry*/
-    public void createPantry(Pantry pantry) {    	
-    	pantryRepository.save(pantry);
+	/**
+	 * Member create a Pantry attributes: owner(email), imagePath, description and Pantry
+	 * @param pantry, pantry object containts pantry name and pantry description
+	 * @return the pantry created
+	 */
+	
+    public Pantry createPantry(Pantry pantry) {    	
     	
+    	Pantry newpantry= pantryRepository.save(pantry);
+		return newpantry;
+    	
+    }
+  
+  /**
+   * Member delete a pantry
+   * @param pantryId. Pantry Id
+   * @return true if the pantry was deleted
+   */
+    public boolean deletePantry(int pantryId) {
+    	boolean validation= false;
+    	Optional<Pantry> p = pantryRepository.findById(pantryId);
+    	if (p.isPresent()) {
+    	pantryProductRegionRepository.deleteByPantryId(pantryId);;
+    	pantryRepository.deleteById(pantryId);
+    	validation = true;
+    	}
+    	
+    	return validation;
     }
     
-    /*Member delete a pantry*/
-    public void deletePantry(int pantryId) {
-    	pantryProductRegionRepository.deleteByPantryId(pantryId);
-    	pantryRepository.deleteById(pantryId);
-    }
-
-    /*member edit a pantry: name,description and imgPath*/
-    public Pantry editPantry(int pantryId, Pantry newPantry) {
+    
+    /**
+     * member edit a pantry: name,description and imgPath*
+     * @param pantryId
+     * @param newPantry
+     * @return a Pantry object
+     */
+    
+    public Pantry editPantry(Integer pantryId, Pantry newPantry) {
     	Optional<Pantry>p = pantryRepository.findById(pantryId);
     	Pantry pantryUpdated = p.get();
-    	pantryUpdated.setDescription(newPantry.getDescription());
-    	pantryUpdated.setImgPath(newPantry.getImgPath());
-    	pantryUpdated.setPantryName(newPantry.getPantryName());
+
     	
+    	if(!newPantry.getDescription().equals("")) {
+    		pantryUpdated.setDescription(newPantry.getDescription());
+    	}
+    	if(!newPantry.getImgPath().equals("")) {
+    	pantryUpdated.setImgPath(newPantry.getImgPath());
+    	}
+    	if(!newPantry.getPantryName().equals("")) {
+    	pantryUpdated.setPantryName(newPantry.getPantryName());
+    	}
     	return pantryRepository.save(pantryUpdated);
     }
-    /*
-     * Memthod used to a member Add a product in their pantry 
+    
+    
+    /**
+    /* addProductToPantry.-Method used to a member Add a product in their pantry 
+     * @return a boolean true if product was added or false otherwise
      */
-
     public boolean addProductToPantry(int pantryId, int productId, int regionId, String coordinate) {
         PantryProductRegion ppr = new PantryProductRegion();
         boolean save= false;
@@ -75,31 +116,58 @@ public class PantryService {
      
         return save;
     }
-
-
+    /**
+     * Delete a product in a pantry
+     * @param pantryId
+     * @param productId
+     * @param regionId
+     * @return True if poduct was deleted false otherwise
+     */
+    
     public boolean deleteProductFromPantry(int pantryId, int productId, int regionId) {
        
     	 PantryProductRegion ppr = new PantryProductRegion();
           boolean deleted= false;
         // find if it this exists
         Optional<PantryProductRegion> pprO=pantryProductRegionRepository.findByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
-         if (!pprO.isPresent()) {
-         pantryProductRegionRepository.deleteByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
-        deleted = true;
+         if (pprO.isPresent()) {
+        	 
+          pantryProductRegionRepository.deleteByPantryIdAndProductIdAndRegionId(pantryId, productId, regionId);
+          deleted = true;
          }
          
         return deleted;
     }
-
-    /*Get all Pantries in Pantries table for a user identified by email*/
+    /**
+     * Get all Pantries in Pantries table for a user identified by email
+     * @param email. String to identify member 
+     * @return a list of Pantry object
+     */
+  
     public List<Pantry> getUserPantries(String email) {
     	
-    	return pantryRepository.findByOwner(email);
+    	return pantryRepository.findByEmail(email);
         
     }
-
-
-    public List<ProductDetail> getProductsInPantry(String email,int pantryId) {
+    
+    /**
+     * Get Pantry Info: email of the owner, pantry id, pantry name and pantry description 
+     * @param email
+     * @param pantryId
+     * @return an optional object(pantry)
+     */
+ 
+    public Optional<Pantry> getPantryInfo(String email, int pantryId) {
+    	return pantryRepository.findByEmailAndPantryId(email, pantryId);
+    }
+    
+    /**
+     * Display all products in a pantry
+     * @param email
+     * @param pantryId
+     * @return List of products in a pantry including if a product is a favourite
+     */
+      public List<ProductDetail> getProductsInPantry(String email,int pantryId) {
     	String memberId= email;
     	//List<ProductDetail> resultSearch= null;
     	List<ProductDetail> list = new ArrayList<>();
@@ -108,24 +176,22 @@ public class PantryService {
                  + " FROM PantryProductRegion ppr "
                  + " INNER JOIN Product p on p.productId = ppr.productId " 
                  + " WHERE ppr.pantryId ="+pantryId);
-        Query query2 = em.createQuery("SELECT rr.regionName FROM Region rr INNER JOIN PantryProductRegion ppr ON rr.regionId = ppr.regionId");
-        
-        List<String> l = query2.getResultList();
-        String regName = l.get(0);;
+          
         List<ProductDetail> resultSearch = (List<ProductDetail>) query1.getResultList();
-        
-
         Iterator it = resultSearch.iterator();
 		while (it.hasNext()) {
+			
 			Object[] line = (Object[]) it.next();
 			ProductDetail pd = new ProductDetail();
 			pd.setRegionId((int) line[0]);
 			pd.setProductId((int) line[1]);
 			pd.setName((String) line[2]);
 			pd.setCoordinates((String) line[3]);
+			
+			Query query2 = em.createQuery("SELECT DISTINCT rr.regionName FROM Region rr INNER JOIN PantryProductRegion ppr ON rr.regionId = ppr.regionId where rr.regionId= "+pd.getRegionId());
+			String regName = (String) query2.getSingleResult();
 			pd.setRegionName(regName);
-			
-			
+						
 			list.add(pd);
 		}
         // check if products are favourites
