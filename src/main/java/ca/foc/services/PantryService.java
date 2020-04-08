@@ -41,7 +41,7 @@ public class PantryService {
 
 	/**
 	 * Member create a Pantry attributes: owner(email), imagePath, description and Pantry
-	 * @param pantry
+	 * @param pantry, pantry object containts pantry name and pantry description
 	 * @return the pantry created
 	 */
 	
@@ -51,10 +51,12 @@ public class PantryService {
 		return newpantry;
     	
     }
-    /**
-     * Member delete a pantry
-     */
   
+  /**
+   * Member delete a pantry
+   * @param pantryId. Pantry Id
+   * @return true if the pantry was deleted
+   */
     public boolean deletePantry(int pantryId) {
     	boolean validation= false;
     	Optional<Pantry> p = pantryRepository.findById(pantryId);
@@ -78,14 +80,7 @@ public class PantryService {
     public Pantry editPantry(Integer pantryId, Pantry newPantry) {
     	Optional<Pantry>p = pantryRepository.findById(pantryId);
     	Pantry pantryUpdated = p.get();
-//    	
-//    	if(newPantry.getPantryId()!=null) {
-//    		pantryUpdated.setPantryId(pantryUpdated.getPantryId());//pantryId cannot be changed
-//    	}
-//
-//    	if(!newPantry.getEmail().equals("")) {
-//    		pantryUpdated.setEmail(pantryUpdated.getEmail());// Pantry email cannot be changed
-//    	}
+
     	
     	if(!newPantry.getDescription().equals("")) {
     		pantryUpdated.setDescription(newPantry.getDescription());
@@ -143,22 +138,36 @@ public class PantryService {
          
         return deleted;
     }
-
-    /*Get all Pantries in Pantries table for a user identified by email*/
+    /**
+     * Get all Pantries in Pantries table for a user identified by email
+     * @param email. String to identify member 
+     * @return a list of Pantry object
+     */
+  
     public List<Pantry> getUserPantries(String email) {
     	
     	return pantryRepository.findByEmail(email);
         
     }
     
-    /*Get Pantry Info*/
-
+    /**
+     * Get Pantry Info: email of the owner, pantry id, pantry name and pantry description 
+     * @param email
+     * @param pantryId
+     * @return an optional object(pantry)
+     */
+ 
     public Optional<Pantry> getPantryInfo(String email, int pantryId) {
     	return pantryRepository.findByEmailAndPantryId(email, pantryId);
     }
     
-    //Display all products in a pantry
-    public List<ProductDetail> getProductsInPantry(String email,int pantryId) {
+    /**
+     * Display all products in a pantry
+     * @param email
+     * @param pantryId
+     * @return List of products in a pantry including if a product is a favourite
+     */
+      public List<ProductDetail> getProductsInPantry(String email,int pantryId) {
     	String memberId= email;
     	//List<ProductDetail> resultSearch= null;
     	List<ProductDetail> list = new ArrayList<>();
@@ -167,14 +176,7 @@ public class PantryService {
                  + " FROM PantryProductRegion ppr "
                  + " INNER JOIN Product p on p.productId = ppr.productId " 
                  + " WHERE ppr.pantryId ="+pantryId);
-       // Query query2 = em.createQuery("SELECT rr.regionName FROM Region rr INNER JOIN PantryProductRegion ppr ON rr.regionId = ppr.regionId");
-        
-//        List<String> l = query2.getResultList();
-//        String regName = "";
-//        if (l.size() != 0) {
-//        	 regName = l.get(0);
-//        }
-       
+          
         List<ProductDetail> resultSearch = (List<ProductDetail>) query1.getResultList();
         Iterator it = resultSearch.iterator();
 		while (it.hasNext()) {

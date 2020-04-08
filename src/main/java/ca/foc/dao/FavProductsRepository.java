@@ -7,20 +7,17 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Interface to provide CRUD operations to FavouriteProducts entity
+ * @author Mariia Voronina
+ *
+ */
 public interface FavProductsRepository extends CrudRepository<FavouriteProducts, FavouriteProductsIdentity> {
 
-
-//    @Override
-//    public <S extends FavouriteProducts> S save(S s);
 
     @Override
     public <S extends FavouriteProducts> Iterable<S> saveAll(Iterable<S> iterable);
 
-   // @Override
-   // public Optional<FavouriteProducts> findById(Integer integer);
-
-    //public  Optional<FavouriteProducts> findByEmailAndProductIdAndRegionId(String email, int productId, int regionId);
     @Override
     public boolean existsById(FavouriteProductsIdentity id);
 
@@ -33,8 +30,6 @@ public interface FavProductsRepository extends CrudRepository<FavouriteProducts,
     @Override
     public long count();
 
-//    @Override
-//    public void deleteById(Integer integer);
 
     @Override
     public void delete(FavouriteProducts favouriteProducts);
@@ -45,7 +40,6 @@ public interface FavProductsRepository extends CrudRepository<FavouriteProducts,
     @Override
     public void deleteAll();
 
-	//public List<FavouriteProducts> findByEmail(String email);
-
+	
 
 }

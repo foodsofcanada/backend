@@ -2,10 +2,12 @@ package ca.foc.services;
 
 import ca.foc.dao.FavProductsRepository;
 import ca.foc.dao.ProductRepository;
+import ca.foc.dao.ProductSuggestionRepository;
 import ca.foc.dom.ProductDetail;
 import ca.foc.dom.ProductRegionJoin;
 import ca.foc.domain.FavouriteProductsIdentity;
 import ca.foc.domain.Product;
+import ca.foc.domain.ProductSuggestion;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,8 @@ public class ProductService implements IProductService {
 	@Autowired
 	FavProductsRepository favProductsRepository;
 	@Autowired
+	ProductSuggestionRepository productSuggestionRepository;
+	@Autowired
 	EntityManagerFactory emf;
 
 	/**
@@ -60,9 +64,7 @@ public class ProductService implements IProductService {
 	 * @param email, email of a member if  a member is present 
 	 * @return List of products in a region
 	 */
-	/* Returns a list of products in a Region */
 	@Override
-
 	public List<ProductRegionJoin> getAllProductsInRegion(int id, String email) {
 		String memberId=email;
 		List<ProductRegionJoin> resultSearch = null;
@@ -105,6 +107,10 @@ public class ProductService implements IProductService {
 		return list;
 	}
 	
+	public Iterable<ProductSuggestion> getAll() {
+		return productSuggestionRepository.findAll();
+	}
+	
 	/*
 	/***** Admin operation related to manage products****
 	 *****************************************************/
@@ -115,7 +121,6 @@ public class ProductService implements IProductService {
 	 * @param product
 	 * @return the product added
 	 */
-
 	public Product addProduct(Product product) {
 		productRepository.save(product);
 		return product;
@@ -124,8 +129,7 @@ public class ProductService implements IProductService {
 	/**
 	 * Delete a product in the database
 	 * @param id. ProductId
-	 */
-	
+	 */	
 	public void deleteProduct(int id) {
 		productRepository.deleteById(id);
 	}

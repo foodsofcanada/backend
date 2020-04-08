@@ -1,5 +1,15 @@
 package ca.foc.domain;
-
+/**
+ * ******************************************** **
+ * Pantry - ca.foc.domain.Pantry
+ *
+ * @author Christian Garrovillo
+ * Information and Communications Technologies
+ * Software Development
+ * 
+ * Mariia: configuration of Spring Boot annotations
+ * * ********************************************* **
+ */
 import java.util.List;
 
 import javax.persistence.Column;

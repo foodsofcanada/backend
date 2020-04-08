@@ -12,9 +12,17 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class FavouriteProductsIdentity implements Serializable{
-	
+	/**
+	 * member email
+	 */
 	private String email;
+	/**
+	 * Product Id
+	 */
 	@Column(name="prod_id")
+	/**
+	 * Region I d
+	 */
 	private int productId;
 	@Column(name="reg_id")
 	private int regionId;

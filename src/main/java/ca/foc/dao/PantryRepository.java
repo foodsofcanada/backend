@@ -7,7 +7,11 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
+/**
+ * Interface to provide CRUD operations to Pantry entity
+ * @author Mariia Voronina
+ *
+ */
 @Repository
 public interface PantryRepository extends CrudRepository<Pantry, Integer> {
 

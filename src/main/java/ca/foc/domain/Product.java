@@ -1,33 +1,110 @@
 package ca.foc.domain;
 
 import javax.persistence.*;
-
+/**
+ * ******************************************** **
+ * Product - ca.foc.domain.Pantry
+ * This product class represent the product in Product Table
+ * @author Christian Garrovillo
+ * Information and Communications Technologies
+ * Software Development
+ * 
+ * Claudia Rivera: configuration of Spring Boot annotations
+ * * ********************************************* **
+ */
 @Entity
 @Table(name = "foc_products")
 public class Product {
+	/**
+	 * Integer to identify a product: primary key
+	 * Constraints: Not Null
+	 */
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="prod_id")
 	private int productId;
+	/**
+	 * Name of the product.
+	 * Constrainst: Not Null
+	 */
 	private String name;
+	/**
+	 * Physical description of product
+	 */
 	private String description;
+	/**
+	 * 
+	 */
 	private String season;
+	/**
+	 * 
+	 */
 	private Integer age;
+	/**
+	 * Product picture path
+	 */
 	private String img_path;
+	/**
+	 * The length of time that product may be stored without becoming unfit for consumption
+	 */
 	private String shelf_life;
+	/**
+	 * Products additional dangers such as: toxicity,  food additives, banned ingredients etc.
+	 */
 	private String danger;
+	/**
+	 * Description of growth phases
+	 */
 	private String growth_phases;
+	/**
+	 * Scientific or biological name of product
+	 */
 	private String scientific_name;
+	/**
+	 * History of product, migration
+	 */
 	private String history;
+	/**
+	 * General cooking uses of the product
+	 */
 	private String cooking_use;
+	/**
+	 * Methods by which food is kept from spoilage after harvest or slaughter.
+	 * Drying, refrigeration, and fermentation, canning, pasteurization, freezing, irradiation, and the addition of chemicals
+	 */
 	private String preservation;
+	/**
+	 * Fun and interesting facts about product
+	 */
 	private String fun_fact;
+	/**  
+     *Name of the country of origin of the product
+	 */
 	private String origin_country;
 	private Integer search_counter;
-
+	
+	/**
+	 * Default constructor
+	 */
 	public Product() {
 	}
-
+	/**
+	 * constructor with attributtes
+	 * @param name
+	 * @param description
+	 * @param season
+	 * @param age
+	 * @param img_path
+	 * @param shelf_life
+	 * @param danger
+	 * @param growth_phases
+	 * @param scientific_name
+	 * @param history
+	 * @param cooking_use
+	 * @param preservation
+	 * @param fun_fact
+	 * @param origin_country
+	 */
 	public Product(String name, String description, String season, Integer age, String img_path, String shelf_life,
 			String danger, String growth_phases, String scientific_name, String history, String cooking_use,
 			String preservation, String fun_fact, String origin_country) {
@@ -53,7 +130,7 @@ public class Product {
 	public int getProductId() {
 		return productId;
 	}
-
+	
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}
@@ -61,7 +138,7 @@ public class Product {
 	public String getName() {
 		return name;
 	}
-
+	
 	public void setName(String name) {
 		this.name = name;
 	}

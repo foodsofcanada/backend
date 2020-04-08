@@ -31,7 +31,7 @@ public class RegionServices {
     /**
      * Find a Region and its attributes by an specific regionID
      * @param id
-     * @return
+     * @return a Region object
      */
     public Optional<Region> getRegionById(int id) {
 		return regionRepository.findById(id);

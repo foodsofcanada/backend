@@ -1,9 +1,6 @@
 package ca.foc.domain;
 
-
-
 import java.awt.Point;
-
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -11,25 +8,27 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-
+/**
+ * Entity class to represent foc_favourite_product table
+ * @author Mariia Voronina
+ * Claudia: add composite primary key
+ *
+ */
 
 @Entity
 @Table(name = "foc_favourite_products")
-//@IdClass(FavouriteProductsIdentity.class)
+
 public class FavouriteProducts {
+	/**
+	 * Composite key: ProductId, regionId
+	 */
     
-	
-//	@Id
-//    private String email;
-//    @Id
-//    @Column(name="prod_id")
-//    private int productId;
-//    @Id
-//    @Column(name="reg_id")
-//    private int regionId;
-    @EmbeddedId
+   @EmbeddedId
     private FavouriteProductsIdentity favouritesProductIdentity;
-    @Column(name="coordinate")
+   /**
+    * Marker used by google maps 
+    */
+   @Column(name="coordinate")
     private String coordinates;
     
     public FavouriteProducts() {

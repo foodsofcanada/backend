@@ -28,12 +28,10 @@ import ca.foc.domain.TopTenSearchedIdentity;
 
 /**
  * Service class for Member: Methods related to member.
+ * @author Claudia Rivera, Mariia Voronina
  * 
  * 
- * @author
- * 
- *         Claudia Rivera
- *
+ *Christian: add hashed password and password validation
  */
 
 @Service
@@ -52,18 +50,28 @@ public class MemberService {
 	@Autowired
 	EntityManagerFactory emf;
 
-	// Find all members in Member table
+	/**
+	 * Find all members in Member table
+	 * @return list of members
+	 */
+	 
 	public Iterable<Member> getAllMembers() {
 		return memberRepository.findAll();
 	}
 
-	// Save member in member table
+	/**
+	 * Store a member in Member table
+	 * @param member to be stored
 	public void saveMember(Member member) {
 		memberRepository.save(member);
 
 	}
 
-	// Find a member by email
+	/**
+	 * Find a member in member table finding by email
+	 * @param email, member email
+	 * @return a MemberResponse object contains only the appropriate response:
+	 */
 	public MemberResponse findByEmail(String email) {
 		Optional<Member> m = memberRepository.findByEmail(email);
 		MemberResponse mr = new MemberResponse();
@@ -75,8 +83,13 @@ public class MemberService {
 		}
 		return mr;
 	}
-
-	/* Validate email and password */
+	
+     /**
+      * Validate email and password 
+      * @param email. member email
+      * @param password. member password
+      * @return MemberInfo Object contains the appropiate response 
+      */
 	@SuppressWarnings("null")
 	public MemberInfo CheckMember(String email, String password) {
 
@@ -105,9 +118,13 @@ public class MemberService {
 	}
 
 	/*
-	 * Register a new member Return true if member was added
+	 * 
 	 */
-
+	/**
+	 * Register a new member 
+	 * @param member member to be registered
+	 * @return true if member was added
+	 */
 	public boolean NewMember(Member member) {
 		boolean result = false;
 
@@ -133,10 +150,15 @@ public class MemberService {
 	}
 
 	/*
-	 * Update member- Edit profile: change first name, last name, password, email.
+	 * 
 	 * Returns the member that was updated
 	 * */
-	
+	/**
+	 * Update member- Edit profile: change first name, last name, password.
+	 * @param email. Member's email 
+	 * @param newmember. Information to be edited
+	 * @return Member with the new information
+	 */
 	public Member editMember(String email, Member newmember) {
 		//newmember is the member from the form
 		//find member by email and update with data from the form
@@ -160,8 +182,10 @@ public class MemberService {
 //		memberInfo.setLastName(memberSaved.getLastname());
 		return memberRepository.save(memberUpdated);
 	}
-
-	/* Delete a member in the database */
+	/**
+	 * Delete a member in the database 
+	 * @param email. member email
+	 */
 	public void deleteMember(String email) {
 
 		// first delete FavouriteProducts, Pantries
@@ -186,34 +210,16 @@ public class MemberService {
 		memberRepository.deleteByEmail(email);
 	}
 
-	/* Methods related to ProductSuggestions */
-
-	public boolean saveProductSuggested(String name, String description) {
-		boolean validation = false;
-		ProductSuggestion ps = new ProductSuggestion();
-		ps.setDescription(description);
-		ps.setName(name);
-		ps=productSuggestionRepository.save(ps);
-		int id = ps.getId();
-		Optional<ProductSuggestion> psDB = productSuggestionRepository.findById(id);
-		
-		//check if the product was saved in the product suggestion table
-		if  (productSuggestionRepository.existsById(id)) {
-			validation = true;
-			
-		}
-		return validation;
-
-	}
-
-	public Iterable<ProductSuggestion> getAll() {
-		return productSuggestionRepository.findAll();
-	}
-
 	
-	/*Favourites related*/
-	/* add a product to the favourite list.*
-	 * First check if the product is already in the list. Using a composite primary key*/
+	/**
+	 * add a product to the favourite list.*
+	 * First check if the product is already in the list. Using a composite primary key
+	 * @param email
+	 * @param coordinate
+	 * @param productId
+	 * @param regionId
+	 * @return true if the porduct was added to the favourite list, false if it was deleted
+	 */
 	public boolean  addDeleteProductFavourites(String email, String coordinate, int productId, int regionId) {	
 
 		boolean flag = false; // false if the product is deleted from favourites or true if it was saved
@@ -249,7 +255,11 @@ public class MemberService {
 			
 	}
 	
-	/*Get all products in favourite table for a user identified by email*/
+	/**
+	 * Get all products in favourite table for a user identified by email
+	 * @param email to identify the member 
+	 * @return list of favourites products (FavouriteResponse)
+	 */
 	public List<FavouriteResponse> getProductsInFavourite(String email){
 			List<FavouriteProducts> resultSearch = null;
 			EntityManager em = emf.createEntityManager();
@@ -284,6 +294,31 @@ public class MemberService {
 		return list;
 
 	}
+	
+	/*  */
+	/**
+	 * Method related to ProductSuggestions: save a product in the table Product_suggestions
+	 * @param name of the product
+	 * @param description of the product
+	 * @return true if the suggestion was saved, otherwise false
+	 */
+	public boolean saveProductSuggested(String name, String description) {
+		boolean validation = false;
+		ProductSuggestion ps = new ProductSuggestion();
+		ps.setDescription(description);
+		ps.setName(name);
+		ps=productSuggestionRepository.save(ps);
+		int id = ps.getId();
+		Optional<ProductSuggestion> psDB = productSuggestionRepository.findById(id);
+		
+		//check if the product was saved in the product suggestion table
+		if  (productSuggestionRepository.existsById(id)) {
+			validation = true;
+			
+		}
+		return validation;
+
+	}
 
 	/* Mariia */
 
@@ -299,12 +334,20 @@ public class MemberService {
 	//
 	//
 	/* Admin manage member */
+	
+	/**
+	 * Admin. Delete a member account
+	 * @param email. Member email
+	 */
 	public void deleteAccount(String email) {
 		EntityManager em = emf.createEntityManager();
 		Query query = em.createQuery("DELETE from Member m where m.email=" + email);
 		query.executeUpdate();
 	}
-
+	/**
+	 * Admin. Change member role
+	 * @param email. member email
+	 */
 	public void changeMemberRole(String email) {
 		EntityManager em = emf.createEntityManager();
 		Query query = em.createQuery("select role from Member where email=" + email);
