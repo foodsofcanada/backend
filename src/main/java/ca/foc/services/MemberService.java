@@ -64,7 +64,6 @@ public class MemberService {
 	 * @param member to be stored
 	public void saveMember(Member member) {
 		memberRepository.save(member);
-
 	}
 
 	/**

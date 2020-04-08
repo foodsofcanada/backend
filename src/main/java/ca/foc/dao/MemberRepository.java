@@ -21,6 +21,4 @@ public interface MemberRepository extends CrudRepository<Member, String> {
 
 		public void deleteByEmail(String email);
 
-	
-	
 }

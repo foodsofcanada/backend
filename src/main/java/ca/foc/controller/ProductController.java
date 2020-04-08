@@ -58,6 +58,7 @@ public class ProductController {
 	 */
 	@GetMapping("/products")
 	public List<Product> getAllProducts() {
+		System.out.println("Get products received");
 		List<Product> products = new ArrayList<>();
 		productService.getAllProducts().forEach(products::add);
 		return products;
