@@ -17,7 +17,7 @@ import java.util.Optional;
  * Implements the UserDetailsService class of Spring Security Core.
  * JwtUserDetailsService - ca.foc.services.JwtUserDetailsService
  */
-@Service
+//@Service
 public class JwtUserDetailsService implements UserDetailsService {
 
     @Autowired

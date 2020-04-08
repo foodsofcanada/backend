@@ -30,16 +30,16 @@ import java.util.Arrays;
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+//    @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 //    @Qualifier("inMemoryUserDetailsManager")
-    @Autowired
+//    @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
+//    @Autowired
     private JwtRequestFilter requestFilter;
 
-    @Autowired
+//    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         /* Configure AuthenticationManager to know where to load the user that matches credentials*/
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());

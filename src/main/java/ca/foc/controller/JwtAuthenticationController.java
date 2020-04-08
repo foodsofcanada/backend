@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 /**
  * JwtAuthenticationController - ca.foc.controller.JwtAuthenticationController
  */
-@RestController
-@CrossOrigin(origins = "*")
+//@RestController
+//@CrossOrigin(origins = "*")
 public class JwtAuthenticationController {
 
     @Autowired
