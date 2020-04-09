@@ -28,6 +28,7 @@ import java.util.Optional;
  *                 editProduct
  *                
  */
+@CrossOrigin
 @RestController
 public class ProductController {
 
@@ -44,33 +45,31 @@ public class ProductController {
 	 * @param search. Object containig the filters to apply in the searching
 	 * @return result list containing all products found during the searching
 	 */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/search")
 	public List<ProductDetail> search(@RequestBody SearchObject search) {
 
 		return searchingService.SerchingResult(search);
 
 	}
+
 	/**
 	 * Get all products in the database
 	 * @return list of all products in the database
 	 */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/products")
-
 	public List<Product> getAllProducts() {
 		List<Product> products = new ArrayList<>();
 		productService.getAllProducts().forEach(products::add);
 		return products;
 
 	}
+
 	/**
 	 * Product Info 
 	 * @param id product id 
 	 * @return an product detail object containing in its attributes the appropiate response 
 	 */
-    //
-	@CrossOrigin(origins = "http://localhost:3000")
+
 	@GetMapping("/products/{id}")
 	public Optional<Product> getProductInfo(@PathVariable int id) {
 
@@ -83,7 +82,6 @@ public class ProductController {
 	 * @param email
 	 * @return all products in the top ten table
 	 */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/products/top/{email}")
 	public List<TopTenObject> getTopTenSearched(@PathVariable String email) {
 		
@@ -100,18 +98,16 @@ public class ProductController {
 	 * @param product
 	 * @return the product that was added
 	 */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/products/")
 	public Product addProduct(@RequestBody Product product) {
 		productService.addProduct(product);
 		return product;
 	}
+  
 	/**
 	 * Delete Product. Admin operation
 	 * @param id product id
 	 */
-	
-	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping("/products/{id}")
 	@Transactional
 	public void deleteProduct(@PathVariable int id) {
@@ -122,9 +118,7 @@ public class ProductController {
 	 * View products suggestions. Admin
 	 * @return list of products suggested
 	 */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/suggestions")
-	// public List<Product> getproductData()
 	public List<ProductSuggestion> getAllProductsSuggested() {
 		List<ProductSuggestion> products = new ArrayList<>();
 		productService.getAll().forEach(products::add);

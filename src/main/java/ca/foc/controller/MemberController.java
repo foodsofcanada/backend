@@ -47,6 +47,7 @@ import ca.foc.services.MemberService;
  *        Mariia Voronina
  * 
  */
+@CrossOrigin
 @RestController
 public class MemberController {
 
@@ -59,7 +60,7 @@ public class MemberController {
 	 * @return a MemberResponse object with attributes: boolean isExist, String firstname, String lastname
 	 */
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	/* Find a member by email */
 	@GetMapping("/members/{email}")
 	@ResponseBody
 	public MemberResponse findMember(@PathVariable String email) {
@@ -75,8 +76,6 @@ public class MemberController {
 	 * @return Return the member founded, null
 	 * otherwise
 	 */
-
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/login")
 	@ResponseBody
 	public MemberInfo checkMember(@RequestBody Member member) {
@@ -89,34 +88,31 @@ public class MemberController {
 	 * @param member
 	 * @return true if the member was added. false other wise
 	 */
-
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/registration")
 	@ResponseBody
 	public boolean addMember(@RequestBody Member member) {
 
 		return memberService.NewMember(member);
 	}
+
 	/**
 	 * Edit profile Returns the member updated
 	 * @param email
 	 * @param member
 	 * @return member updated
 	 */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PutMapping("/members/{email}")
 	@ResponseBody
 	public Member editMember(@PathVariable String email, @RequestBody Member member) {
 
 		return memberService.editMember(email, member);
 	}
+
 	/**
 	 * Delete profile member operation
 	 * @param email
 	 * @return a strin indicating profile was deleted
 	 */
-	
-	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping("/members/{email}")
 	@ResponseBody
 	@Transactional
@@ -124,19 +120,19 @@ public class MemberController {
 		memberService.deleteMember(email);
 		return "profile deleted";
 	}
+
 	/**
 	 *  Member suggest a product
 	 * @param name of the product suggested
 	 * @param description of the product suggested
 	 * @return boolean true if the suggestion was sent, otherwise false
 	 */
-	
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/suggest/{name}/{description}")
 	@ResponseBody
 	public boolean addSuggestion(@PathVariable String name, @PathVariable String description) {
 		return memberService.saveProductSuggested(name, description);
 	}
+
 	/**
 	 * Member add or delete a product in Favourite List. The product must have a unique identity given for: email, productId,regionId
 	 * @param email to identify the member
@@ -145,7 +141,6 @@ public class MemberController {
 	 * @param coordinates location of the product on the map
 	 * @return boolean True if the product was added to the favourite list or false if the product was deleted
 	 */
-	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/fav/{email}/{productId}/{regionId}/{coordinates}")
 	@ResponseBody
 	//@Transactional
@@ -153,13 +148,12 @@ public class MemberController {
 
 		return memberService.addDeleteProductFavourites(email,coordinates, productId,regionId);
 	}
+
 /**
  * Returns all products in favourite table
  * @param email identify the member
  * @return list of products in the favourite list of member identified by email
  */
-	
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/favourites/{email}")
 	public List<FavouriteResponse> getProductsInFavourite(@PathVariable String email) {
 		List<FavouriteResponse> favourites = new ArrayList<>();
@@ -182,7 +176,9 @@ public class MemberController {
     /**********************************************************/
     /*       Admin Operations related to manage members       */
     /**********************************************************/
+
     
+
 	
 	
 	/**
