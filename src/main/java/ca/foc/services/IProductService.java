@@ -5,7 +5,7 @@ import java.util.List;
 import ca.foc.dom.ProductRegionJoin;
 
 /**
- * Interface with one to implement in product service involving ProductRegion Table
+ * Interface with one method to implement in product service involving ProductRegion Table
  * @author Claudia Rivera
  *
  */

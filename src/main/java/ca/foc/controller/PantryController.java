@@ -45,7 +45,7 @@ public class PantryController {
     }
     
     /**
-     * Delete pantry a delete a pantry 
+     * Delete pantry
      * @param id is the pantryId  to be deleted
      * @return true if the pantry was successfully deleted, otherwise false.
      */

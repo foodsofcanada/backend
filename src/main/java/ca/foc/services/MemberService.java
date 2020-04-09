@@ -62,6 +62,7 @@ public class MemberService {
 	/**
 	 * Store a member in Member table
 	 * @param member to be stored
+	 * */
 	public void saveMember(Member member) {
 		memberRepository.save(member);
 
@@ -175,6 +176,8 @@ public class MemberService {
 			//Set the member password to a BCrypt hash of the input password with a complexity of 4 iterations
 	    	memberUpdated.setPassword(BCrypt.hashpw(newmember.getPassword(),BCrypt.gensalt(4)));
 		}
+		
+		//In case that only require email, Firstname ,lastname as response 
 //		Member memberSaved = memberRepository.save(memberUpdated);
 //		MemberInfo memberInfo = new MemberInfo();
 //		memberInfo.setEmail(memberSaved.getEmail());;
@@ -265,7 +268,6 @@ public class MemberService {
 			EntityManager em = emf.createEntityManager();
 			List<FavouriteResponse> list= new ArrayList<FavouriteResponse>();
 			Query query = em.createQuery("SELECT fp FROM FavouriteProducts fp");
-			//Query query2 = em.createQuery("SELECT r.regionId FROM Region r");
 			resultSearch = query.getResultList();
 			
 

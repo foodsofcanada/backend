@@ -26,7 +26,7 @@ import ca.foc.domain.TopTenSearchedIdentity;
  */
 
 @Service
-public class TopTenSearchedService implements  ITopTenSearched{
+public class TopTenSearchedService {
 	
 	@Autowired
 	TopTenSearchedRepository topTenSearchedRepository;
@@ -42,7 +42,7 @@ public class TopTenSearchedService implements  ITopTenSearched{
 	 * productId, name, regionId, regionName, coordinate
 	 */
 	/* Returns top ten products in top ten table database */
-	@Override
+	
 	public List<TopTenObject> getTopTenSearched(String email) {
 		String memberId = email;
 		System.out.println(memberId);
