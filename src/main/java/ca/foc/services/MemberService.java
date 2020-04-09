@@ -28,10 +28,8 @@ import ca.foc.domain.TopTenSearchedIdentity;
 
 /**
  * Service class for Member: Methods related to member.
- * @author Claudia Rivera, Mariia Voronina
- * 
- * 
- *Christian: add hashed password and password validation
+ * @author Claudia Rivera, Mariia Voronina, Christian Garrovillo
+ *
  */
 
 @Service

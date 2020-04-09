@@ -13,7 +13,7 @@ import java.util.Optional;
  * RegionServices - ca.foc.services.RegionServices
  * This class implements methods for region entity:
  * 
- * @author Claudia Rivera
+ * @author Claudia Rivera, Christian Garrovillo
  */
 @Service
 public class RegionServices {

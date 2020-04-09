@@ -37,7 +37,7 @@ import ca.foc.domain.TopTenSearchedIdentity;
  *         Modified: Add when a member is present to include product isFavourite 
  * 	       Date: March 30-2020
  * 
- * @author Claudia Rivera. 
+ * @author Claudia Rivera
  *
  */
 @Service

@@ -5,11 +5,6 @@ import org.springframework.data.geo.Polygon;
 /**
  * ******************************************** **
  * Region - ca.foc.domain.Pantry
- *
- * @author Christian Garrovillo
- * Information and Communications Technologies
- * Software Development
- * 
  * 
  * Claudia Rivera: configuration of Spring boot annotations
  * * ************************************************

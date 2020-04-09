@@ -25,7 +25,7 @@ import javax.persistence.Query;
  * ProductServices - ca.foc.services.ProductServices
  * 
  * This class implements methods for Product entity and ProductRegion
- * @author Claudia Rivera
+ * @author Claudia Rivera, Christian Garrovillo
  * 
  */
 @Service
